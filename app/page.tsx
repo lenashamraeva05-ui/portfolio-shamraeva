@@ -4,8 +4,8 @@ import type { CSSProperties } from "react";
 import PortfolioHeader from "./components/PortfolioHeader";
 import ProjectCaseTabs, { type ProjectCaseData } from "./components/ProjectCaseTabs";
 import SideRays from "../components/SideRays";
-import Testimonials from "./components/Testimonials";
 import HeroBlurText from "./components/HeroBlurText";
+import DriftWallSection from "./components/DriftWallSection";
 
 type Project = ProjectCaseData & {
   id: string;
@@ -97,23 +97,23 @@ const projects: Project[] = [
     id: "02",
     slug: "ehu-museums",
     title: "EHU Museums",
-    eyebrow: "A virtual exhibition for a university in exile",
-    summary: "A multilingual museum landing that turns archives into an accessible, emotional digital story.",
-    role: "UX/UI Design · Visual storytelling · Responsive web",
-    status: "Launched concept · 2024",
-    tags: ["Cultural heritage", "Virtual exhibition", "Landing", "BY / EN / LT"],
+    eyebrow: "Designing a digital exhibition for a complex institutional history",
+    summary: "A chapter-based editorial experience that turns EHU's archive into a clear, emotional story people can move through.",
+    role: "UX/UI Design · Information architecture · Editorial storytelling",
+    status: "Editorial concept · 2023",
+    tags: ["Cultural heritage", "Editorial UX", "Virtual exhibition", "BY / EN / LT"],
     cover: "/projects/ehu-museums-flow.png",
     coverAlt: "EHU Museums virtual exhibition screens",
-    challenge: "University archives were difficult to access internationally, while conventional text pages struggled to create an emotional connection.",
-    direction: "I shaped a multilingual, content-first exhibition with a clear narrative, simple movement between chapters and a responsive experience across devices.",
-    result: "A unified digital home for museum stories and an international audience.",
+    challenge: "The archive combined documents, photographs, quotes, maps and emotionally heavy history. The challenge was preserving its depth without making the experience feel like a reference book.",
+    direction: "I structured the story into five chapters, designed a clear wayfinding model and built an editorial system that balances factual content with visual metaphors, pacing and whitespace.",
+    result: "A long-form digital exhibition that helps international audiences understand EHU's history, chapter by chapter, without losing its human voice.",
     metrics: [
-      { value: "+23%", label: "engagement target" },
-      { value: "+25%", label: "session duration target" },
+      { value: "5", label: "story chapters" },
+      { value: "3", label: "language versions" },
     ],
     gallery: [
-      { src: "/projects/ehu-museums-overview.png", alt: "EHU Museums overview with problem, solution and impact", label: "Case overview", fit: "contain" },
-      { src: "/projects/ehu-museums-flow.png", alt: "EHU Museums entry screen and exhibition ending", label: "Exhibition flow", fit: "contain" },
+      { src: "/projects/ehu-museums-overview.png", alt: "Placeholder for EHU Museums chapter map and exhibition overview", label: "Chapter map", fit: "contain" },
+      { src: "/projects/ehu-museums-flow.png", alt: "Placeholder for EHU Museums editorial chapter layout", label: "Editorial layout", fit: "contain" },
     ],
     tone: "museum",
   },
@@ -128,6 +128,8 @@ const projects: Project[] = [
     tags: ["AI SaaS", "UX research", "MVP", "Product strategy"],
     cover: "/projects/zernote-jobs-tree.png",
     coverAlt: "Zernote jobs tree interface",
+    overviewImage: "/projects/zernote-hero.png",
+    overviewImageAlt: "Zernote product illustration with glowing evidence cards, interview signals and a connected research workspace",
     challenge: "Interview evidence was scattered across tools, analysis took hours and teams lost the context behind product decisions.",
     direction: "I designed the MVP platform, created the investor pitch deck, joined investor conversations and mentored 3 design interns while the product moved from concept to a live workflow.",
     result: "A connected research workspace for interviews, insights, jobs, ideas and evidence-backed outputs.",
@@ -148,32 +150,12 @@ const projects: Project[] = [
   },
 ];
 
-const otherWork = [
-  { title: "Uservers", tags: "GameTech · Web platform", image: "/projects/uservers.png", alt: "Uservers game server platform interface", crop: "uservers" },
-  { title: "EHU IT Hub — Social", tags: "Social media · Graphic design", image: "/projects/ehu-it-hub.png", alt: "EHU IT Hub social media design collection", crop: "ehu-social" },
-  { title: "EHU IT Hub — Landing", tags: "EdTech · Responsive landing", image: "/projects/ehu-it-hub.png", alt: "EHU IT Hub landing page presentation", crop: "ehu-landing" },
-  { title: "EHU IT Hub — Portal", tags: "EdTech · Student account", image: "/projects/ehu-it-hub.png", alt: "EHU IT Hub academic student portal", crop: "ehu-portal" },
-  { title: "Student’s Hub", tags: "Talent marketplace · Web platform", image: "/projects/students-hub.png", alt: "Student’s Hub task marketplace case", crop: "students" },
-  { title: "Whispers of the City", tags: "Urban quest · Mobile experience", alt: "Whispers of the City project preview coming later", crop: "whispers" },
-  { title: "TableQuest", tags: "Restaurant quiz · Rewards", alt: "TableQuest restaurant quiz project preview coming later", crop: "tablequest" },
-];
-
 const principles = [
-  { title: "Define", copy: "Align the problem, constraints and success criteria before designing the screen." },
-  { title: "Research", copy: "Keep research and evidence close enough to challenge every product decision." },
-  { title: "Develop", copy: "Turn the strongest signal into a clear, testable product direction." },
-  { title: "Measure", copy: "Watch what happens in the real world, then name the next question." },
-  { title: "Refine", copy: "Design the whole journey — edge cases, handoff, and the next iteration." },
-];
-
-const orbitImages = [
-  "/projects/tbank-statist-cover.png",
-  "/projects/ehu-museums-overview.png",
-  "/projects/zernote-ideas.png",
-  "/projects/zernote-research-dashboard.png",
-  "/projects/zernote-jobs-tree.png",
-  "/projects/ehu-museums-flow.png",
-  "/projects/zernote-pitch-solution.png",
+  "Define",
+  "Research",
+  "Develop",
+  "Measure",
+  "Refine",
 ];
 
 export default function Home() {
@@ -222,10 +204,10 @@ export default function Home() {
       <div className="case-chapters" id="work">
         {projects.map((project) => (
           <article className={`project-story project-${project.tone}`} id={project.slug} key={project.slug}>
-            {project.tone !== "statist" && (
+            {project.tone !== "statist" && project.tone !== "zernote" && (
               <section
                 className={`project-stage ${project.tone === "museum" ? "project-stage-museum" : ""}`}
-                {...(project.tone === "museum" ? {} : { "data-scroll-scene": true })}
+                {...(project.tone === "museum" || project.tone === "zernote" ? {} : { "data-scroll-scene": true })}
                 aria-label={`${project.title} visual introduction`}
               >
                 <div className="project-stage-sticky">
@@ -241,7 +223,14 @@ export default function Home() {
                         className="cinema-image museum-hero-image"
                       />
                     ) : (
-                      <Image unoptimized src={project.cover} alt={project.coverAlt} fill sizes="(max-width: 760px) 96vw, 82vw" className="cinema-image" />
+                      <Image
+                        unoptimized
+                        src={project.cover}
+                        alt={project.coverAlt}
+                        fill
+                        sizes="(max-width: 760px) 96vw, 82vw"
+                        className="cinema-image"
+                      />
                     )}
                     <span className="cinema-sheen" aria-hidden="true" />
                   </div>
@@ -273,9 +262,6 @@ export default function Home() {
                     <span>{project.id}</span>
                     <strong>{project.title}</strong>
                   </div>
-                  <div className="cinema-label">
-                    <p>{project.eyebrow}</p><span>Scroll to explore</span>
-                  </div>
                 </div>
               </section>
             )}
@@ -293,104 +279,97 @@ export default function Home() {
         ))}
       </div>
 
-      <section className="more-work" aria-labelledby="more-work-title">
+      <section
+        className="more-work"
+        aria-labelledby="more-work-title"
+      >
         <header>
-          <h2 id="more-work-title" data-reveal>A wider field<br />of practice.</h2>
+          <h2 id="more-work-title" data-reveal>Other projects.</h2>
         </header>
-        <div className="project-cloud" data-reveal style={{ "--delay": "90ms" } as CSSProperties} aria-label="Additional projects">
-          {otherWork.map((item, index) => (
-            <figure className={`project-cloud-card cloud-card-${index + 1} ${item.image ? "has-image" : "is-placeholder"}`} tabIndex={0} aria-label={`${item.title}. ${item.tags}`} key={item.title}>
-              <div className="project-cloud-preview">
-                {item.image ? (
-                  <Image unoptimized src={item.image} alt={item.alt} fill sizes="(max-width: 760px) 50vw, 26vw" className={`cloud-image crop-${item.crop}`} />
-                ) : (
-                  <div className={`cloud-placeholder placeholder-${item.crop}`} aria-hidden="true">
-                    <span>{item.title === "TableQuest" ? "Q / A" : "CITY / 01"}</span>
-                    <i>{item.title === "TableQuest" ? "Answer · unlock · taste" : "Follow what the city whispers"}</i>
-                  </div>
-                )}
-                <figcaption>
-                  <p>{item.tags}</p>
-                  <h3>{item.title}</h3>
-                </figcaption>
-              </div>
-            </figure>
-          ))}
-        </div>
+        <span className="sr-only">Whispers of the City, TableQuest, EHU IT Hub — Social, EHU IT Hub — Landing, EHU IT Hub — Portal</span>
+        <DriftWallSection />
       </section>
 
       <section className="principles-section" id="about">
         <div className="principles-heading" data-reveal>
-          <span className="section-kicker">A simple loop for better products</span>
-          <h2>Clear thinking before polished pixels.</h2>
-          <p>Every project moves through the same flexible loop — evidence in, sharper decisions out.</p>
-          <div className="principle-links">
-            <Link href="/about">Outside work <span aria-hidden="true">↗</span></Link>
-            <Link href="/resume">Experience &amp; skills <span aria-hidden="true">↗</span></Link>
-          </div>
+          <h2>I design functional products <span className="principles-highlight">step by step – even when things get complex.</span></h2>
         </div>
         <div className="process-graph" data-reveal aria-label="Design process: Define, Research, Develop, Measure and Refine">
           <div className="process-track process-track-top" aria-hidden="true">
-              <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+              <svg viewBox="0 0 860 322" preserveAspectRatio="none">
                 <defs><marker id="process-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" /></marker></defs>
-              <path d="M7 73 H93" markerEnd="url(#process-arrow)" />
+                <path d="M172 60 H350" markerEnd="url(#process-arrow)" />
+                <path d="M494 60 H672" markerEnd="url(#process-arrow)" />
+              </svg>
+          </div>
+          <div className="process-track process-track-bottom" aria-hidden="true">
+            <svg viewBox="0 0 860 322" preserveAspectRatio="none">
+              <defs><marker id="process-bottom-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" /></marker></defs>
+              <path d="M792 152 H662" markerEnd="url(#process-bottom-arrow)" />
+              <path d="M518 152 H342" markerEnd="url(#process-bottom-arrow)" />
+              <path d="M206 152 H68" markerEnd="url(#process-bottom-arrow)" />
             </svg>
           </div>
           <div className="process-track process-track-loop" aria-hidden="true">
-            <svg viewBox="0 0 760 210" preserveAspectRatio="none">
-              <path d="M690 27 C735 27 742 34 742 76 V136 C742 166 728 178 698 178 H62 C30 178 18 165 18 136 V76 C18 45 29 34 61 34" />
-              <path d="M60 34 L72 27 M60 34 L72 41" />
-              <path d="M698 178 L686 171 M698 178 L686 185" />
+            <svg viewBox="0 0 860 322" preserveAspectRatio="none">
+              <defs><marker id="process-loop-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" /></marker></defs>
+              <path d="M850 92 V188 C850 218 834 238 802 238 H58 C26 238 10 218 10 188 V92" />
+              <path d="M850 92 V122" markerEnd="url(#process-loop-arrow)" />
+              <path d="M802 238 H748" markerEnd="url(#process-loop-arrow)" />
+              <path d="M10 188 V92" markerEnd="url(#process-loop-arrow)" />
             </svg>
           </div>
           <ol className="process-nodes">
             {principles.map((principle, index) => (
-              <li className={`process-node process-node-${index + 1}`} key={principle.title} aria-label={`${principle.title}: ${principle.copy}`}>
-                <span className="process-node-index">0{index + 1}</span>
-                <strong>{principle.title}</strong>
-                <span className="process-node-copy">{principle.copy}</span>
+              <li className={`process-node process-node-${index + 1}`} key={principle} aria-label={principle}>
+                <strong>{principle}</strong>
               </li>
             ))}
           </ol>
-          <span className="process-caption">A living system — revisit any step when the evidence changes.</span>
         </div>
       </section>
-
-      <Testimonials />
 
       <section className="contact-grid" aria-labelledby="connect-title">
-        <div>
-          <h2 id="connect-title" data-reveal>Let’s connect.</h2>
+        <div className="contact-heading" data-reveal>
+          <h2 id="connect-title">Let&apos;s build it <em>right.</em></h2>
+          <p>Have a project in mind, or simply want to chat? Reach out</p>
         </div>
         <div className="contact-cards" data-reveal>
-          <a href="mailto:lena.shamraeva.05@gmail.com"><i aria-hidden="true">@</i><span>Email</span><b aria-hidden="true">↗</b></a>
-          <a href="https://www.linkedin.com/in/elena-shamraeva-a73464393" target="_blank" rel="noreferrer"><i aria-hidden="true">in</i><span>LinkedIn</span><b aria-hidden="true">↗</b></a>
-          <a href="https://t.me/ftr0ys_emmm" target="_blank" rel="noreferrer"><i aria-hidden="true">tg</i><span>Telegram</span><b aria-hidden="true">↗</b></a>
-          <a href="https://wa.me/qr/WSCQFRDF6LCQI1" target="_blank" rel="noreferrer"><i aria-hidden="true">wa</i><span>WhatsApp</span><b aria-hidden="true">↗</b></a>
+          <a href="mailto:lena.shamraeva.05@gmail.com" aria-label="Email Elena">
+            <i className="contact-icon contact-icon-mail" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 6.75h17v10.5h-17z"/><path d="m4 7.5 8 6 8-6"/></svg></i><span>Email</span>
+          </a>
+          <a href="https://calendly.com/" target="_blank" rel="noreferrer" aria-label="Book time on Calendly">
+            <i className="contact-icon contact-icon-calendar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.3 8.9a4.5 4.5 0 1 0 0 6.2"/></svg></i><span>Calendly</span>
+          </a>
+          <a href="https://www.linkedin.com/in/elena-shamraeva-a73464393" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+            <i className="contact-icon contact-icon-linkedin" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10v6M8 7.5v.01M11.5 16v-6M11.5 13.25c0-1.9 1-3.25 2.7-3.25s2.3 1.16 2.3 3.25V16"/></svg></i><span>LinkedIn</span>
+          </a>
+          <a href="https://t.me/ftr0ys_emmm" target="_blank" rel="noreferrer" aria-label="Telegram">
+            <i className="contact-icon contact-icon-telegram" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m20.5 4.5-3.1 15-5.1-4.1-2.9 2.8.3-4.2L17 7.6l-8.8 5.5-3.7-1.2z"/></svg></i><span>Telegram</span>
+          </a>
+          <a href="https://wa.me/qr/WSCQFRDF6LCQI1" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+            <i className="contact-icon contact-icon-whatsapp" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4.25a7.75 7.75 0 0 0-6.7 11.65L4.2 19.8l4.1-1.05A7.75 7.75 0 1 0 12 4.25Z"/><path d="M9.1 9.2c.2-.45.4-.46.7-.46h.45c.15 0 .3.06.38.28l.53 1.28c.08.2.04.36-.08.52l-.42.52c-.1.12-.1.27-.03.4.25.47.86 1.28 1.95 1.73.15.06.26.03.36-.08l.52-.61c.11-.13.27-.17.43-.1l1.22.58c.19.1.25.2.2.42-.18.76-.9 1.15-1.54 1.15-.44 0-1.7-.38-2.83-1.41-1.27-1.16-1.75-2.53-1.84-3.06-.08-.45-.05-.83.08-1.16Z"/></svg></i><span>WhatsApp</span>
+          </a>
         </div>
       </section>
 
-      <section className="contact-section" id="contact" data-scroll-panel>
-        <div className="contact-intro" data-reveal>
-          <p>It’s always the right time for thoughtful design.</p>
-          <h2>Ready to bring an idea to life? Let’s make it happen.</h2>
-          <a className="email-link" href="mailto:lena.shamraeva.05@gmail.com">
-            <span className="contact-avatar" aria-hidden="true" />Let’s chat <b aria-hidden="true">↗</b>
-          </a>
+      <footer className="site-footer" id="contact">
+        <div className="site-footer-inner">
+          <div className="site-footer-copy">
+            <strong>© 2026 Elena Shamraeva. All Rights Reserved.</strong>
+            <span>Built with care. Research-led, detail-driven.</span>
+          </div>
+          <div className="site-footer-links">
+            <nav aria-label="Footer navigation">
+              <Link href="/#work">Work</Link>
+              <Link href="/#contact">Contact</Link>
+              <Link href="/resume">Resume</Link>
+              <Link href="/about">About</Link>
+            </nav>
+            <span>Product designer · Available for work</span>
+          </div>
         </div>
-        <div className="contact-orbit" aria-hidden="true">
-          {orbitImages.map((src, index) => (
-            <span className={`orbit-screen orbit-screen-${index + 1}`} key={src}>
-              <Image unoptimized src={src} alt="" fill sizes="20vw" className="fit-cover" />
-            </span>
-          ))}
-        </div>
-        <footer>
-          <span>© 2026 Elena Shamraeva</span>
-          <div><span>Product design</span><span>Open to work</span></div>
-          <a href="#top">Back to top ↑</a>
-        </footer>
-      </section>
+      </footer>
     </main>
   );
 }

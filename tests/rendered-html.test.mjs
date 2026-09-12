@@ -71,9 +71,11 @@ test("renders the standalone about, resume and blog pages", async () => {
     blogResponse.text(),
   ]);
 
-  assert.match(about, /Product thinking,<br\/>with a visual point of view/);
-  assert.match(about, /Visual designer/);
-  assert.match(about, /Fascinated by logic, structure/);
+  assert.match(about, /A product designer who turns/);
+  assert.match(about, /about-opening-lanyard/);
+  assert.doesNotMatch(about, /Product thinking,<br\/>with a visual point of view/);
+  assert.doesNotMatch(about, /Visual designer/);
+  assert.doesNotMatch(about, /Fascinated by logic, structure/);
   assert.match(resume, /Experience at a glance/);
   assert.match(resume, /Selected experience/);
   assert.match(resume, /Yandex Practicum/);

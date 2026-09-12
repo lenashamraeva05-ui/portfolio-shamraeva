@@ -27,7 +27,7 @@ const BLANK_PIXEL =
 const FRONT_UV_RECT = { x: 0, y: 0, w: 0.5, h: 0.755 };
 const BACK_UV_RECT = { x: 0.5, y: 0, w: 0.5, h: 0.757 };
 
-/** @param {{ position?: number[], gravity?: number[], fov?: number, transparent?: boolean, frontImage?: string | null, backImage?: string | null, imageFit?: 'cover' | 'contain', lanyardImage?: string | null, lanyardWidth?: number }} props */
+/** @param {{ position?: number[], gravity?: number[], fov?: number, transparent?: boolean, frontImage?: string | null, backImage?: string | null, imageFit?: 'cover' | 'contain', lanyardImage?: string | null, lanyardWidth?: number, showLanyardLogo?: boolean }} props */
 export default function Lanyard({
   position = [0, 0, 30],
   gravity = [0, -40, 0],
@@ -37,7 +37,8 @@ export default function Lanyard({
   backImage = null,
   imageFit = 'cover',
   lanyardImage = null,
-  lanyardWidth = 1
+  lanyardWidth = 1,
+  showLanyardLogo = true
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
@@ -64,6 +65,7 @@ export default function Lanyard({
             imageFit={imageFit}
             lanyardImage={lanyardImage}
             lanyardWidth={lanyardWidth}
+            showLanyardLogo={showLanyardLogo}
           />
         </Physics>
         <Environment blur={0.75}>
@@ -108,7 +110,8 @@ function Band({
   backImage = null,
   imageFit = 'cover',
   lanyardImage = null,
-  lanyardWidth = 1
+  lanyardWidth = 1,
+  showLanyardLogo = true
 }) {
   const band = useRef(),
     fixed = useRef(),
@@ -272,11 +275,11 @@ function Band({
       <mesh ref={band}>
         <meshLineGeometry />
         <meshLineMaterial
-          color="white"
+          color={showLanyardLogo ? 'white' : '#080808'}
           depthTest={false}
           resolution={isMobile ? [1000, 2000] : [1000, 1000]}
-          useMap
-          map={texture}
+          useMap={showLanyardLogo}
+          map={showLanyardLogo ? texture : undefined}
           repeat={[-4, 1]}
           lineWidth={lanyardWidth}
         />

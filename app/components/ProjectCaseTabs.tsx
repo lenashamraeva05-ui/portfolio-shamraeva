@@ -18,6 +18,8 @@ export type ProjectCaseData = {
   status: string;
   cover: string;
   coverAlt: string;
+  overviewImage?: string;
+  overviewImageAlt?: string;
   overviewVideo?: string;
   challenge: string;
   direction: string;
@@ -70,22 +72,29 @@ const museumLandingParts = [
 ];
 
 const museumLandingCopy = [
-  { kicker: "Overview", title: "A living archive, made easy to enter.", body: "The landing turns a complex university story into a calm, visual invitation. The original exhibition opens slowly, giving each layer room to be seen." },
-  { kicker: "Challenge", title: "History had to feel close, not distant.", body: "The archive carried important stories, but a conventional page made them feel flat and difficult to explore across languages and devices." },
-  { kicker: "Direction", title: "A guided path through memory.", body: "Editorial pacing, tactile details and a clear chapter rhythm let visitors move from context to people, objects and the university's continuing life." },
-  { kicker: "Screens", title: "The full exhibition, in one contained view.", body: "The complete landing plays inside a contained frame. The portfolio stays compact while every section remains legible and unhurried." },
+  { kicker: "Overview", title: "A digital exhibition for EHU's history.", body: "EHU (European Humanities University) is a liberal-arts university founded in Belarus and now continuing its academic life in exile. I designed a long-form landing that turns its history into a clear, human story — a place where an international visitor can understand the institution, its people and its journey without opening a dense archive.", highlights: ["EHU (European Humanities University)", "continuing its academic life in exile", "long-form landing", "clear, human story", "international visitor"] },
+  { kicker: "Challenge", title: "The problem was not a lack of content. It was its weight.", body: "The source mixed archival photographs, official documents, quotes, maps and handwritten illustrations. The design task was to protect factual depth while lowering cognitive load: create a mental model before the scroll, establish hierarchy and give emotionally heavy moments enough space to land.", highlights: ["not a lack of content", "protect factual depth", "lowering cognitive load", "mental model", "establish hierarchy"] },
+  { kicker: "Direction", title: "Five chapters, one continuous journey.", body: "I structured the experience around Beginning, Establishing, Relocation, E.H.U. International and EHU in exile. The chapter map gives users orientation; progressive attention, whitespace and visual metaphors then guide them through a long story. This strengthened my practice in information architecture, content modeling, responsive editorial layout and interaction pacing.", highlights: ["Five chapters", "chapter map", "progressive attention", "visual metaphors", "information architecture", "responsive editorial layout", "interaction pacing"] },
+  { kicker: "Screens", title: "A visual system that can grow with the archive.", body: "The landing uses a small set of storytelling primitives — blue, white, yellow and black; lines, arrows, paper textures, collage and handwritten marks — so photographs, documents, maps and illustrations feel like one product. The screens tab is ready for the individual chapter layouts and interaction details I will add next.", highlights: ["storytelling primitives", "one product", "individual chapter layouts", "interaction details"] },
 ];
 
 function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => void }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const progressRef = useRef(0);
   const visualProgressRef = useRef(0);
   const lastFrameRef = useRef(0);
   const resumeAtRef = useRef(0);
   const draggingRef = useRef(false);
   const phaseRef = useRef(-1);
+  const pausedRef = useRef(false);
+
+  const togglePaused = () => {
+    pausedRef.current = !pausedRef.current;
+    setIsPaused(pausedRef.current);
+  };
 
   useEffect(() => {
     let frame = 0;
@@ -98,7 +107,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
         const maxShift = Math.max(0, track.scrollHeight - viewport.clientHeight);
         const delta = lastFrameRef.current ? now - lastFrameRef.current : 0;
         lastFrameRef.current = now;
-        if (!draggingRef.current && !prefersReducedMotion && now >= resumeAtRef.current) {
+        if (!draggingRef.current && !pausedRef.current && !prefersReducedMotion && now >= resumeAtRef.current) {
           progressRef.current = (progressRef.current + delta / duration) % 1;
         }
         const targetProgress = Math.max(0, Math.min(1, progressRef.current));
@@ -148,11 +157,27 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
   };
 
   return (
-    <div className="museum-landing-scroll" ref={viewportRef} onPointerDown={handlePointerDown} onWheel={handleWheel} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp}>
-      <div className="museum-landing-track" ref={trackRef} style={{ transform: `translate3d(0, -${offset}px, 0)` }}>
-        {museumLandingParts.map((part, index) => (
-            <Image key={part.src} unoptimized src={part.src} alt={index === 0 ? "EHU Museums landing page" : ""} width={1380} height={part.height} sizes="(max-width: 1100px) 100vw, 62vw" className="museum-landing-part" />
-        ))}
+    <div className="museum-overview-visual">
+      <div className="museum-landing-scroll" ref={viewportRef} onPointerDown={handlePointerDown} onWheel={handleWheel} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp}>
+        <div className="museum-landing-track" ref={trackRef} style={{ transform: `translate3d(0, -${offset}px, 0)` }}>
+          {museumLandingParts.map((part, index) => (
+              <Image key={part.src} unoptimized src={part.src} alt={index === 0 ? "EHU Museums landing page" : ""} width={1380} height={part.height} sizes="(max-width: 1100px) 100vw, 62vw" className="museum-landing-part" />
+          ))}
+        </div>
+      </div>
+      <div className="museum-interaction-hint" aria-label="EHU exhibition controls">
+        <span className="museum-hint-item">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M6.5 5.5 10 2l3.5 3.5M6.5 14.5 10 18l3.5-3.5" /></svg>
+          <span>Scroll to explore</span>
+        </span>
+        <button type="button" className="museum-hint-item museum-hint-toggle" onClick={togglePaused} aria-pressed={isPaused} aria-label={isPaused ? "Play EHU exhibition animation" : "Pause EHU exhibition animation"}>
+          {isPaused ? (
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 8 6-8 6z" /></svg>
+          ) : (
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.5v11M13.5 4.5v11" /></svg>
+          )}
+          <span>{isPaused ? "Play animation" : "Pause animation"}</span>
+        </button>
       </div>
     </div>
   );
@@ -261,14 +286,14 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
   };
 
   const previewImage = activeTab === "overview"
-    ? { src: project.cover, alt: project.coverAlt, fit: project.tone === "statist" ? "cover" as const : "contain" as const }
+    ? { src: project.overviewImage ?? project.cover, alt: project.overviewImageAlt ?? project.coverAlt, fit: project.tone === "statist" ? "cover" as const : "contain" as const }
     : activeTab === "challenge"
       ? project.gallery[0]
       : project.gallery[1] ?? project.gallery[0];
 
   const museumCopy = museumLandingCopy[Math.min(museumLandingCopy.length - 1, Math.floor(museumProgress * museumLandingCopy.length))];
   const copy: { label: string; title: string; body: string; highlights?: string[] } = project.tone === "museum" && activeTab === "overview"
-    ? { label: museumCopy.kicker, title: museumCopy.title, body: museumCopy.body }
+    ? { label: museumCopy.kicker, title: museumCopy.title, body: museumCopy.body, highlights: museumCopy.highlights }
     : activeTab === "overview"
     ? {
         label: "Overview",
@@ -324,7 +349,6 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
       >
         <div className={`project-facts project-facts-${project.tone} project-facts-${project.tone}-${activeTab} tab-copy-enter`}>
           <p className="case-status"><i aria-hidden="true" />{project.status}</p>
-          {project.tone === "museum" && <span className="project-tab-kicker">{copy.label}</span>}
           <h3 key={`${project.slug}-${copy.title}`} className={project.tone === "museum" ? "museum-copy-transition" : undefined}>{copy.title}</h3>
           <p key={`${project.slug}-${copy.body}`} className={`project-tab-body ${copy.highlights?.length ? "project-tab-body-highlighted" : ""} ${project.tone === "museum" ? "museum-copy-transition" : ""}`}>
             {copy.highlights?.length ? renderHighlightedCopy(copy.body, copy.highlights) : copy.body}
