@@ -4,8 +4,10 @@ import type { CSSProperties } from "react";
 import PortfolioHeader from "./components/PortfolioHeader";
 import ProjectCaseTabs, { type ProjectCaseData } from "./components/ProjectCaseTabs";
 import SideRays from "../components/SideRays";
+import LightRays from "../components/LightRays";
 import HeroBlurText from "./components/HeroBlurText";
 import DriftWallSection from "./components/DriftWallSection";
+import SpotlightCard from "@/components/SpotlightCard";
 
 type Project = ProjectCaseData & {
   id: string;
@@ -128,8 +130,8 @@ const projects: Project[] = [
     tags: ["AI SaaS", "UX research", "MVP", "Product strategy"],
     cover: "/projects/zernote-jobs-tree.png",
     coverAlt: "Zernote jobs tree interface",
-    overviewImage: "/projects/zernote-hero.png",
-    overviewImageAlt: "Zernote product illustration with glowing evidence cards, interview signals and a connected research workspace",
+    overviewImage: "/projects/zernote-hero-collage.png",
+    overviewImageAlt: "Zernote research collage with interview notes, insights, analytics and connected evidence",
     challenge: "Interview evidence was scattered across tools, analysis took hours and teams lost the context behind product decisions.",
     direction: "I designed the MVP platform, created the investor pitch deck, joined investor conversations and mentored 3 design interns while the product moved from concept to a live workflow.",
     result: "A connected research workspace for interviews, insights, jobs, ideas and evidence-backed outputs.",
@@ -148,14 +150,6 @@ const projects: Project[] = [
     ],
     tone: "zernote",
   },
-];
-
-const principles = [
-  "Define",
-  "Research",
-  "Develop",
-  "Measure",
-  "Refine",
 ];
 
 export default function Home() {
@@ -186,9 +180,9 @@ export default function Home() {
               <li key={badge} style={{ "--badge-delay": `${index * 35}ms` } as CSSProperties}>{badge}</li>
             ))}
           </ul>
-          <h1 className="sr-only">I’m Elena, an empathetic product designer turning complex problems into functional products.</h1>
+          <h1 className="sr-only">I’m Elena, an empathetic product designer with 4 years’ experience for B2C</h1>
           <HeroBlurText />
-          <p className="hero-summary">I work step by step, turning research and complex systems into clear digital products — while catching the details others miss.</p>
+          <p className="hero-summary">I make complex products feel clear, useful and human.</p>
           <div className="hero-actions">
             <a className="talk-pill" href="mailto:lena.shamraeva.05@gmail.com">
               <span className="hero-avatar" aria-hidden="true" />
@@ -199,6 +193,7 @@ export default function Home() {
             <span className="hero-availability"><i aria-hidden="true" />Available for work</span>
           </div>
         </div>
+        <p className="hero-meta">Graphic design background · 4th-year university student · Eastbourne, UK</p>
       </section>
 
       <div className="case-chapters" id="work">
@@ -294,62 +289,64 @@ export default function Home() {
         <div className="principles-heading" data-reveal>
           <h2>I design functional products <span className="principles-highlight">step by step – even when things get complex.</span></h2>
         </div>
-        <div className="process-graph" data-reveal aria-label="Design process: Define, Research, Develop, Measure and Refine">
-          <div className="process-track process-track-top" aria-hidden="true">
-              <svg viewBox="0 0 860 322" preserveAspectRatio="none">
-                <defs><marker id="process-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" /></marker></defs>
-                <path d="M172 60 H350" markerEnd="url(#process-arrow)" />
-                <path d="M494 60 H672" markerEnd="url(#process-arrow)" />
-              </svg>
-          </div>
-          <div className="process-track process-track-bottom" aria-hidden="true">
-            <svg viewBox="0 0 860 322" preserveAspectRatio="none">
-              <defs><marker id="process-bottom-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" /></marker></defs>
-              <path d="M792 152 H662" markerEnd="url(#process-bottom-arrow)" />
-              <path d="M518 152 H342" markerEnd="url(#process-bottom-arrow)" />
-              <path d="M206 152 H68" markerEnd="url(#process-bottom-arrow)" />
-            </svg>
-          </div>
-          <div className="process-track process-track-loop" aria-hidden="true">
-            <svg viewBox="0 0 860 322" preserveAspectRatio="none">
-              <defs><marker id="process-loop-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" /></marker></defs>
-              <path d="M850 92 V188 C850 218 834 238 802 238 H58 C26 238 10 218 10 188 V92" />
-              <path d="M850 92 V122" markerEnd="url(#process-loop-arrow)" />
-              <path d="M802 238 H748" markerEnd="url(#process-loop-arrow)" />
-              <path d="M10 188 V92" markerEnd="url(#process-loop-arrow)" />
-            </svg>
-          </div>
-          <ol className="process-nodes">
-            {principles.map((principle, index) => (
-              <li className={`process-node process-node-${index + 1}`} key={principle} aria-label={principle}>
-                <strong>{principle}</strong>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <figure className="process-graph process-graph-image" data-reveal>
+          <Image
+            unoptimized
+            src="/process-diagram.png"
+            alt="Design process cycle: Define, Research, Develop, Measure and Refine"
+            width={2170}
+            height={725}
+            sizes="(max-width: 760px) 100vw, 900px"
+          />
+          <figcaption className="sr-only">Define, Research, Develop, Measure and Refine.</figcaption>
+        </figure>
       </section>
 
       <section className="contact-grid" aria-labelledby="connect-title">
+        <div className="contact-rays" aria-hidden="true">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#96c8ff"
+            raysSpeed={1.5}
+            lightSpread={0.8}
+            rayLength={1.2}
+            followMouse={true}
+            mouseInfluence={0.1}
+            noiseAmount={0.1}
+            distortion={0.05}
+            className="custom-rays"
+          />
+        </div>
         <div className="contact-heading" data-reveal>
           <h2 id="connect-title">Let&apos;s build it <em>right.</em></h2>
           <p>Have a project in mind, or simply want to chat? Reach out</p>
         </div>
         <div className="contact-cards" data-reveal>
-          <a href="mailto:lena.shamraeva.05@gmail.com" aria-label="Email Elena">
-            <i className="contact-icon contact-icon-mail" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 6.75h17v10.5h-17z"/><path d="m4 7.5 8 6 8-6"/></svg></i><span>Email</span>
-          </a>
-          <a href="https://calendly.com/" target="_blank" rel="noreferrer" aria-label="Book time on Calendly">
-            <i className="contact-icon contact-icon-calendar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.3 8.9a4.5 4.5 0 1 0 0 6.2"/></svg></i><span>Calendly</span>
-          </a>
-          <a href="https://www.linkedin.com/in/elena-shamraeva-a73464393" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
-            <i className="contact-icon contact-icon-linkedin" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10v6M8 7.5v.01M11.5 16v-6M11.5 13.25c0-1.9 1-3.25 2.7-3.25s2.3 1.16 2.3 3.25V16"/></svg></i><span>LinkedIn</span>
-          </a>
-          <a href="https://t.me/ftr0ys_emmm" target="_blank" rel="noreferrer" aria-label="Telegram">
-            <i className="contact-icon contact-icon-telegram" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m20.5 4.5-3.1 15-5.1-4.1-2.9 2.8.3-4.2L17 7.6l-8.8 5.5-3.7-1.2z"/></svg></i><span>Telegram</span>
-          </a>
-          <a href="https://wa.me/qr/WSCQFRDF6LCQI1" target="_blank" rel="noreferrer" aria-label="WhatsApp">
-            <i className="contact-icon contact-icon-whatsapp" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4.25a7.75 7.75 0 0 0-6.7 11.65L4.2 19.8l4.1-1.05A7.75 7.75 0 1 0 12 4.25Z"/><path d="M9.1 9.2c.2-.45.4-.46.7-.46h.45c.15 0 .3.06.38.28l.53 1.28c.08.2.04.36-.08.52l-.42.52c-.1.12-.1.27-.03.4.25.47.86 1.28 1.95 1.73.15.06.26.03.36-.08l.52-.61c.11-.13.27-.17.43-.1l1.22.58c.19.1.25.2.2.42-.18.76-.9 1.15-1.54 1.15-.44 0-1.7-.38-2.83-1.41-1.27-1.16-1.75-2.53-1.84-3.06-.08-.45-.05-.83.08-1.16Z"/></svg></i><span>WhatsApp</span>
-          </a>
+          <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)">
+            <a href="mailto:lena.shamraeva.05@gmail.com" aria-label="Email Elena">
+              <i className="contact-icon contact-icon-mail" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 6.75h17v10.5h-17z"/><path d="m4 7.5 8 6 8-6"/></svg></i><span>Email</span>
+            </a>
+          </SpotlightCard>
+          <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)">
+            <a href="https://calendly.com/" target="_blank" rel="noreferrer" aria-label="Book time on Calendly">
+              <i className="contact-icon contact-icon-calendar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.3 8.9a4.5 4.5 0 1 0 0 6.2"/></svg></i><span>Calendly</span>
+            </a>
+          </SpotlightCard>
+          <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)">
+            <a href="https://www.linkedin.com/in/elena-shamraeva-a73464393" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+              <i className="contact-icon contact-icon-linkedin" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10v6M8 7.5v.01M11.5 16v-6M11.5 13.25c0-1.9 1-3.25 2.7-3.25s2.3 1.16 2.3 3.25V16"/></svg></i><span>LinkedIn</span>
+            </a>
+          </SpotlightCard>
+          <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)">
+            <a href="https://t.me/ftr0ys_emmm" target="_blank" rel="noreferrer" aria-label="Telegram">
+              <i className="contact-icon contact-icon-telegram" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m20.5 4.5-3.1 15-5.1-4.1-2.9 2.8.3-4.2L17 7.6l-8.8 5.5-3.7-1.2z"/></svg></i><span>Telegram</span>
+            </a>
+          </SpotlightCard>
+          <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)">
+            <a href="https://wa.me/qr/WSCQFRDF6LCQI1" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+              <i className="contact-icon contact-icon-whatsapp" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4.25a7.75 7.75 0 0 0-6.7 11.65L4.2 19.8l4.1-1.05A7.75 7.75 0 1 0 12 4.25Z"/><path d="M9.1 9.2c.2-.45.4-.46.7-.46h.45c.15 0 .3.06.38.28l.53 1.28c.08.2.04.36-.08.52l-.42.52c-.1.12-.1.27-.03.4.25.47.86 1.28 1.95 1.73.15.06.26.03.36-.08l.52-.61c.11-.13.27-.17.43-.1l1.22.58c.19.1.25.2.2.42-.18.76-.9 1.15-1.54 1.15-.44 0-1.7-.38-2.83-1.41-1.27-1.16-1.75-2.53-1.84-3.06-.08-.45-.05-.83.08-1.16Z"/></svg></i><span>WhatsApp</span>
+            </a>
+          </SpotlightCard>
         </div>
       </section>
 

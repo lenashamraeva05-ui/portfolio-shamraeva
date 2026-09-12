@@ -20,7 +20,7 @@ export default function HeroBlurText() {
   return (
     <div aria-hidden="true">
       <TypedBlurText
-        text="I’m Elena — an empathetic product designer turning complex problems into clear, functional products."
+        text="I’m Elena — an empathetic product designer with 4 years’ experience for B2C"
         delay={150}
         animateBy="words"
         direction="top"

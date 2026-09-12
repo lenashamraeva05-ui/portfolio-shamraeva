@@ -721,6 +721,7 @@ class InfiniteGridMenu {
       images.forEach((img, i) => {
         const x = (i % this.atlasSize) * cellSize;
         const y = Math.floor(i / this.atlasSize) * cellSize;
+        // Each supplied frame is square, so place it in the atlas without cropping.
         ctx.drawImage(img, x, y, cellSize, cellSize);
       });
 

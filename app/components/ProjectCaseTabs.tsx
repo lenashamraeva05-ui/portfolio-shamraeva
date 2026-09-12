@@ -256,7 +256,8 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
   const [screenIndex, setScreenIndex] = useState(0);
   const [museumProgress, setMuseumProgress] = useState(0);
   const updateMuseumProgress = useCallback((value: number) => setMuseumProgress(value), []);
-  const activeTab = localTab;
+  const isMuseum = project.tone === "museum";
+  const activeTab = isMuseum ? "overview" : localTab;
   const activeTabIndex = tabs.findIndex(({ id }) => id === activeTab);
   const activeScreen = project.gallery[screenIndex] ?? project.gallery[0];
 
@@ -319,32 +320,36 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
   };
 
   return (
-    <section className="project-switcher" data-reveal>
-      <div className="project-tabs" role="tablist" aria-label={`${project.title} case sections`}>
-        {tabs.map((tab) => (
-          <button
-            type="button"
-            role="tab"
-            id={`${project.slug}-${tab.id}`}
-            aria-controls={`${project.slug}-panel`}
-            aria-selected={activeTab === tab.id}
-            tabIndex={activeTab === tab.id ? 0 : -1}
-            key={tab.id}
-            onMouseDown={(event) => event.preventDefault()}
-            onClick={() => activateTab(tab.id)}
-            onKeyDown={handleTabKeyDown}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+    <section className={`project-switcher ${isMuseum ? "project-switcher-museum" : ""}`} data-reveal>
+      {!isMuseum && (
+        <div className="project-tabs" role="tablist" aria-label={`${project.title} case sections`}>
+          {tabs.map((tab) => (
+            <button
+              type="button"
+              role="tab"
+              id={`${project.slug}-${tab.id}`}
+              aria-controls={`${project.slug}-panel`}
+              aria-selected={activeTab === tab.id}
+              tabIndex={activeTab === tab.id ? 0 : -1}
+              key={tab.id}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => activateTab(tab.id)}
+              onKeyDown={handleTabKeyDown}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div
         className={`project-tab-panel project-tab-panel-${project.tone}-${activeTab}`}
         id={`${project.slug}-panel`}
-        role="tabpanel"
-        aria-labelledby={`${project.slug}-${activeTab}`}
-        tabIndex={0}
+        {...(!isMuseum && {
+          role: "tabpanel",
+          "aria-labelledby": `${project.slug}-${activeTab}`,
+        })}
+        tabIndex={isMuseum ? undefined : 0}
         key={`${project.slug}-${activeTab}`}
       >
         <div className={`project-facts project-facts-${project.tone} project-facts-${project.tone}-${activeTab} tab-copy-enter`}>

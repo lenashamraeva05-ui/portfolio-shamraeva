@@ -53,7 +53,6 @@ export default function PortfolioHeader() {
           <Link href="/#work" aria-current={pathname === "/" ? "page" : undefined} onClick={() => setNavOpen(false)}>Work</Link>
           <Link href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={() => setNavOpen(false)}>About</Link>
           <Link href="/resume" aria-current={pathname === "/resume" ? "page" : undefined} onClick={() => setNavOpen(false)}>Resume</Link>
-          <Link href="/blog" aria-current={pathname === "/blog" ? "page" : undefined} onClick={() => setNavOpen(false)}>Blog</Link>
           <Link href="/#contact" onClick={() => setNavOpen(false)}>Contact</Link>
         </nav>
 

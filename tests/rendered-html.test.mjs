@@ -47,7 +47,7 @@ test("renders the portfolio homepage and project imagery", async () => {
   assert.match(html, /WhatsApp/);
   assert.match(html, /href="\/about"/);
   assert.match(html, /href="\/resume"/);
-  assert.match(html, /href="\/blog"/);
+  assert.doesNotMatch(html, /href="\/blog"/);
   assert.match(html, /role="tablist"/);
   assert.match(html, /role="tab"/);
   assert.match(html, /aria-selected="true"/);
@@ -71,16 +71,22 @@ test("renders the standalone about, resume and blog pages", async () => {
     blogResponse.text(),
   ]);
 
-  assert.match(about, /A product designer who turns/);
+  assert.match(about, /I’m a team player/);
+  assert.match(about, /wife, homemaker, mother of two four-legged companions, and friend/);
   assert.match(about, /about-opening-lanyard/);
   assert.doesNotMatch(about, /Product thinking,<br\/>with a visual point of view/);
   assert.doesNotMatch(about, /Visual designer/);
   assert.doesNotMatch(about, /Fascinated by logic, structure/);
   assert.match(resume, /Experience at a glance/);
-  assert.match(resume, /Selected experience/);
-  assert.match(resume, /Yandex Practicum/);
-  assert.match(resume, /BA in Multimedia Design/);
-  assert.match(resume, /Research-led,<br\/>detail-focused/);
+  assert.match(resume, /User-centered product designer\. Data-driven, growth-focused\./);
+  assert.match(resume, /Information architecture/);
+  assert.match(resume, /Customer development/);
+  assert.match(resume, /Workshop hosting/);
+  assert.match(resume, /n\.knyshov@gmail\.com/);
+  assert.doesNotMatch(resume, /Selected experience/);
+  assert.doesNotMatch(resume, /Yandex Practicum/);
+  assert.doesNotMatch(resume, /BA in Multimedia Design/);
+  assert.doesNotMatch(resume, /Research-led,<br\/>detail-focused/);
   assert.match(blog, /<h1>Blog<\/h1>/);
   assert.match(blog, /Design systems/);
   assert.match(blog, /How I turn messy interviews/);

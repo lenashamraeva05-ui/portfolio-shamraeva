@@ -1,142 +1,218 @@
-import Link from "next/link";
-import type { CSSProperties } from "react";
+import {
+  Blocks,
+  ChartNoAxesCombined,
+  ChartNetwork,
+  ContactRound,
+  Download,
+  GitBranch,
+  GraduationCap,
+  ListChecks,
+  Mail,
+  MapPin,
+  MapPinned,
+  MousePointer2,
+  Network,
+  PanelsTopLeft,
+  Phone,
+  Presentation,
+  Route,
+  SearchCheck,
+  Sprout,
+  UserRound,
+  UserRoundPlus,
+  UserRoundSearch,
+  UsersRound,
+  Workflow,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import Image from "next/image";
 import PortfolioHeader from "../components/PortfolioHeader";
+import DarkVeil from "../../components/DarkVeil";
 
-const skillGroups = [
-  { title: "Product design", items: ["Problem framing", "JTBD", "Product strategy", "Success criteria", "Data-heavy workflows"] },
-  { title: "UX & research", items: ["Customer interviews", "Qual + quant research", "User flows", "Prototyping", "Usability testing"] },
-  { title: "Visual design", items: ["Interface design", "Design systems", "Graphic design", "Social design", "Responsive web"] },
-  { title: "Collaboration", items: ["Investor communication", "Pitch decks", "Design handoff", "Mentorship", "Team facilitation"] },
+type Skill = { label: string; icon: LucideIcon };
+type SkillGroup = { title: string; skills: Skill[] };
+
+const skillGroups: SkillGroup[] = [
+  {
+    title: "Design",
+    skills: [
+      { label: "Information architecture", icon: Network },
+      { label: "Customer interviews", icon: UserRoundSearch },
+      { label: "Research & Scrutiny", icon: SearchCheck },
+      { label: "User experience", icon: UserRound },
+      { label: "Interaction design", icon: MousePointer2 },
+      { label: "Rapid prototyping", icon: PanelsTopLeft },
+      { label: "Solution testing", icon: ListChecks },
+      { label: "Design system", icon: Blocks },
+    ],
+  },
+  {
+    title: "Product",
+    skills: [
+      { label: "Customer development", icon: UserRoundPlus },
+      { label: "Customer journey", icon: Route },
+      { label: "Service blueprint", icon: Workflow },
+      { label: "Growth Funnels", icon: ChartNoAxesCombined },
+      { label: "User-personas", icon: ContactRound },
+      { label: "Data analysis", icon: ChartNetwork },
+      { label: "Roadmap planning", icon: MapPinned },
+    ],
+  },
+  {
+    title: "Leadership",
+    skills: [
+      { label: "Workshop hosting", icon: Presentation },
+      { label: "Culture & Principles", icon: Sprout },
+      { label: "Team processes", icon: GitBranch },
+      { label: "Mentorship", icon: GraduationCap },
+      { label: "Recruitment", icon: UsersRound },
+    ],
+  },
 ];
 
-const practice = [
-  {
-    period: "NDA",
-    title: "T-Bank Statist",
-    role: "Product Designer · Fintech analytics",
-    copy: "Product design inside a complex product analytics environment. Public context only.",
-    result: "Enterprise platform",
-  },
-  {
-    period: "2026",
-    title: "Zernote",
-    role: "Product Designer · AI research SaaS",
-    copy: "Designed the MVP platform and pitch deck, joined investor conversations and mentored 3 interns.",
-    result: "MVP + pre-seed",
-  },
-  {
-    period: "2024",
-    title: "EHU Museums",
-    role: "UX/UI Designer · Cultural heritage",
-    copy: "Created a multilingual virtual exhibition experience for an international audience.",
-    result: "Responsive landing",
-  },
+const languages = [
+  { name: "English", level: "B2 – C1", flag: "gb" },
+  { name: "Russian", level: "Native", flag: "ru" },
+  { name: "Portuguese", level: "A1", flag: "pt" },
 ];
 
-const process = [
-  ["Frame", "Align the goal, constraints and measure of success."],
-  ["Research", "Find the friction and evidence behind it."],
-  ["Shape", "Compare concepts, risks and trade-offs."],
-  ["Test", "Learn early, refine and prepare a clear handoff."],
-  ["Measure", "Follow the outcome and decide what improves next."],
-];
+type Experience = {
+  company: string;
+  role: string;
+  dates: string;
+  description: string;
+  mark: "novu" | "approveit" | "citrix" | "wrike";
+};
 
-const learning = [
+const experience: Experience[] = [
   {
-    type: "Course",
-    title: "UX Design for Mid-Level Designers",
-    institution: "Yandex Practicum",
-    detail: "Advanced UX practice · Professional development",
-    status: "Completed",
+    company: "Novu",
+    role: "Product Design Lead",
+    dates: "Feb 2023 – current moment",
+    description:
+      "Led design for Novu, an open-source notification infrastructure. Managed a team of 2 designers, rebuilt the design system, and enhanced user experience. Optimized growth funnels to increase adoption and implemented Scrum for improved processes. Supported two company pivots.",
+    mark: "novu",
   },
   {
-    type: "Education",
-    title: "BA in Multimedia Design",
-    institution: "Graphic Design track",
-    detail: "Bachelor’s degree · Year 4",
-    status: "In progress",
+    company: "Approveit",
+    role: "Design Mentor",
+    dates: "Feb 2023 – Mar 2024",
+    description:
+      "Mentored mid-level designers, teaching user research, customer development, persona creation, and workshop facilitation. Guided them in service blueprinting, customer journey mapping, and writing use cases using my adapted JTBD framework. Enabled them to apply design thinking and contribute meaningfully to projects.",
+    mark: "approveit",
+  },
+  {
+    company: "Citrix",
+    role: "Staff Product Designer",
+    dates: "March 2021 – Jan 2023",
+    description:
+      "As part of Citrix's acquisition and integration of Wrike, I played a key role in expanding Wrike's Professional Services solutions across Citrix's portfolio. My responsibilities included driving strategic initiatives, fostering collaboration between teams, and ensuring the seamless integration of Wrike's project management tools into various Citrix divisions to maximize client engagement and efficiency.",
+    mark: "citrix",
+  },
+  {
+    company: "Wrike",
+    role: "Senior Product Designer",
+    dates: "Aug 2019 – Jan 2023",
+    description:
+      "Shipped comprehensive resource management and capacity planning solutions, budgeting and tools for marketers. Drove Design Debt initiatives and managed professional services domain.",
+    mark: "wrike",
   },
 ];
 
 export default function ResumePage() {
   return (
-    <main className="inner-page resume-page" id="main-content" tabIndex={-1}>
+    <main className="resume-reference" id="main-content" tabIndex={-1}>
       <PortfolioHeader />
-
-      <section className="resume-hero" id="resume">
-        <p data-reveal>Experience at a glance</p>
-        <h1 data-reveal style={{ "--delay": "45ms" } as CSSProperties}>Research-led,<br />detail-focused product design.</h1>
-        <div className="resume-contact-row" data-reveal style={{ "--delay": "90ms" } as CSSProperties}>
-          <span><i aria-hidden="true" />Available worldwide</span>
-          <a href="mailto:lena.shamraeva.05@gmail.com">lena.shamraeva.05@gmail.com</a>
+      <div className="resume-reference-veil" aria-hidden="true">
+        <DarkVeil hueShift={20} />
+      </div>
+      <header className="resume-reference-header">
+        <div className="resume-reference-title-row">
+          <div className="resume-reference-photo">
+            <Image
+              unoptimized
+              src="/resume-avatar.png"
+              alt="Elena working at her laptop"
+              fill
+              priority
+              sizes="(max-width: 760px) 26vw, 148px"
+            />
+          </div>
+          <h1 className="resume-reference-title">Experience at a glance</h1>
         </div>
-      </section>
+        <p className="resume-reference-subtitle">
+          User-centered product designer. Data-driven, growth-focused.
+        </p>
+        <div className="resume-reference-contact">
+          <span><MapPin className="resume-contact-icon" aria-hidden="true" />Lisbon, Portugal</span>
+          <a href="mailto:n.knyshov@gmail.com" className="resume-contact-link"><Mail className="resume-contact-icon" aria-hidden="true" />n.knyshov@gmail.com</a>
+          <a href="tel:+351921090349" className="resume-contact-link"><Phone className="resume-contact-icon" aria-hidden="true" />+351 921 090 349</a>
+        </div>
+      </header>
 
-      <section className="resume-block skills-resume" id="skills">
-        <div className="section-heading" data-reveal><p>Skills</p><p>How I contribute</p></div>
-        <div className="skill-groups">
-          {skillGroups.map((group, index) => (
-            <article key={group.title} data-reveal style={{ "--delay": `${index * 45}ms` } as CSSProperties}>
-              <span>0{index + 1}</span>
+      <section className="resume-reference-skills" aria-labelledby="resume-skills-title">
+        <div className="resume-reference-section-label">
+          <span className="resume-label-dot" aria-hidden="true" />
+          <h2 id="resume-skills-title">SKILLS</h2>
+        </div>
+
+        <div className="resume-reference-grid">
+          {skillGroups.map((group) => (
+            <section className="resume-skill-group" key={group.title}>
               <h2>{group.title}</h2>
-              <ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul>
-            </article>
+              <ul>
+                {group.skills.map(({ label, icon: Icon }) => (
+                  <li key={label}>
+                    <Icon aria-hidden="true" strokeWidth={1.35} />
+                    <span>{label}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
+
+          <section className="resume-skill-group resume-language-group">
+            <h2>Languages</h2>
+            <ul>
+              {languages.map(({ name, level, flag }) => (
+                <li key={name}>
+                  <span className={`resume-flag resume-flag-${flag}`} aria-hidden="true" />
+                  <span>{name} <em>{level}</em></span>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
       </section>
 
-      <section className="resume-block experience-resume">
-        <div className="section-heading" data-reveal><p>Selected experience</p><p>Recent product work</p></div>
-        <div className="experience-list">
-          {practice.map((item, index) => (
-            <article key={item.title} data-reveal style={{ "--delay": `${index * 45}ms` } as CSSProperties}>
-              <span>{item.period}</span>
-              <div><h2>{item.title}</h2><p>{item.role}</p></div>
-              <p>{item.copy}</p>
-              <strong>{item.result}</strong>
-            </article>
-          ))}
-        </div>
-      </section>
+      <section className="resume-reference-experience" aria-labelledby="resume-experience-title">
+        <header className="resume-experience-heading">
+          <div className="resume-reference-section-label">
+            <span className="resume-label-dot" aria-hidden="true" />
+            <h2 id="resume-experience-title">EXPERIENCE</h2>
+          </div>
+          <a className="resume-download" href="/resume.pdf" download>
+            <Download aria-hidden="true" />
+            <span>Download CV</span>
+          </a>
+        </header>
 
-      <section className="resume-block learning-resume">
-        <div className="section-heading" data-reveal><p>Education &amp; learning</p><p>Formal study &amp; continued growth</p></div>
-        <div className="learning-list">
-          {learning.map((item, index) => (
-            <article key={item.title} data-reveal style={{ "--delay": `${index * 45}ms` } as CSSProperties}>
-              <span>0{index + 1}</span>
-              <div>
-                <p>{item.type} · {item.institution}</p>
-                <h2>{item.title}</h2>
-                <small>{item.detail}</small>
+        <div className="resume-experience-list">
+          {experience.map(({ company, role, dates, description, mark }) => (
+            <article className="resume-experience-item" key={company}>
+              <div className="resume-company">
+                <span className={`resume-company-mark resume-company-mark-${mark}`} aria-hidden="true" />
+                <h3>{company}</h3>
               </div>
-              <strong>{item.status}</strong>
+              <div className="resume-experience-copy">
+                <h3>{role}</h3>
+                <p className="resume-experience-dates">{dates}</p>
+                <p className="resume-experience-description">{description}</p>
+              </div>
             </article>
           ))}
         </div>
       </section>
-
-      <section className="resume-process">
-        <div className="section-heading" data-reveal><p>Working rhythm</p><p>From question to outcome</p></div>
-        <ol>
-          {process.map(([title, copy], index) => (
-            <li key={title} data-reveal style={{ "--delay": `${index * 35}ms` } as CSSProperties}>
-              <span>0{index + 1}</span><strong>{title}</strong><p>{copy}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="inner-cta" data-scroll-panel>
-        <p data-reveal>Looking for a product designer?</p>
-        <h2 data-reveal style={{ "--delay": "45ms" } as CSSProperties}>Let’s make the complex feel obvious.</h2>
-        <a data-reveal style={{ "--delay": "90ms" } as CSSProperties} href="mailto:lena.shamraeva.05@gmail.com">Email Elena <span aria-hidden="true">↗</span></a>
-      </section>
-
-      <footer className="inner-footer">
-        <span>© 2026 Elena Shamraeva</span>
-        <Link href="/">Back home ↑</Link>
-      </footer>
     </main>
   );
 }
