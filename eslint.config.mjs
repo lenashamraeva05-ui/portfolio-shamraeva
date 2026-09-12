@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "global.d.ts",
+    "inspect-cdp.cjs",
   ]),
 ]);
 
