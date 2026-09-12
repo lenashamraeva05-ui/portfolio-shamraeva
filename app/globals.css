@@ -627,10 +627,11 @@ body:has(.about-page) { overflow-x: visible; overscroll-behavior-x: auto; }
 @keyframes process-loop-flow { to { stroke-dashoffset: -36; } }
 
 .contact-grid { position: relative; isolation: isolate; overflow: hidden; padding: clamp(72px, 7vw, 96px) var(--page-x) clamp(240px, 18vw, 280px); background: var(--bg); }
+.contact-grid::before { content: ""; position: absolute; z-index: 1; inset: 0 0 auto; height: clamp(180px, 20vw, 240px); pointer-events: none; background: linear-gradient(180deg, rgba(8, 10, 9, .92) 0%, rgba(8, 10, 9, .72) 42%, rgba(8, 10, 9, .34) 76%, rgba(8, 10, 9, 0) 100%); }
 .contact-rays { position: absolute; z-index: 0; right: 0; bottom: 0; left: 0; height: min(600px, 78%); pointer-events: none; opacity: .68; transform: scaleY(-1); transform-origin: center; }
 .contact-rays::before { content: ""; position: absolute; z-index: 1; inset: auto 0 0; height: 30%; pointer-events: none; background: linear-gradient(0deg, var(--bg) 0%, rgba(8, 10, 9, .92) 34%, rgba(8, 10, 9, 0) 100%); }
-.contact-rays::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0, 255, 255, .1), transparent 58%); mix-blend-mode: screen; }
-.contact-heading, .contact-cards { position: relative; z-index: 1; }
+.contact-rays::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, .1), transparent 58%); mix-blend-mode: screen; }
+.contact-heading, .contact-cards { position: relative; z-index: 2; }
 .contact-heading { max-width: 960px; margin: 0 auto 24px; text-align: center; }
 .contact-grid h2 { margin: 0; font-size: clamp(52px, 5vw, 64px); line-height: .94; letter-spacing: -.072em; font-weight: 540; }
 .contact-grid h2 em { font-style: italic; font-weight: 500; }
@@ -698,21 +699,23 @@ body:has(.about-page) { overflow-x: visible; overscroll-behavior-x: auto; }
 
 /* About — editorial story */
 .about-editorial { --about-copy: #707078; background: #080a09; }
-.about-opening { --panel: 0; position: relative; min-height: 700px; overflow: visible; }
+.about-opening { --panel: 0; position: relative; min-height: 660px; overflow: visible; }
 .about-opening-veil { position: absolute; inset: 0 0 auto; z-index: 0; width: 100%; height: 600px; overflow: hidden; opacity: .6; background: #080a09; }
 .about-opening-veil::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(8,10,9,.12), #080a09 94%), radial-gradient(circle at 72% 30%, transparent, rgba(8,10,9,.44)); }
 .about-opening-lanyard { position: absolute; z-index: 2; top: -145px; left: max(calc(var(--page-x) + 24px), calc((100vw - 1400px) / 2 + 24px)); width: 410px; height: 860px; overflow: visible; }
 .about-opening-lanyard .lanyard-wrapper { width: 100%; height: 100%; }
 .about-opening-lanyard canvas { display: block; width: 100% !important; height: 100% !important; }
-.lanyard-hint { position: absolute; left: 50%; bottom: 22px; z-index: 4; transform: translateX(-50%); padding: 7px 11px; border: 1px solid rgba(237,237,240,.18); border-radius: 999px; background: rgba(8,10,9,.62); color: rgba(237,237,240,.72); font-size: 9px; letter-spacing: .08em; text-transform: lowercase; white-space: nowrap; pointer-events: none; opacity: .72; transition: opacity 220ms ease, transform 220ms ease; }
-.about-opening-lanyard:hover .lanyard-hint { opacity: .98; transform: translateX(-50%) translateY(-3px); }
 .about-opening-statement { position: absolute; z-index: 3; top: 158px; right: max(var(--page-x), calc((100vw - 1000px) / 2)); width: min(62vw, 760px); }
 .about-opening-statement h1 { margin: 0 0 22px; color: #ededf0; font-family: var(--font-jakarta), "Plus Jakarta Sans", Arial, sans-serif; font-size: clamp(48px, 4.8vw, 60px); transform: scaleX(1.1); transform-origin: left center; font-weight: 650; letter-spacing: -.062em; line-height: 1.04; }
 .about-opening-statement p { margin: 0; color: #34363a; font-size: clamp(18px, 1.55vw, 22px); font-weight: 520; line-height: 1.28; }
 .about-opening-statement strong { color: #ededee; font-weight: 560; }
+.about-opening-note { margin-top: 58px; display: inline-flex; align-items: center; gap: 15px; color: #b8c5bf; }
+.about-opening-note-mark { width: 31px; height: 31px; display: grid; place-items: center; color: #dbe6df; transform: rotate(-9deg); }
+.about-opening-note-mark svg { width: 100%; height: 100%; overflow: visible; fill: currentColor; filter: drop-shadow(0 0 12px rgba(219,230,223,.16)); }
+.about-opening-note-copy { font-size: 16px; font-style: italic; font-weight: 520; letter-spacing: -.02em; }
 .about-opening-aside { position: absolute; left: max(var(--page-x), calc((100vw - 1000px) / 2)); bottom: 156px; width: 480px; margin: 0; color: #505057; font-size: 20px; font-weight: 520; line-height: 1.4; }
 
-.about-outside-work { padding: 28px var(--page-x) 170px; background: linear-gradient(180deg, #080a09 0%, #0c0e0d 100%); }
+.about-outside-work { padding: 12px var(--page-x) 170px; background: linear-gradient(180deg, #080a09 0%, #0c0e0d 100%); }
 .about-outside-work-heading { width: min(1180px, 100%); margin: 0 auto 42px; }
 .about-outside-work-heading h2 { margin: 0; color: var(--ink); font-size: clamp(48px, 4.8vw, 60px); font-weight: 650; letter-spacing: -.062em; line-height: 1.04; }
 .about-outside-work-heading > p:last-child { max-width: 430px; margin: 22px 0 0; color: var(--muted-strong); font-size: 16px; line-height: 1.45; }
@@ -721,6 +724,7 @@ body:has(.about-page) { overflow-x: visible; overscroll-behavior-x: auto; }
 .about-infinite-menu .action-button-icon { color: #080a09; }
 .about-infinite-menu .face-title { color: #ededf0; font-family: var(--font-jakarta), "Plus Jakarta Sans", Arial, sans-serif; }
 .about-infinite-menu .face-description { color: var(--muted-strong); }
+.about-infinite-menu-hint { margin: 16px auto 0; color: #777b7a; font-size: 12px; letter-spacing: .035em; text-align: center; }
 
 .about-team { --panel: 0; position: relative; min-height: 1250px; padding: 230px var(--page-x) 90px; overflow: hidden; }
 .about-team-image { position: absolute; inset: 0 0 auto; height: 600px; overflow: hidden; }
@@ -1327,11 +1331,14 @@ body:has(.resume-reference) .global-gradual-blur { display: none; }
 }
 
 @media (max-width: 900px) {
-  .about-opening { min-height: 600px; }
+  .about-opening { min-height: 560px; }
   .about-opening-veil { height: 420px; }
   .about-opening-lanyard { top: 62px; left: 18px; width: 340px; height: 500px; }
   .about-opening-statement { top: 130px; right: 24px; width: calc(100% - 225px); }
   .about-opening-statement h1 { margin-bottom: 18px; font-size: clamp(42px, 6vw, 56px); }
+  .about-opening-note { margin-top: 46px; gap: 12px; }
+  .about-opening-note-mark { width: 27px; height: 27px; }
+  .about-opening-note-copy { font-size: 15px; }
   .about-outside-work-heading h2 { font-size: clamp(42px, 6vw, 56px); }
   .about-opening-aside { left: 24px; bottom: 92px; width: min(480px, calc(100% - 48px)); }
   .about-team { min-height: 1130px; padding-top: 190px; }
@@ -1354,8 +1361,9 @@ body:has(.resume-reference) .global-gradual-blur { display: none; }
   .about-opening-statement { top: 194px; right: 20px; width: calc(100% - 86px); }
   .about-opening-statement h1 { margin-bottom: 14px; font-size: 42px; }
   .about-opening-statement p { font-size: 17px; }
+  .about-opening-note { margin-top: 42px; }
   .about-opening-aside { left: 20px; bottom: 70px; width: calc(100% - 40px); font-size: 17px; }
-  .about-outside-work { padding: 32px 18px 112px; }
+  .about-outside-work { padding: 18px 18px 112px; }
   .about-outside-work-heading { margin-bottom: 30px; }
   .about-outside-work-heading h2 { font-size: 42px; }
   .about-outside-work-heading > p:last-child { font-size: 15px; }
