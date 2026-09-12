@@ -20,7 +20,7 @@ export default function AboutPage() {
         <div className="about-opening-veil" aria-hidden="true">
           <DarkVeil hueShift={200} />
         </div>
-        <div className="about-opening-lanyard" data-reveal aria-label="Interactive Elena Shamraeva profile card">
+        <div className="about-opening-lanyard" data-reveal aria-label="Interactive Elena Shamraeva profile card. Drag to move it and double-click to turn it over.">
           <Lanyard
             position={[0, 0, 20]}
             gravity={[0, -40, 0]}
@@ -28,6 +28,7 @@ export default function AboutPage() {
             imageFit="cover"
             showLanyardLogo={false}
           />
+          <span className="lanyard-hint" aria-hidden="true">drag · double-click to flip</span>
         </div>
         <div className="about-opening-statement" data-reveal style={{ "--delay": "60ms" } as CSSProperties}>
           <h1>I’m a team player</h1>

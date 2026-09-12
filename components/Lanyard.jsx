@@ -118,11 +118,14 @@ function Band({
     j1 = useRef(),
     j2 = useRef(),
     j3 = useRef(),
-    card = useRef();
+    card = useRef(),
+    visual = useRef(),
+    tilt = useRef();
   const vec = new THREE.Vector3(),
     ang = new THREE.Vector3(),
     rot = new THREE.Vector3(),
-    dir = new THREE.Vector3();
+    dir = new THREE.Vector3(),
+    scaleTarget = new THREE.Vector3();
   const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 4, linearDamping: 4 };
   const { nodes, materials } = useGLTF(cardGLB);
   // Vinext turns imported images into metadata objects; drei needs the URL.
@@ -184,6 +187,7 @@ function Band({
   );
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
+  const [flipped, setFlipped] = useState(false);
 
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
@@ -209,6 +213,15 @@ function Band({
       card.current?.setNextKinematicTranslation({ x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z });
     }
     if (fixed.current) {
+      if (visual.current) {
+        const targetScale = dragged ? 2.38 : hovered ? 2.32 : 2.25;
+        visual.current.scale.lerp(scaleTarget.set(targetScale, targetScale, targetScale), delta * 10);
+        visual.current.rotation.y = THREE.MathUtils.lerp(visual.current.rotation.y, flipped ? Math.PI : 0, delta * 7);
+      }
+      if (tilt.current) {
+        tilt.current.rotation.x = THREE.MathUtils.lerp(tilt.current.rotation.x, hovered ? -state.pointer.y * 0.12 : 0, delta * 8);
+        tilt.current.rotation.z = THREE.MathUtils.lerp(tilt.current.rotation.z, hovered ? -state.pointer.x * 0.1 : 0, delta * 8);
+      }
       [j1, j2].forEach(ref => {
         if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
         const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
@@ -246,9 +259,9 @@ function Band({
         </RigidBody>
         <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
-          <group
-            scale={2.25}
+          <group ref={visual}
             position={[0, -1.2, -0.05]}
+            onDoubleClick={() => setFlipped(value => !value)}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
             onPointerUp={e => (e.target.releasePointerCapture(e.pointerId), drag(false))}
@@ -257,18 +270,20 @@ function Band({
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
             )}
           >
-            <mesh geometry={nodes.card.geometry}>
-              <meshPhysicalMaterial
-                map={cardMap}
-                map-anisotropy={16}
-                clearcoat={isMobile ? 0 : 1}
-                clearcoatRoughness={0.15}
-                roughness={0.9}
-                metalness={0.8}
-              />
-            </mesh>
-            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
-            <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
+            <group ref={tilt}>
+              <mesh geometry={nodes.card.geometry}>
+                <meshPhysicalMaterial
+                  map={cardMap}
+                  map-anisotropy={16}
+                  clearcoat={isMobile ? 0 : 1}
+                  clearcoatRoughness={0.15}
+                  roughness={0.9}
+                  metalness={0.8}
+                />
+              </mesh>
+              <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
+              <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
+            </group>
           </group>
         </RigidBody>
       </group>

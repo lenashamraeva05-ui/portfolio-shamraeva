@@ -306,7 +306,7 @@ export default function Home() {
         <div className="contact-rays" aria-hidden="true">
           <LightRays
             raysOrigin="top-center"
-            raysColor="#96c8ff"
+            raysColor="#00ffff"
             raysSpeed={1.5}
             lightSpread={0.8}
             rayLength={1.2}
