@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
 import { Inter, Plus_Jakarta_Sans, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import GlobalGradualBlur from "./components/GlobalGradualBlur";
+import GitHubPagesPathRestore from "./components/GitHubPagesPathRestore";
 import TargetCursor from "@/components/TargetCursor";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
@@ -16,11 +16,8 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-  const incomingHeaders = await headers();
-  const host = incomingHeaders.get("x-forwarded-host") ?? incomingHeaders.get("host") ?? "localhost:3000";
-  const protocol = incomingHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const base = new URL(`${protocol}://${host}`);
+export function generateMetadata(): Metadata {
+  const base = new URL("https://elena.shamraeva.co.uk");
 
   return {
     metadataBase: base,
@@ -47,6 +44,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className={`${inter.variable} ${jakarta.variable}`}>
         {children}
+        <GitHubPagesPathRestore />
         <GlobalGradualBlur />
         <TargetCursor
           targetSelector="a, button, [role='button'], [tabindex='0'], .cursor-target"

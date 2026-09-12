@@ -1,34 +1,14 @@
 import assert from "node:assert/strict";
-import { access } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render(pathname = "/") {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${pathname}`);
-  const { default: worker } = await import(workerUrl.href);
-
-  return worker.fetch(
-    new Request(`http://localhost${pathname}`, {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
+async function render(pathname = "") {
+  const filePath = pathname ? `../dist/client${pathname}/index.html` : "../dist/client/index.html";
+  return readFile(new URL(filePath, import.meta.url), "utf8");
 }
 
 test("renders the portfolio homepage and project imagery", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
-  const html = await response.text();
+  const html = await render();
   assert.match(html, /Elena Shamraeva/);
   assert.match(html, /Available for work/);
   assert.match(html, /id="work"/);
@@ -61,15 +41,7 @@ test("renders the standalone about, resume and blog pages", async () => {
     render("/blog"),
   ]);
 
-  assert.equal(aboutResponse.status, 200);
-  assert.equal(resumeResponse.status, 200);
-  assert.equal(blogResponse.status, 200);
-
-  const [about, resume, blog] = await Promise.all([
-    aboutResponse.text(),
-    resumeResponse.text(),
-    blogResponse.text(),
-  ]);
+  const [about, resume, blog] = await Promise.all([aboutResponse, resumeResponse, blogResponse]);
 
   assert.match(about, /I’m a team player/);
   assert.match(about, /wife, homemaker, mother of two four-legged companions, and friend/);
@@ -90,6 +62,14 @@ test("renders the standalone about, resume and blog pages", async () => {
   assert.match(blog, /<h1>Blog<\/h1>/);
   assert.match(blog, /Design systems/);
   assert.match(blog, /How I turn messy interviews/);
+});
+
+test("ships GitHub Pages metadata and fallback files", async () => {
+  const cname = await readFile(new URL("../dist/client/CNAME", import.meta.url), "utf8");
+  const fallback = await readFile(new URL("../dist/client/404.html", import.meta.url), "utf8");
+
+  assert.equal(cname.trim(), "elena.shamraeva.co.uk");
+  assert.match(fallback, /ghp-path/);
 });
 
 test("ships the real project visuals and processed portrait", async () => {
