@@ -10,6 +10,7 @@ async function render(pathname = "") {
 test("renders the portfolio homepage and project imagery", async () => {
   const html = await render();
   assert.match(html, /Elena Shamraeva/);
+  assert.match(html, /og-portfolio\.png/);
   assert.match(html, /Available for work/);
   assert.match(html, /id="work"/);
   assert.match(html, /T-Bank Statist/);

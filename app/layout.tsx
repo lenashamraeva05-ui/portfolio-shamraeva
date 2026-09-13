@@ -28,13 +28,18 @@ export function generateMetadata(): Metadata {
       title: "Elena Shamraeva — Product Designer",
       description: "Product design where business goals and user needs meet.",
       type: "website",
-      images: [{ url: new URL("/og-v2.png", base), width: 1200, height: 630, alt: "Elena Shamraeva product design portfolio" }],
+      images: [{
+        url: new URL("/og-portfolio.png", base),
+        width: 1731,
+        height: 911,
+        alt: "Elena Shamraeva product design portfolio",
+      }],
     },
     twitter: {
       card: "summary_large_image",
       title: "Elena Shamraeva — Product Designer",
       description: "Product design where business goals and user needs meet.",
-      images: [new URL("/og-v2.png", base)],
+      images: [new URL("/og-portfolio.png", base)],
     },
   };
 }

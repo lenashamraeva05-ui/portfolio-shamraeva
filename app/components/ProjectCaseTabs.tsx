@@ -23,6 +23,10 @@ export type ProjectCaseData = {
   overviewVideo?: string;
   challenge: string;
   direction: string;
+  directionVisual?: string;
+  directionVisualAlt?: string;
+  screensVisualImage?: string;
+  screensVisualImageAlt?: string;
   directionLinks?: { label: string; url: string }[];
   result: string;
   metrics: { value: string; label: string }[];
@@ -59,6 +63,22 @@ const tabs: { id: TabId; label: string }[] = [
   { id: "screens", label: "Screens" },
 ];
 
+const getProjectTabs = (project: ProjectCaseData) => project.slug === "t-bank-statist"
+  ? [
+      { id: "overview", label: "Overview" },
+      { id: "challenge", label: "Internship" },
+      { id: "direction", label: "Statist" },
+      { id: "screens", label: "Product work" },
+    ] satisfies { id: TabId; label: string }[]
+  : project.slug === "zernote"
+    ? [
+        { id: "overview", label: "Overview" },
+        { id: "challenge", label: "Mentoring" },
+        { id: "direction", label: "Direction" },
+        { id: "screens", label: "Screens" },
+      ] satisfies { id: TabId; label: string }[]
+  : tabs;
+
 const museumLandingParts = [
   { src: "/projects/ehu-landing/part-01.webp", height: 3600 },
   { src: "/projects/ehu-landing/part-02.webp", height: 3600 },
@@ -73,9 +93,13 @@ const museumLandingParts = [
 
 const museumLandingCopy = [
   { kicker: "Overview", title: "A digital exhibition for EHU's history.", body: "EHU (European Humanities University) is a liberal-arts university founded in Belarus and now continuing its academic life in exile. I designed a long-form landing that turns its history into a clear, human story — a place where an international visitor can understand the institution, its people and its journey without opening a dense archive.", highlights: ["EHU (European Humanities University)", "continuing its academic life in exile", "long-form landing", "clear, human story", "international visitor"] },
+  { kicker: "Context", title: "A university story told through many voices.", body: "The archive moves between institutional milestones and intimate memories. The opening gives visitors enough context to know where they are, then leaves room for the people, places and decisions that shaped EHU.", highlights: ["many voices", "institutional milestones", "intimate memories", "enough context"] },
   { kicker: "Challenge", title: "The problem was not a lack of content. It was its weight.", body: "The source mixed archival photographs, official documents, quotes, maps and handwritten illustrations. The design task was to protect factual depth while lowering cognitive load: create a mental model before the scroll, establish hierarchy and give emotionally heavy moments enough space to land.", highlights: ["not a lack of content", "protect factual depth", "lowering cognitive load", "mental model", "establish hierarchy"] },
-  { kicker: "Direction", title: "Five chapters, one continuous journey.", body: "I structured the experience around Beginning, Establishing, Relocation, E.H.U. International and EHU in exile. The chapter map gives users orientation; progressive attention, whitespace and visual metaphors then guide them through a long story. This strengthened my practice in information architecture, content modeling, responsive editorial layout and interaction pacing.", highlights: ["Five chapters", "chapter map", "progressive attention", "visual metaphors", "information architecture", "responsive editorial layout", "interaction pacing"] },
-  { kicker: "Screens", title: "A visual system that can grow with the archive.", body: "The landing uses a small set of storytelling primitives — blue, white, yellow and black; lines, arrows, paper textures, collage and handwritten marks — so photographs, documents, maps and illustrations feel like one product. The screens tab is ready for the individual chapter layouts and interaction details I will add next.", highlights: ["storytelling primitives", "one product", "individual chapter layouts", "interaction details"] },
+  { kicker: "Structure", title: "Five chapters, one continuous journey.", body: "Beginning, Establishing, Relocation, E.H.U. International and EHU in exile become a simple route through a complex history. A chapter map keeps the whole story visible while each section earns the visitor's attention.", highlights: ["Five chapters", "simple route", "complex history", "chapter map"] },
+  { kicker: "Pacing", title: "Let the archive breathe.", body: "Large pauses, focused captions and deliberate transitions separate moments that deserve reflection from moments that move the story forward. The scroll feels paced like an exhibition, not a document dump.", highlights: ["Large pauses", "focused captions", "deliberate transitions", "paced like an exhibition"] },
+  { kicker: "Visual language", title: "A visual system that can grow with the archive.", body: "Blue, white, yellow and black; lines, arrows, paper textures, collage and handwritten marks turn photographs, documents, maps and illustrations into one coherent language.", highlights: ["visual system", "paper textures", "one coherent language"] },
+  { kicker: "People", title: "History becomes tangible through its people.", body: "Portraits, quotes and small details shift the focus from an institution to a living community. Visitors can recognise the human stakes behind every move, change and new beginning.", highlights: ["through its people", "living community", "human stakes"] },
+  { kicker: "Result", title: "A long scroll with a clear sense of place.", body: "The final landing gives EHU a flexible editorial foundation: a visitor can understand what happened, feel why it matters and keep exploring as the archive grows.", highlights: ["flexible editorial foundation", "why it matters", "archive grows"] },
 ];
 
 function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => void }) {
@@ -115,7 +139,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
         visualProgressRef.current += (targetProgress - visualProgressRef.current) * smoothing;
         const progress = visualProgressRef.current;
         setOffset(maxShift * progress);
-        const phase = Math.min(3, Math.floor(progress * 4));
+        const phase = Math.min(museumLandingCopy.length - 1, Math.floor(progress * museumLandingCopy.length));
         if (phase !== phaseRef.current) {
           phaseRef.current = phase;
           onProgress(progress);
@@ -141,7 +165,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
     draggingRef.current = false;
     const maxShift = Math.max(0, track.scrollHeight - viewport.clientHeight);
     progressRef.current = Math.max(0, Math.min(1, progressRef.current + event.deltaY / Math.max(1, maxShift)));
-    const phase = Math.min(3, Math.floor(progressRef.current * 4));
+    const phase = Math.min(museumLandingCopy.length - 1, Math.floor(progressRef.current * museumLandingCopy.length));
     if (phase !== phaseRef.current) {
       phaseRef.current = phase;
       onProgress(progressRef.current);
@@ -257,8 +281,9 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
   const [museumProgress, setMuseumProgress] = useState(0);
   const updateMuseumProgress = useCallback((value: number) => setMuseumProgress(value), []);
   const isMuseum = project.tone === "museum";
+  const projectTabs = getProjectTabs(project);
   const activeTab = isMuseum ? "overview" : localTab;
-  const activeTabIndex = tabs.findIndex(({ id }) => id === activeTab);
+  const activeTabIndex = projectTabs.findIndex(({ id }) => id === activeTab);
   const activeScreen = project.gallery[screenIndex] ?? project.gallery[0];
 
   const activateTab = useCallback((tab: TabId) => {
@@ -274,14 +299,14 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
 
   const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     let nextIndex = activeTabIndex;
-    if (event.key === "ArrowRight") nextIndex = (activeTabIndex + 1) % tabs.length;
-    else if (event.key === "ArrowLeft") nextIndex = (activeTabIndex - 1 + tabs.length) % tabs.length;
+    if (event.key === "ArrowRight") nextIndex = (activeTabIndex + 1) % projectTabs.length;
+    else if (event.key === "ArrowLeft") nextIndex = (activeTabIndex - 1 + projectTabs.length) % projectTabs.length;
     else if (event.key === "Home") nextIndex = 0;
-    else if (event.key === "End") nextIndex = tabs.length - 1;
+    else if (event.key === "End") nextIndex = projectTabs.length - 1;
     else return;
 
     event.preventDefault();
-    const nextTab = tabs[nextIndex];
+    const nextTab = projectTabs[nextIndex];
     activateTab(nextTab.id);
     document.getElementById(`${project.slug}-${nextTab.id}`)?.focus({ preventScroll: true });
   };
@@ -304,10 +329,10 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
       }
       : activeTab === "challenge"
       ? project.challengeStory
-        ? { label: "Internship at T‑Bank", title: project.challengeStory.title, body: project.challengeStory.body, highlights: project.challengeHighlights }
+        ? { label: project.slug === "zernote" ? "Mentoring" : "Internship at T‑Bank", title: project.challengeStory.title, body: project.challengeStory.body, highlights: project.challengeHighlights }
         : { label: "Challenge", title: "The problem behind the interface.", body: project.challenge, highlights: project.challengeHighlights }
       : activeTab === "direction"
-        ? { label: "Direction", title: "From evidence to a clear product direction.", body: project.direction, highlights: project.directionHighlights }
+        ? { label: "Direction", title: project.slug === "zernote" ? "From product story to investor conversations." : "From evidence to a clear product direction.", body: project.direction, highlights: project.directionHighlights }
       : {
           label: "Screens",
           title: project.screensCopy?.title ?? activeScreen.label,
@@ -323,7 +348,7 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
     <section className={`project-switcher ${isMuseum ? "project-switcher-museum" : ""}`} data-reveal>
       {!isMuseum && (
         <div className="project-tabs" role="tablist" aria-label={`${project.title} case sections`}>
-          {tabs.map((tab) => (
+          {projectTabs.map((tab) => (
             <button
               type="button"
               role="tab"
@@ -413,7 +438,7 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
             </>
           )}
 
-          {activeTab === "screens" && project.gallery.length > 1 && (
+          {activeTab === "screens" && project.gallery.length > 1 && !project.screensVisualImage && (
             <div className="screen-controls" aria-label="Screen navigation">
               <button type="button" onClick={() => moveScreen(-1)} aria-label="Previous screen"><span aria-hidden="true">←</span></button>
               <span aria-live="polite">{String(screenIndex + 1).padStart(2, "0")} / {String(project.gallery.length).padStart(2, "0")}</span>
@@ -424,7 +449,18 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
         </div>
 
         <div className={`project-panel-image project-panel-image-${project.tone} project-panel-image-${activeTab} tab-visual-enter`}>
-          {activeTab === "screens" ? (
+          {activeTab === "screens" && project.screensVisualImage ? (
+            <div className="project-screens-visual">
+              <Image
+                unoptimized
+                src={project.screensVisualImage}
+                alt={project.screensVisualImageAlt ?? ""}
+                fill
+                sizes="(max-width: 1024px) 100vw, 62vw"
+                className="project-screens-image"
+              />
+            </div>
+          ) : activeTab === "screens" ? (
             <div className="screen-browser">
               <div className="screen-browser-stage" key={activeScreen.src}>
                 {project.screensVisual === "nda" ? <NdaScreenVisual /> : (
@@ -492,6 +528,17 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
                 fill
                 sizes="(max-width: 1024px) 100vw, 62vw"
                 className="statist-direction-image"
+              />
+            </div>
+          ) : activeTab === "direction" && project.directionVisual ? (
+            <div className="project-direction-visual">
+              <Image
+                unoptimized
+                src={project.directionVisual}
+                alt={project.directionVisualAlt ?? ""}
+                fill
+                sizes="(max-width: 1024px) 100vw, 62vw"
+                className="project-direction-image"
               />
             </div>
           ) : activeTab === "overview" && project.tone === "museum" ? (

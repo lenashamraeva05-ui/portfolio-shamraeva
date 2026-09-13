@@ -110,8 +110,7 @@ const projects: Project[] = [
     direction: "I structured the story into five chapters, designed a clear wayfinding model and built an editorial system that balances factual content with visual metaphors, pacing and whitespace.",
     result: "A long-form digital exhibition that helps international audiences understand EHU's history, chapter by chapter, without losing its human voice.",
     metrics: [
-      { value: "5", label: "story chapters" },
-      { value: "3", label: "language versions" },
+      { value: "20,000+", label: "students at EHU" },
     ],
     gallery: [
       { src: "/projects/ehu-museums-overview.png", alt: "Placeholder for EHU Museums chapter map and exhibition overview", label: "Chapter map", fit: "contain" },
@@ -133,11 +132,47 @@ const projects: Project[] = [
     overviewImage: "/projects/zernote-hero-collage.png",
     overviewImageAlt: "Zernote research collage with interview notes, insights, analytics and connected evidence",
     challenge: "Interview evidence was scattered across tools, analysis took hours and teams lost the context behind product decisions.",
-    direction: "I designed the MVP platform, created the investor pitch deck, joined investor conversations and mentored 3 design interns while the product moved from concept to a live workflow.",
+    direction: "I designed the MVP platform, created the investor pitch deck, spoke with investors and advisors, and mentored 3 design interns while the product moved from concept to a live workflow.",
     result: "A connected research workspace for interviews, insights, jobs, ideas and evidence-backed outputs.",
     metrics: [
       { value: "3–4 h → 10 min", label: "analysis per interview" },
       { value: "21+", label: "research interviews in 3 weeks" },
+    ],
+    challengeStory: {
+      image: "/projects/zernote-mentoring.png",
+      imageAlt: "Mentoring pre-junior design interns through research and product work",
+      title: "Mentoring the next designers.",
+      body: "Alongside product design, I mentored design interns at the pre-junior level: helping them structure research, make thoughtful interface decisions and grow confidence through regular feedback.",
+      highlights: [
+        { label: "Mentorship", text: "I supported pre-junior interns as they moved from guided exercises to independent design work.", highlights: ["pre-junior interns", "independent design work"] },
+        { label: "Feedback", text: "Regular reviews turned uncertainty into clear next steps and practical progress.", highlights: ["clear next steps"] },
+        { label: "Shared learning", text: "Explaining decisions sharpened my own product thinking and made the team stronger.", highlights: ["sharpened my own product thinking"] },
+      ],
+    },
+    directionHighlights: [
+      "investor pitch deck",
+      "spoke with investors and advisors",
+      "mentored 3 design interns",
+      "concept to a live workflow",
+    ],
+    directionVisual: "/projects/zernote-pitch-deck.png",
+    directionVisualAlt: "Pitch deck presentation with product strategy, charts and investor discussion",
+    screensVisualImage: "/projects/zernote-design-research.png",
+    screensVisualImageAlt: "Interface design and user research workflow with interviews, insights and product screens",
+    screensCopy: {
+      title: "Interfaces shaped by research.",
+      body: "I developed the core product interfaces and ran design research to understand how teams capture interviews, connect evidence and turn findings into decisions. Research insights guided the information architecture, workflows and details across the workspace.",
+      highlights: [
+        "developed the core product interfaces",
+        "ran design research",
+        "connect evidence",
+        "information architecture",
+      ],
+    },
+    challengeHighlights: [
+      "mentored design interns",
+      "pre-junior level",
+      "grow confidence through regular feedback",
     ],
     gallery: [
       { src: "/projects/zernote-ideas.png", alt: "Zernote ideas table with confidence and evidence", label: "Evidence-backed ideas", fit: "contain" },
@@ -176,8 +211,12 @@ export default function Home() {
         </div>
         <div className="hero-statement">
           <ul className="hero-badges" aria-label="Areas of practice">
-            {["UX/UI", "Research", "CustDev", "Growth", "Analytics", "Design System", "Workshop hosting", "Leadership"].map((badge, index) => (
-              <li key={badge} style={{ "--badge-delay": `${index * 35}ms` } as CSSProperties}>{badge}</li>
+            {["UX/UI", "Research", "CustDev", "Growth", "Analytics", "Design System"].map((badge, index) => (
+              <li key={badge} style={{ "--badge-delay": `${index * 35}ms` } as CSSProperties}>
+                <Link href="/resume" data-tooltip="View all skills" aria-label={`${badge}. View all skills`}>
+                  {badge}
+                </Link>
+              </li>
             ))}
           </ul>
           <h1 className="sr-only">I’m Elena, an empathetic product designer with 4 years’ experience for B2C</h1>
@@ -254,7 +293,7 @@ export default function Home() {
                     </div>
                   )}
                   <div className="cinema-title" aria-hidden="true">
-                    <span>{project.id}</span>
+                    {project.tone !== "museum" && <span>{project.id}</span>}
                     <strong>{project.title}</strong>
                   </div>
                 </div>

@@ -36,7 +36,7 @@ export default function MuseumStack() {
         <span className="museum-stack-sheen" aria-hidden="true" />
       </div>
       <div className="museum-stack-note museum-stack-note-top" aria-hidden="true">
-        <span>01 / Virtual exhibition</span>
+        <span>Virtual exhibition</span>
         <b>An impossible<br />dream?</b>
       </div>
       <div className="museum-stack-note museum-stack-note-bottom" aria-hidden="true">
