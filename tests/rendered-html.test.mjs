@@ -24,6 +24,7 @@ test("renders the portfolio homepage and project imagery", async () => {
   assert.match(html, /EHU IT Hub — Portal/);
   assert.match(html, /Let&#x27;s chat/);
   assert.match(html, /LinkedIn/);
+  assert.match(html, /https:\/\/www\.linkedin\.com\/in\/elena-shamraeva-a73464393/);
   assert.match(html, /Telegram/);
   assert.match(html, /WhatsApp/);
   assert.match(html, /href="\/about"/);
@@ -47,6 +48,8 @@ test("renders the standalone about, resume and blog pages", async () => {
   assert.match(about, /I’m a team player/);
   assert.match(about, /wife, homemaker, mother of two four-legged companions, and friend/);
   assert.match(about, /about-opening-lanyard/);
+  assert.match(about, /https:\/\/www\.instagram\.com\/ftr0ys_emmm\?stkn=MW16YXg5NmxtNDg2bw==/);
+  assert.doesNotMatch(about, /https:\/\/google\.com\//);
   assert.doesNotMatch(about, /Product thinking,<br\/>with a visual point of view/);
   assert.doesNotMatch(about, /Visual designer/);
   assert.doesNotMatch(about, /Fascinated by logic, structure/);
@@ -54,8 +57,15 @@ test("renders the standalone about, resume and blog pages", async () => {
   assert.match(resume, /User-centered product designer\. Data-driven, growth-focused\./);
   assert.match(resume, /Information architecture/);
   assert.match(resume, /Customer development/);
-  assert.match(resume, /Workshop hosting/);
-  assert.match(resume, /n\.knyshov@gmail\.com/);
+  assert.doesNotMatch(resume, /Workshop hosting/);
+  assert.match(resume, /lena\.shamraeva\.05@gmail\.com/);
+  assert.match(resume, /href="mailto:lena\.shamraeva\.05@gmail\.com"/);
+  assert.match(resume, /Eastbourne, UK/);
+  assert.match(resume, /\+44 7956 042838/);
+  assert.match(resume, /href="tel:\+447956042838"/);
+  assert.match(resume, /English<!--[\s\S]*?--> <em>B1<\/em>/);
+  assert.match(resume, /Russian<!--[\s\S]*?--> <em>Native<\/em>/);
+  assert.doesNotMatch(resume, /Portuguese/);
   assert.doesNotMatch(resume, /Selected experience/);
   assert.doesNotMatch(resume, /Yandex Practicum/);
   assert.doesNotMatch(resume, /BA in Multimedia Design/);

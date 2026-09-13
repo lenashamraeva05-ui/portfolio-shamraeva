@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function SlowLoadingFallback() {
   const [visible, setVisible] = useState(false);
+  const animationRef = useRef<{ destroy?: () => void } | undefined>(undefined);
   const pathname = usePathname();
   const timerRef = useRef<number | undefined>(undefined);
 
@@ -13,6 +14,26 @@ export default function SlowLoadingFallback() {
     timerRef.current = undefined;
     setVisible(false);
   };
+
+  useEffect(() => {
+    if (!visible) return;
+    let cancelled = false;
+    const script = document.createElement("script");
+    script.src = "/lottie.js";
+    script.onload = () => {
+      const lottie = (window as Window & { lottie?: { loadAnimation: (options: Record<string, unknown>) => { destroy?: () => void } } }).lottie;
+      const container = document.querySelector<HTMLDivElement>(".slow-loading-animation");
+      if (cancelled || !lottie || !container) return;
+      animationRef.current = lottie.loadAnimation({ container, renderer: "svg", loop: true, autoplay: true, path: "/loading.json" });
+    };
+    document.head.appendChild(script);
+    return () => {
+      cancelled = true;
+      script.remove();
+      animationRef.current?.destroy?.();
+      animationRef.current = undefined;
+    };
+  }, [visible]);
 
   useEffect(() => {
     const startPending = () => {
@@ -48,9 +69,7 @@ export default function SlowLoadingFallback() {
 
   return (
     <div className="slow-loading-fallback" role="status" aria-live="polite">
-      <div className="slow-loading-animation" aria-hidden="true">
-        {Array.from({ length: 7 }, (_, index) => <span key={index} className={`slow-loading-dot slow-loading-dot-${index + 1}`} />)}
-      </div>
+      <div className="slow-loading-animation" aria-hidden="true" />
       <p>Loading is taking longer than expected…</p>
     </div>
   );

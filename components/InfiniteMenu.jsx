@@ -908,7 +908,7 @@ const defaultItems = [
   {
     image:
       'https://images.unsplash.com/photo-1782977389500-dd7adad33ebe?q=80&w=600&h=600&fit=crop&sat=-100&auto=format',
-    link: 'https://google.com/',
+    link: 'https://www.instagram.com/ftr0ys_emmm?stkn=MW16YXg5NmxtNDg2bw==',
     title: '',
     description: ''
   }

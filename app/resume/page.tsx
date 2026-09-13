@@ -7,14 +7,11 @@ import {
   GitBranch,
   GraduationCap,
   ListChecks,
-  Mail,
   MapPin,
   MapPinned,
   MousePointer2,
   Network,
   PanelsTopLeft,
-  Phone,
-  Presentation,
   Route,
   SearchCheck,
   Sprout,
@@ -28,6 +25,7 @@ import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import PortfolioHeader from "../components/PortfolioHeader";
 import DarkVeil from "../../components/DarkVeil";
+import ContactActions from "./ContactActions";
 
 type Skill = { label: string; icon: LucideIcon };
 type SkillGroup = { title: string; skills: Skill[] };
@@ -61,7 +59,6 @@ const skillGroups: SkillGroup[] = [
   {
     title: "Leadership",
     skills: [
-      { label: "Workshop hosting", icon: Presentation },
       { label: "Culture & Principles", icon: Sprout },
       { label: "Team processes", icon: GitBranch },
       { label: "Mentorship", icon: GraduationCap },
@@ -71,9 +68,8 @@ const skillGroups: SkillGroup[] = [
 ];
 
 const languages = [
-  { name: "English", level: "B2 – C1", flag: "gb" },
+  { name: "English", level: "B1", flag: "gb" },
   { name: "Russian", level: "Native", flag: "ru" },
-  { name: "Portuguese", level: "A1", flag: "pt" },
 ];
 
 type Experience = {
@@ -81,41 +77,52 @@ type Experience = {
   role: string;
   dates: string;
   description: string;
-  mark: "novu" | "approveit" | "citrix" | "wrike";
+  mark: "uservers" | "zernote" | "tbank" | "students" | "ehu" | "freelance";
 };
 
 const experience: Experience[] = [
   {
-    company: "Novu",
-    role: "Product Design Lead",
-    dates: "Feb 2023 – current moment",
-    description:
-      "Led design for Novu, an open-source notification infrastructure. Managed a team of 2 designers, rebuilt the design system, and enhanced user experience. Optimized growth funnels to increase adoption and implemented Scrum for improved processes. Supported two company pivots.",
-    mark: "novu",
+    company: "U-Servers",
+    role: "Middle UX/UI designer",
+    dates: "Aug 2024 – Present · 2 yrs 2 mos",
+    description: "Redesigned core product interfaces and maintained the design system for U-Servers.",
+    mark: "uservers",
   },
   {
-    company: "Approveit",
-    role: "Design Mentor",
-    dates: "Feb 2023 – Mar 2024",
-    description:
-      "Mentored mid-level designers, teaching user research, customer development, persona creation, and workshop facilitation. Guided them in service blueprinting, customer journey mapping, and writing use cases using my adapted JTBD framework. Enabled them to apply design thinking and contribute meaningfully to projects.",
-    mark: "approveit",
+    company: "Zernote",
+    role: "Middle UX/UI Designer",
+    dates: "Feb 2026 – Present · 8 mos",
+    description: "Designed AI-assisted research tools for interviews, insight extraction, and hypothesis validation at Zernote.",
+    mark: "zernote",
   },
   {
-    company: "Citrix",
-    role: "Staff Product Designer",
-    dates: "March 2021 – Jan 2023",
+    company: "T-Bank Education",
+    role: "Intern",
+    dates: "May 2026 – Sep 2026 · 3 mos",
     description:
-      "As part of Citrix's acquisition and integration of Wrike, I played a key role in expanding Wrike's Professional Services solutions across Citrix's portfolio. My responsibilities included driving strategic initiatives, fostering collaboration between teams, and ensuring the seamless integration of Wrike's project management tools into various Citrix divisions to maximize client engagement and efficiency.",
-    mark: "citrix",
+      "Worked on Statist, T-Bank’s internal analytics platform.",
+    mark: "tbank",
   },
   {
-    company: "Wrike",
-    role: "Senior Product Designer",
-    dates: "Aug 2019 – Jan 2023",
-    description:
-      "Shipped comprehensive resource management and capacity planning solutions, budgeting and tools for marketers. Drove Design Debt initiatives and managed professional services domain.",
-    mark: "wrike",
+    company: "Student's Hub",
+    role: "Junior Product designer",
+    dates: "Dec 2023 – Apr 2025 · 1 yr 5 mos",
+    description: "Designed UX/UI for Student’s Hub, a freelance platform for students.",
+    mark: "students",
+  },
+  {
+    company: "EHU IT Hub",
+    role: "Designer",
+    dates: "Mar 2024 – Nov 2024 · 9 mos",
+    description: "Designed dashboards, landing pages, and digital content for EHU IT Hub.",
+    mark: "ehu",
+  },
+  {
+    company: "Freelance",
+    role: "Freelance Designer",
+    dates: "Feb 2022 – May 2023 · 1 yr 4 mos",
+    description: "Worked on UX/UI design projects for freelance clients.",
+    mark: "freelance",
   },
 ];
 
@@ -144,9 +151,8 @@ export default function ResumePage() {
           User-centered product designer. Data-driven, growth-focused.
         </p>
         <div className="resume-reference-contact">
-          <span><MapPin className="resume-contact-icon" aria-hidden="true" />Lisbon, Portugal</span>
-          <a href="mailto:n.knyshov@gmail.com" className="resume-contact-link"><Mail className="resume-contact-icon" aria-hidden="true" />n.knyshov@gmail.com</a>
-          <a href="tel:+351921090349" className="resume-contact-link"><Phone className="resume-contact-icon" aria-hidden="true" />+351 921 090 349</a>
+          <span><MapPin className="resume-contact-icon" aria-hidden="true" />Eastbourne, UK</span>
+          <ContactActions />
         </div>
       </header>
 
@@ -206,8 +212,8 @@ export default function ResumePage() {
               </div>
               <div className="resume-experience-copy">
                 <h3>{role}</h3>
-                <p className="resume-experience-dates">{dates}</p>
-                <p className="resume-experience-description">{description}</p>
+                {dates && <p className="resume-experience-dates">{dates}</p>}
+                {description && <p className="resume-experience-description">{description}</p>}
               </div>
             </article>
           ))}

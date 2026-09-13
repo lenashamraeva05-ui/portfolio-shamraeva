@@ -30,6 +30,7 @@ export type ProjectCaseData = {
   directionLinks?: { label: string; url: string }[];
   result: string;
   metrics: { value: string; label: string }[];
+  toolkit?: { name: string; description: string }[];
   overviewDetails?: {
     companyDescription: string;
     companyUrl: string;
@@ -74,7 +75,7 @@ const getProjectTabs = (project: ProjectCaseData) => project.slug === "t-bank-st
     ? [
         { id: "overview", label: "Overview" },
         { id: "challenge", label: "Mentoring" },
-        { id: "direction", label: "Direction" },
+        { id: "direction", label: "Concept" },
         { id: "screens", label: "Screens" },
       ] satisfies { id: TabId; label: string }[]
   : tabs;
@@ -332,7 +333,7 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
         ? { label: project.slug === "zernote" ? "Mentoring" : "Internship at T‑Bank", title: project.challengeStory.title, body: project.challengeStory.body, highlights: project.challengeHighlights }
         : { label: "Challenge", title: "The problem behind the interface.", body: project.challenge, highlights: project.challengeHighlights }
       : activeTab === "direction"
-        ? { label: "Direction", title: project.slug === "zernote" ? "From product story to investor conversations." : "From evidence to a clear product direction.", body: project.direction, highlights: project.directionHighlights }
+        ? { label: project.slug === "zernote" ? "Concept" : "Direction", title: project.slug === "zernote" ? "From product story to investor conversations." : "From evidence to a clear product direction.", body: project.direction, highlights: project.directionHighlights }
       : {
           label: "Screens",
           title: project.screensCopy?.title ?? activeScreen.label,
@@ -384,10 +385,22 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
             {copy.highlights?.length ? renderHighlightedCopy(copy.body, copy.highlights) : copy.body}
           </p>
 
-          {activeTab === "overview" && (
+          {activeTab === "overview" && project.slug !== "zernote" && (
             <div className="case-metrics" aria-label={`${project.title} figures`}>
               {project.metrics.map((metric) => (
                 <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>
+              ))}
+            </div>
+          )}
+
+          {activeTab === "overview" && project.toolkit && (
+            <div className="zernote-toolkit project-internship-highlights" aria-label="Zernote tools">
+              <p className="zernote-toolkit-label">Three tools. One connected workflow.</p>
+              {project.toolkit.map((tool) => (
+                <div key={tool.name}>
+                  <span>{tool.name}</span>
+                  <p>{tool.description}</p>
+                </div>
               ))}
             </div>
           )}

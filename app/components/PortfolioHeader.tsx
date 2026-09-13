@@ -93,8 +93,14 @@ export default function PortfolioHeader() {
               <span>Let&apos;s chat</span><b aria-hidden="true">↗</b>
             </button>
             <div className="contact-popover" id="contact-options">
+              <a href="https://calendly.com/lena-shamraeva-05/30min" target="_blank" rel="noreferrer" onClick={() => setContactOpen(false)}>
+                <i aria-hidden="true">↗</i><span>Book a call</span>
+              </a>
               <a href="mailto:lena.shamraeva.05@gmail.com" onClick={() => setContactOpen(false)}>
                 <i aria-hidden="true">@</i><span>Email me</span>
+              </a>
+              <a href="tel:+447956042838" onClick={() => setContactOpen(false)}>
+                <i aria-hidden="true">tel</i><span>+44 7956 042838</span>
               </a>
               <a href="https://www.linkedin.com/in/elena-shamraeva-a73464393" target="_blank" rel="noreferrer" onClick={() => setContactOpen(false)}>
                 <i aria-hidden="true">in</i><span>LinkedIn</span>
@@ -102,7 +108,7 @@ export default function PortfolioHeader() {
               <a href="https://t.me/ftr0ys_emmm" target="_blank" rel="noreferrer" onClick={() => setContactOpen(false)}>
                 <i aria-hidden="true">tg</i><span>Telegram</span>
               </a>
-              <a href="https://wa.me/qr/WSCQFRDF6LCQI1" target="_blank" rel="noreferrer" onClick={() => setContactOpen(false)}>
+              <a href="https://wa.me/447956042838" target="_blank" rel="noreferrer" onClick={() => setContactOpen(false)}>
                 <i aria-hidden="true">wa</i><span>WhatsApp</span>
               </a>
             </div>

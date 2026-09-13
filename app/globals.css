@@ -96,17 +96,8 @@ p, li { text-wrap: pretty; }
   color: #dce9ff;
   text-align: center;
 }
-.slow-loading-animation { position: relative; width: min(180px, 42vw); height: min(180px, 42vw); animation: slow-loading-spin 4.8s linear infinite; }
-.slow-loading-dot { position: absolute; width: 28px; height: 28px; border-radius: 50%; background: #4f8cff; box-shadow: 0 0 22px rgba(79, 140, 255, .36); animation: slow-loading-pulse 1.2s ease-in-out infinite; }
-.slow-loading-dot-1 { top: 0; left: calc(50% - 14px); animation-delay: -.72s; background: #66a3ff; }
-.slow-loading-dot-2 { top: 15%; right: 5%; animation-delay: -.54s; background: #407ff1; }
-.slow-loading-dot-3 { right: 5%; bottom: 15%; animation-delay: -.36s; background: #2d6fdf; }
-.slow-loading-dot-4 { bottom: 0; left: calc(50% - 14px); animation-delay: -.18s; background: #6098f4; }
-.slow-loading-dot-5 { bottom: 15%; left: 5%; animation-delay: 0s; background: #82b5ff; }
-.slow-loading-dot-6 { top: 15%; left: 5%; animation-delay: -.9s; background: #3678dd; }
-.slow-loading-dot-7 { top: calc(50% - 14px); left: calc(50% - 14px); width: 26px; height: 26px; animation-delay: -.45s; background: #a6cbff; }
-@keyframes slow-loading-spin { to { transform: rotate(360deg); } }
-@keyframes slow-loading-pulse { 0%, 100% { opacity: .7; transform: scale(.84); } 50% { opacity: 1; transform: scale(1.08); } }
+.slow-loading-animation { width: min(180px, 42vw); height: min(180px, 42vw); }
+.slow-loading-animation svg { width: 100%; height: 100%; }
 .slow-loading-fallback p { margin: 0; color: #8eb5ff; font-size: 14px; }
 
 .skip-link {
@@ -461,6 +452,12 @@ body:has(.about-page) { overflow-x: visible; overscroll-behavior-x: auto; }
 .case-metrics div { min-width: 0; padding: 16px 0; border-top: 1px solid var(--line-soft); border-radius: 0; background: transparent; }
 .case-metrics strong { display: block; font-size: clamp(20px, 2vw, 28px); font-weight: 540; font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
 .case-metrics span, .project-tab-note > span { display: block; margin-top: 7px; color: #777e79; font-size: 9px; line-height: 1.4; letter-spacing: .07em; }
+.zernote-toolkit { margin-top: 3px; padding-top: 18px; border-top: 1px solid var(--line); }
+.zernote-toolkit-label { margin: 0 0 15px; color: var(--case-accent); font-size: 10px; letter-spacing: .04em; }
+.zernote-toolkit > div { padding: 12px 0 13px; border-top: 1px solid var(--line-soft); }
+.zernote-toolkit > div:first-of-type { padding-top: 0; border-top: 0; }
+.zernote-toolkit > div > span { display: block; margin: 0 0 5px; color: var(--case-accent); font-size: 12px; line-height: 1.35; }
+.zernote-toolkit > div > p { margin: 0; color: var(--muted-strong); font-size: 14px; line-height: 1.48; }
 .project-overview-details { display: grid; gap: 18px; }
 .project-internship { margin: 0; padding: 14px 0 0; border-top: 1px solid var(--line-soft); color: #d9dcda; font-size: 12px; line-height: 1.45; }
 .project-internship strong { display: block; font-weight: 540; }
@@ -968,6 +965,22 @@ body:has(.about-page) { overflow-x: visible; overscroll-behavior-x: auto; }
 .resume-contact-link { display: inline-flex; align-items: center; gap: 10px; }
 .resume-contact-link { color: inherit; transition: color 160ms ease; }
 .resume-contact-link:hover { color: #fff; }
+.resume-contact-link:focus-visible { outline: 2px solid #fff; outline-offset: 5px; border-radius: 4px; }
+.resume-copy-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 20;
+  transform: translateX(-50%);
+  padding: 10px 16px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  background: rgba(20, 22, 28, .92);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+  font-size: 14px;
+  white-space: nowrap;
+}
 .resume-contact-icon { width: 16px; height: 16px; flex: 0 0 16px; color: #9c9ca5; stroke-width: 1.25; }
 .resume-reference-skills {
   position: relative;
@@ -1075,6 +1088,18 @@ body:has(.about-page) { overflow-x: visible; overscroll-behavior-x: auto; }
   letter-spacing: -.045em;
   line-height: 1.1;
 }
+.resume-experience-description { white-space: pre-line; }
+.resume-company-mark-uservers::before { inset: 2px 4px; border: 3px solid currentColor; border-radius: 45% 55% 48% 52%; transform: rotate(36deg); }
+.resume-company-mark-uservers::after { width: 17px; height: 4px; top: 11px; left: 5px; border-radius: 99px; background: currentColor; transform: rotate(36deg); }
+.resume-company-mark-zernote::before { inset: 4px; border: 3px solid currentColor; border-radius: 50%; }
+.resume-company-mark-zernote::after { width: 8px; height: 8px; right: 1px; top: 1px; border-radius: 50%; background: currentColor; }
+.resume-company-mark-tbank::before { inset: 2px; border-radius: 5px; background: #ffd21f; }
+.resume-company-mark-tbank::after { width: 10px; height: 10px; left: 9px; top: 9px; border-radius: 2px; background: #fff; }
+.resume-company-mark-students::before { inset: 2px 1px; border: 3px solid currentColor; border-radius: 50% 50% 4px 4px; }
+.resume-company-mark-students::after { width: 15px; height: 3px; left: 6px; top: 14px; background: currentColor; }
+.resume-company-mark-ehu::before { inset: 3px; border-radius: 8px; background: currentColor; }
+.resume-company-mark-ehu::after { width: 9px; height: 9px; left: 9px; top: 9px; border-radius: 50%; background: #202027; }
+.resume-company-mark-freelance::before { inset: 2px; border-radius: 3px; background: #8c9aaa; }
 .resume-experience-description {
   max-width: 560px;
   margin: 22px 0 0;

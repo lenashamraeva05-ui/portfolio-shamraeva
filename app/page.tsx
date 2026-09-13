@@ -123,7 +123,7 @@ const projects: Project[] = [
     slug: "zernote",
     title: "Zernote",
     eyebrow: "AI research SaaS from interview to decision",
-    summary: "An end-to-end discovery platform that keeps evidence connected from live research to product decisions.",
+    summary: "An end-to-end research workspace that carries teams from the interview room to a clear decision.",
     role: "Product Design · MVP · Pitch deck · Investor communication",
     status: "Active startup · pre-seed",
     tags: ["AI SaaS", "UX research", "MVP", "Product strategy"],
@@ -133,10 +133,19 @@ const projects: Project[] = [
     overviewImageAlt: "Zernote research collage with interview notes, insights, analytics and connected evidence",
     challenge: "Interview evidence was scattered across tools, analysis took hours and teams lost the context behind product decisions.",
     direction: "I designed the MVP platform, created the investor pitch deck, spoke with investors and advisors, and mentored 3 design interns while the product moved from concept to a live workflow.",
-    result: "A connected research workspace for interviews, insights, jobs, ideas and evidence-backed outputs.",
-    metrics: [
-      { value: "3–4 h → 10 min", label: "analysis per interview" },
-      { value: "21+", label: "research interviews in 3 weeks" },
+    result: "Zernote is becoming an end-to-end research solution: an AI-assisted companion during interviews that helps refine questions and close hypotheses, then a workspace for full analysis, synthesis and presentations to a manager or client. AI supports the researcher throughout the process — it accelerates the work without replacing the person leading it.",
+    metrics: [],
+    overviewHighlights: [
+      "end-to-end research solution",
+      "AI-assisted companion during interviews",
+      "refine questions and close hypotheses",
+      "full analysis, synthesis and presentations",
+      "without replacing the person leading it",
+    ],
+    toolkit: [
+      { name: "Zernote Live", description: "A live interview companion that helps keep the conversation focused, adjust questions and close hypotheses in the moment." },
+      { name: "Zernote Web", description: "The workspace for analysis, summaries, reports and presentation-ready outputs." },
+      { name: "Zernote MCP", description: "A research-focused MCP setup for working with evidence and analysis wherever your workflow lives." },
     ],
     challengeStory: {
       image: "/projects/zernote-mentoring.png",
@@ -223,7 +232,7 @@ export default function Home() {
           <HeroBlurText />
           <p className="hero-summary">I make complex products feel clear, useful and human.</p>
           <div className="hero-actions">
-            <a className="talk-pill" href="mailto:lena.shamraeva.05@gmail.com">
+            <a className="talk-pill" href="https://calendly.com/lena-shamraeva-05/30min" target="_blank" rel="noreferrer">
               <span className="hero-avatar" aria-hidden="true" />
               <span className="talk-hover-amp" aria-hidden="true">&amp;</span>
               <span className="talk-hover-you" aria-hidden="true">You</span>
@@ -367,7 +376,7 @@ export default function Home() {
             </a>
           </SpotlightCard>
           <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)">
-            <a href="https://calendly.com/" target="_blank" rel="noreferrer" aria-label="Book time on Calendly">
+            <a href="https://calendly.com/lena-shamraeva-05/30min" target="_blank" rel="noreferrer" aria-label="Book time on Calendly">
               <i className="contact-icon contact-icon-calendar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.3 8.9a4.5 4.5 0 1 0 0 6.2"/></svg></i><span>Calendly</span>
             </a>
           </SpotlightCard>
@@ -382,7 +391,7 @@ export default function Home() {
             </a>
           </SpotlightCard>
           <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)">
-            <a href="https://wa.me/qr/WSCQFRDF6LCQI1" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+            <a href="https://wa.me/447956042838" target="_blank" rel="noreferrer" aria-label="WhatsApp">
               <i className="contact-icon contact-icon-whatsapp" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4.25a7.75 7.75 0 0 0-6.7 11.65L4.2 19.8l4.1-1.05A7.75 7.75 0 1 0 12 4.25Z"/><path d="M9.1 9.2c.2-.45.4-.46.7-.46h.45c.15 0 .3.06.38.28l.53 1.28c.08.2.04.36-.08.52l-.42.52c-.1.12-.1.27-.03.4.25.47.86 1.28 1.95 1.73.15.06.26.03.36-.08l.52-.61c.11-.13.27-.17.43-.1l1.22.58c.19.1.25.2.2.42-.18.76-.9 1.15-1.54 1.15-.44 0-1.7-.38-2.83-1.41-1.27-1.16-1.75-2.53-1.84-3.06-.08-.45-.05-.83.08-1.16Z"/></svg></i><span>WhatsApp</span>
             </a>
           </SpotlightCard>

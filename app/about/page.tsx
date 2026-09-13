@@ -5,10 +5,10 @@ import Lanyard from "../../components/Lanyard";
 import InfiniteMenu from "../../components/InfiniteMenu";
 
 const outsideWorkItems = [
-  { image: "/outside-work-item-1.png", link: "https://google.com/", title: "Cookie & Masya", description: "Aren’t they the cutest?" },
-  { image: "/outside-work-item-2.png", link: "https://google.com/", title: "Cooking", description: "Homemade meals for my little family, every day." },
-  { image: "/outside-work-item-3.png", link: "https://google.com/", title: "Travelling", description: "Me & my husband" },
-  { image: "/outside-work-item-4.png", link: "https://google.com/", title: "Eastbourne", description: "The town we call home — where we hope to buy our own house." },
+  { image: "/outside-work-item-1.png", link: "https://www.instagram.com/ftr0ys_emmm?stkn=MW16YXg5NmxtNDg2bw==", title: "Cookie & Masya", description: "Aren’t they the cutest?" },
+  { image: "/outside-work-item-2.png", link: "https://www.instagram.com/ftr0ys_emmm?stkn=MW16YXg5NmxtNDg2bw==", title: "Cooking", description: "Homemade meals for my little family, every day." },
+  { image: "/outside-work-item-3.png", link: "https://www.instagram.com/ftr0ys_emmm?stkn=MW16YXg5NmxtNDg2bw==", title: "Travelling", description: "Me & my husband" },
+  { image: "/outside-work-item-4.png", link: "https://www.instagram.com/ftr0ys_emmm?stkn=MW16YXg5NmxtNDg2bw==", title: "Eastbourne", description: "The town we call home — where we hope to buy our own house." },
 ];
 
 export default function AboutPage() {
