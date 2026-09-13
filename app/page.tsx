@@ -390,6 +390,16 @@ export default function Home() {
       </section>
 
       <footer className="site-footer" id="contact">
+        <Image
+          className="footer-character"
+          src="/footer-character.png"
+          alt=""
+          aria-hidden="true"
+          width={1122}
+          height={1402}
+          sizes="(max-width: 760px) 72vw, 420px"
+          unoptimized
+        />
         <div className="site-footer-inner">
           <div className="site-footer-copy">
             <strong>© 2026 Elena Shamraeva. All Rights Reserved.</strong>

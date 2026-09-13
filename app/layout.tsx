@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import GlobalGradualBlur from "./components/GlobalGradualBlur";
 import GitHubPagesPathRestore from "./components/GitHubPagesPathRestore";
 import TargetCursor from "@/components/TargetCursor";
+import SlowLoadingFallback from "./components/SlowLoadingFallback";
+import WelcomeSticker from "./components/WelcomeSticker";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -49,6 +51,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className={`${inter.variable} ${jakarta.variable}`}>
         {children}
+        <SlowLoadingFallback />
+        <WelcomeSticker />
         <GitHubPagesPathRestore />
         <GlobalGradualBlur />
         <TargetCursor
