@@ -5,10 +5,10 @@ import Lanyard from "../../components/Lanyard";
 import InfiniteMenu from "../../components/InfiniteMenu";
 
 const outsideWorkItems = [
-  { image: "/outside-work-item-1.png", link: "https://google.com/", title: "Item 1", description: "This is pretty cool, right?" },
-  { image: "/outside-work-item-2.png", link: "https://google.com/", title: "Item 2", description: "This is pretty cool, right?" },
-  { image: "/outside-work-item-3.png", link: "https://google.com/", title: "Item 3", description: "This is pretty cool, right?" },
-  { image: "/outside-work-item-4.png", link: "https://google.com/", title: "Item 4", description: "This is pretty cool, right?" },
+  { image: "/outside-work-item-1.png", link: "https://google.com/", title: "Cookie & Masya", description: "Aren’t they the cutest?" },
+  { image: "/outside-work-item-2.png", link: "https://google.com/", title: "Cooking", description: "Homemade meals for my little family, every day." },
+  { image: "/outside-work-item-3.png", link: "https://google.com/", title: "Travelling", description: "Me & my husband" },
+  { image: "/outside-work-item-4.png", link: "https://google.com/", title: "Eastbourne", description: "The town we call home — where we hope to buy our own house." },
 ];
 
 export default function AboutPage() {
