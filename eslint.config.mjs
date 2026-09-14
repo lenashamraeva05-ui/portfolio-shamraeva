@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "global.d.ts",
     "inspect-cdp.cjs",
+    // Third-party animation runtime is vendored and not maintained in this app.
+    "public/lottie.js",
   ]),
 ]);
 

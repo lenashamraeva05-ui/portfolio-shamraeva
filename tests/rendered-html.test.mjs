@@ -67,8 +67,11 @@ test("renders the standalone about, resume and blog pages", async () => {
   assert.match(resume, /Russian<!--[\s\S]*?--> <em>Native<\/em>/);
   assert.doesNotMatch(resume, /Portuguese/);
   assert.doesNotMatch(resume, /Selected experience/);
-  assert.doesNotMatch(resume, /Yandex Practicum/);
-  assert.doesNotMatch(resume, /BA in Multimedia Design/);
+  assert.match(resume, /Yandex Practicum/);
+  assert.match(resume, /UX Research for Designers/);
+  assert.match(resume, /Grade: 160 hours/);
+  assert.match(resume, /Moscow Polytechnic University/);
+  assert.match(resume, /Bachelor&#x27;s degree, Graphic Design/);
   assert.doesNotMatch(resume, /Research-led,<br\/>detail-focused/);
   assert.match(blog, /<h1>Blog<\/h1>/);
   assert.match(blog, /Design systems/);

@@ -1,4 +1,5 @@
 import {
+  BookOpen,
   Blocks,
   ChartNoAxesCombined,
   ChartNetwork,
@@ -18,6 +19,7 @@ import {
   UserRound,
   UserRoundPlus,
   UserRoundSearch,
+  University,
   UsersRound,
   Workflow,
 } from "lucide-react";
@@ -78,6 +80,7 @@ type Experience = {
   dates: string;
   description: string;
   mark: "uservers" | "zernote" | "tbank" | "students" | "ehu" | "freelance";
+  logo?: string;
 };
 
 const experience: Experience[] = [
@@ -87,6 +90,7 @@ const experience: Experience[] = [
     dates: "Aug 2024 – Present · 2 yrs 2 mos",
     description: "Redesigned core product interfaces and maintained the design system for U-Servers.",
     mark: "uservers",
+    logo: "/logos/uservers.svg",
   },
   {
     company: "Zernote",
@@ -94,14 +98,16 @@ const experience: Experience[] = [
     dates: "Feb 2026 – Present · 8 mos",
     description: "Designed AI-assisted research tools for interviews, insight extraction, and hypothesis validation at Zernote.",
     mark: "zernote",
+    logo: "/logos/zernote.svg",
   },
   {
-    company: "T-Bank Education",
+    company: "T-Bank",
     role: "Intern",
     dates: "May 2026 – Sep 2026 · 3 mos",
     description:
       "Worked on Statist, T-Bank’s internal analytics platform.",
     mark: "tbank",
+    logo: "/logos/t-bank.png",
   },
   {
     company: "Student's Hub",
@@ -109,6 +115,7 @@ const experience: Experience[] = [
     dates: "Dec 2023 – Apr 2025 · 1 yr 5 mos",
     description: "Designed UX/UI for Student’s Hub, a freelance platform for students.",
     mark: "students",
+    logo: "/logos/students-hub.png",
   },
   {
     company: "EHU IT Hub",
@@ -116,6 +123,7 @@ const experience: Experience[] = [
     dates: "Mar 2024 – Nov 2024 · 9 mos",
     description: "Designed dashboards, landing pages, and digital content for EHU IT Hub.",
     mark: "ehu",
+    logo: "/logos/ehu-it-hub.svg",
   },
   {
     company: "Freelance",
@@ -123,6 +131,30 @@ const experience: Experience[] = [
     dates: "Feb 2022 – May 2023 · 1 yr 4 mos",
     description: "Worked on UX/UI design projects for freelance clients.",
     mark: "freelance",
+  },
+];
+
+type Education = {
+  institution: string;
+  program: string;
+  dates: string;
+  detail?: string;
+  icon: LucideIcon;
+};
+
+const education: Education[] = [
+  {
+    institution: "Yandex Practicum",
+    program: "UX Research for Designers",
+    dates: "Oct 2024 – Feb 2025",
+    detail: "Grade: 160 hours",
+    icon: BookOpen,
+  },
+  {
+    institution: "Moscow Polytechnic University",
+    program: "Bachelor's degree, Graphic Design",
+    dates: "Aug 2023 – Feb 2027",
+    icon: University,
   },
 ];
 
@@ -204,16 +236,53 @@ export default function ResumePage() {
         </header>
 
         <div className="resume-experience-list">
-          {experience.map(({ company, role, dates, description, mark }) => (
+          {experience.map(({ company, role, dates, description, mark, logo }) => (
             <article className="resume-experience-item" key={company}>
               <div className="resume-company">
-                <span className={`resume-company-mark resume-company-mark-${mark}`} aria-hidden="true" />
+                {logo ? (
+                  <Image
+                    className="resume-company-logo"
+                    src={logo}
+                    alt=""
+                    width={36}
+                    height={36}
+                    unoptimized
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <span className={`resume-company-mark resume-company-mark-${mark}`} aria-hidden="true" />
+                )}
                 <h3>{company}</h3>
               </div>
               <div className="resume-experience-copy">
                 <h3>{role}</h3>
                 {dates && <p className="resume-experience-dates">{dates}</p>}
                 {description && <p className="resume-experience-description">{description}</p>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="resume-reference-experience resume-reference-education" aria-labelledby="resume-education-title">
+        <header className="resume-experience-heading">
+          <div className="resume-reference-section-label">
+            <span className="resume-label-dot" aria-hidden="true" />
+            <h2 id="resume-education-title">EDUCATION</h2>
+          </div>
+        </header>
+
+        <div className="resume-experience-list">
+          {education.map(({ institution, program, dates, detail, icon: Icon }) => (
+            <article className="resume-experience-item resume-education-item" key={institution}>
+              <div className="resume-company">
+                <Icon className="resume-education-icon" aria-hidden="true" />
+                <h3>{institution}</h3>
+              </div>
+              <div className="resume-experience-copy">
+                <h3>{program}</h3>
+                <p className="resume-experience-dates">{dates}</p>
+                {detail && <p className="resume-experience-description">{detail}</p>}
               </div>
             </article>
           ))}

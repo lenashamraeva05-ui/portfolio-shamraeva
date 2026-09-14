@@ -113,6 +113,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
   const lastFrameRef = useRef(0);
   const resumeAtRef = useRef(0);
   const draggingRef = useRef(false);
+  const lastPointerYRef = useRef(0);
   const phaseRef = useRef(-1);
   const pausedRef = useRef(false);
 
@@ -155,7 +156,22 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     draggingRef.current = true;
+    lastPointerYRef.current = event.clientY;
     event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    // Touch scrolling is custom because the landing track is transformed, not natively scrolled.
+    if (!draggingRef.current || event.pointerType === "mouse") return;
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!viewport || !track) return;
+    event.preventDefault();
+    const maxShift = Math.max(1, track.scrollHeight - viewport.clientHeight);
+    const deltaY = event.clientY - lastPointerYRef.current;
+    lastPointerYRef.current = event.clientY;
+    progressRef.current = Math.max(0, Math.min(1, progressRef.current - deltaY / maxShift));
+    resumeAtRef.current = performance.now() + 3200;
   };
 
   const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
@@ -183,7 +199,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
 
   return (
     <div className="museum-overview-visual">
-      <div className="museum-landing-scroll" ref={viewportRef} onPointerDown={handlePointerDown} onWheel={handleWheel} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp}>
+      <div className="museum-landing-scroll" ref={viewportRef} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onWheel={handleWheel} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp}>
         <div className="museum-landing-track" ref={trackRef} style={{ transform: `translate3d(0, -${offset}px, 0)` }}>
           {museumLandingParts.map((part, index) => (
               <Image key={part.src} unoptimized src={part.src} alt={index === 0 ? "EHU Museums landing page" : ""} width={1380} height={part.height} sizes="(max-width: 1100px) 100vw, 62vw" className="museum-landing-part" />

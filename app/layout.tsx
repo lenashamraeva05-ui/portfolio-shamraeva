@@ -25,7 +25,11 @@ export function generateMetadata(): Metadata {
     metadataBase: base,
     title: "Elena Shamraeva — Product Designer",
     description: "Product designer turning research, complex systems and business goals into clear digital products.",
-    icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+    icons: {
+      icon: "/elena-portrait-blue-v1.png",
+      shortcut: "/elena-portrait-blue-v1.png",
+      apple: "/elena-portrait-blue-v1.png",
+    },
     openGraph: {
       title: "Elena Shamraeva — Product Designer",
       description: "Product design where business goals and user needs meet.",
