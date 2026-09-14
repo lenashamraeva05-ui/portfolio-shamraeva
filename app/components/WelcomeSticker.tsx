@@ -42,6 +42,7 @@ export default function WelcomeSticker() {
         <span aria-hidden="true">×</span>
       </button>
       <Image
+        unoptimized
         src="/welcome-sticker.png"
         alt="Hey! Let’s get to know each other better"
         width={1536}

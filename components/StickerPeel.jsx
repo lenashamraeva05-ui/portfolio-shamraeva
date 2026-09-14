@@ -235,6 +235,8 @@ const StickerPeel = ({
       <div className="sticker-container" ref={containerRef}>
         <div className="sticker-main">
           <div className="sticker-lighting">
+            {/* Native image is required for the SVG filter/peel rendering pipeline. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageSrc}
               alt=""
@@ -247,6 +249,7 @@ const StickerPeel = ({
 
         <div className="flap">
           <div className="flap-lighting">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageSrc}
               alt=""

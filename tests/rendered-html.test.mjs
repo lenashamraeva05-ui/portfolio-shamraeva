@@ -93,5 +93,6 @@ test("ships the real project visuals and processed portrait", async () => {
     access(new URL("../public/projects/ehu-museums-overview.png", import.meta.url)),
     access(new URL("../public/projects/zernote-jobs-tree.png", import.meta.url)),
     access(new URL("../public/elena-portrait-blue-v1.png", import.meta.url)),
+    access(new URL("../dist/client/welcome-sticker.png", import.meta.url)),
   ]);
 });
