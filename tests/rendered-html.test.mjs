@@ -14,7 +14,7 @@ test("renders the portfolio homepage and project imagery", async () => {
   assert.match(html, /Available for work/);
   assert.match(html, /id="work"/);
   assert.match(html, /T-Bank Statist/);
-  assert.match(html, /tbank-statist-hero\.png/);
+  assert.match(html, /tbank-statist-hero\.webp/);
   assert.match(html, /EHU Museums/);
   assert.match(html, /Zernote/);
   assert.match(html, /Whispers of the City/);

@@ -8,7 +8,7 @@ import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 
 // Keep binary assets in public so route transitions receive stable URL strings.
 const cardGLB = '/card.glb';
-const lanyard = '/lanyard.png';
+const lanyard = '/lanyard.webp';
 
 import * as THREE from 'three';
 import './Lanyard.css';

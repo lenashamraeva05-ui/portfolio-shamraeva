@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 
 const testimonials = [
-  { quote: "Elena brings clarity to messy product problems. She listens carefully, asks the right questions and turns ambiguity into a direction the whole team can move with.", name: "Product partner", role: "Product & strategy", color: "#e7c84a", image: "/elena-portrait-blue-v1.png", position: "50% 34%" },
-  { quote: "Thoughtful, dependable and detail-focused. Elena makes complex systems feel simple without losing the nuance that makes them useful.", name: "Design collaborator", role: "UX/UI & research", color: "#9ec8ff", image: "/elena-portrait-blue-v1.png", position: "76% 38%" },
-  { quote: "Working with Elena felt like having a calm product compass in the room. Every decision was grounded in evidence and connected back to the user.", name: "Startup teammate", role: "Discovery & MVP", color: "#c89cf2", image: "/elena-portrait-blue-v1.png", position: "68% 42%" },
-  { quote: "She combines strong visual taste with sharp product thinking. The result is work that is both beautiful and genuinely easier to use.", name: "Cross-functional partner", role: "Product delivery", color: "#8dd8b5", image: "/elena-portrait-blue-v1.png", position: "35% 46%" },
+  { quote: "Elena brings clarity to messy product problems. She listens carefully, asks the right questions and turns ambiguity into a direction the whole team can move with.", name: "Product partner", role: "Product & strategy", color: "#e7c84a", image: "/elena-portrait-blue-v1.webp", position: "50% 34%" },
+  { quote: "Thoughtful, dependable and detail-focused. Elena makes complex systems feel simple without losing the nuance that makes them useful.", name: "Design collaborator", role: "UX/UI & research", color: "#9ec8ff", image: "/elena-portrait-blue-v1.webp", position: "76% 38%" },
+  { quote: "Working with Elena felt like having a calm product compass in the room. Every decision was grounded in evidence and connected back to the user.", name: "Startup teammate", role: "Discovery & MVP", color: "#c89cf2", image: "/elena-portrait-blue-v1.webp", position: "68% 42%" },
+  { quote: "She combines strong visual taste with sharp product thinking. The result is work that is both beautiful and genuinely easier to use.", name: "Cross-functional partner", role: "Product delivery", color: "#8dd8b5", image: "/elena-portrait-blue-v1.webp", position: "35% 46%" },
 ] as const;
 
 export default function Testimonials() {

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "portfolio-welcome-sticker-dismissed";
@@ -41,16 +42,18 @@ export default function WelcomeSticker() {
       >
         <span aria-hidden="true">×</span>
       </button>
-      <Image
-        unoptimized
-        src="/welcome-sticker.png"
-        alt="Hey! Let’s get to know each other better"
-        width={1536}
-        height={1024}
-        priority
-        sizes="(max-width: 560px) 74vw, (max-width: 900px) 42vw, 380px"
-        className="welcome-sticker-image"
-      />
+      <Link className="welcome-sticker-link" href="/about" aria-label="Learn more about Elena">
+        <Image
+          unoptimized
+          src="/welcome-sticker.webp"
+          alt="Hey! Let’s get to know each other better"
+          width={1536}
+          height={1024}
+          priority
+          sizes="(max-width: 560px) 74vw, (max-width: 900px) 42vw, 380px"
+          className="welcome-sticker-image"
+        />
+      </Link>
     </aside>
   );
 }

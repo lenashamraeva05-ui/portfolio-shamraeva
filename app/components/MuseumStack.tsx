@@ -7,7 +7,7 @@ export default function MuseumStack() {
       <div className="museum-stack-page museum-stack-page-back" aria-hidden="true">
         <Image
           unoptimized
-          src="/projects/ehu-museums-flow.png"
+          src="/projects/ehu-museums-flow.webp"
           alt=""
           fill
           sizes="(max-width: 760px) 68vw, 38vw"
@@ -17,7 +17,7 @@ export default function MuseumStack() {
       <div className="museum-stack-page museum-stack-page-left" aria-hidden="true">
         <Image
           unoptimized
-          src="/projects/ehu-museums-overview.png"
+          src="/projects/ehu-museums-overview.webp"
           alt=""
           fill
           sizes="(max-width: 760px) 66vw, 34vw"
@@ -27,7 +27,7 @@ export default function MuseumStack() {
       <div className="museum-stack-page museum-stack-page-main">
         <Image
           unoptimized
-          src="/projects/ehu-museums-flow.png"
+          src="/projects/ehu-museums-flow.webp"
           alt="EHU Online Museum virtual exhibition screens"
           fill
           sizes="(max-width: 760px) 88vw, 52vw"

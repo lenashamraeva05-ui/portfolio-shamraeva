@@ -26,7 +26,7 @@ const projects: Project[] = [
     role: "Product Designer · UX/UI · Data-heavy workflows",
     status: "NDA · public context only",
     tags: ["Fintech", "Analytics platform", "Enterprise product", "NDA"],
-    cover: "/projects/tbank-statist-hero.png",
+    cover: "/projects/tbank-statist-hero.webp",
     coverAlt: "Abstract analytics and product data visual for T-Bank Statist",
     overviewVideo: "/projects/t-bank-overview.webm",
     challenge: "Help different teams navigate a dense analytics ecosystem without flattening the expert detail they rely on.",
@@ -57,9 +57,9 @@ const projects: Project[] = [
       "everyday services",
     ],
     challengeStory: {
-      image: "/projects/tbank-internship.png",
+      image: "/projects/tbank-internship.webp",
       imageAlt: "Yellow T‑Bank jacket and branded keychain",
-      overlayImage: "/projects/tbank-internship-clock.png",
+      overlayImage: "/projects/tbank-internship-clock.webp",
       overlayAlt: "T‑Bank branded desk clock, notebook and coffee",
       title: "My internship at T‑Bank.",
       body: "Three months at T‑Bank turned a learning experience into real product practice: I learned how to find signal in complex systems, build confidence in my decisions and communicate my work clearly.",
@@ -76,7 +76,7 @@ const projects: Project[] = [
       "build confidence in my decisions",
     ],
     gallery: [
-      { src: "/projects/tbank-statist-cover.png", alt: "Statist product analytics visual on a yellow background", label: "Approved public visual", fit: "contain" },
+      { src: "/projects/tbank-statist-cover.webp", alt: "Statist product analytics visual on a yellow background", label: "Approved public visual", fit: "contain" },
     ],
     screensVisual: "nda",
     screensCopy: {
@@ -104,7 +104,7 @@ const projects: Project[] = [
     role: "UX/UI Design · Information architecture · Editorial storytelling",
     status: "Editorial concept · 2023",
     tags: ["Cultural heritage", "Editorial UX", "Virtual exhibition", "BY / EN / LT"],
-    cover: "/projects/ehu-museums-flow.png",
+    cover: "/projects/ehu-museums-flow.webp",
     coverAlt: "EHU Museums virtual exhibition screens",
     challenge: "The archive combined documents, photographs, quotes, maps and emotionally heavy history. The challenge was preserving its depth without making the experience feel like a reference book.",
     direction: "I structured the story into five chapters, designed a clear wayfinding model and built an editorial system that balances factual content with visual metaphors, pacing and whitespace.",
@@ -113,8 +113,8 @@ const projects: Project[] = [
       { value: "20,000+", label: "students at EHU" },
     ],
     gallery: [
-      { src: "/projects/ehu-museums-overview.png", alt: "Placeholder for EHU Museums chapter map and exhibition overview", label: "Chapter map", fit: "contain" },
-      { src: "/projects/ehu-museums-flow.png", alt: "Placeholder for EHU Museums editorial chapter layout", label: "Editorial layout", fit: "contain" },
+      { src: "/projects/ehu-museums-overview.webp", alt: "Placeholder for EHU Museums chapter map and exhibition overview", label: "Chapter map", fit: "contain" },
+      { src: "/projects/ehu-museums-flow.webp", alt: "Placeholder for EHU Museums editorial chapter layout", label: "Editorial layout", fit: "contain" },
     ],
     tone: "museum",
   },
@@ -127,9 +127,9 @@ const projects: Project[] = [
     role: "Product Design · MVP · Pitch deck · Investor communication",
     status: "Active startup · pre-seed",
     tags: ["AI SaaS", "UX research", "MVP", "Product strategy"],
-    cover: "/projects/zernote-jobs-tree.png",
+    cover: "/projects/zernote-jobs-tree.webp",
     coverAlt: "Zernote jobs tree interface",
-    overviewImage: "/projects/zernote-hero-collage.png",
+    overviewImage: "/projects/zernote-hero-collage.webp",
     overviewImageAlt: "Zernote research collage with interview notes, insights, analytics and connected evidence",
     challenge: "Interview evidence was scattered across tools, analysis took hours and teams lost the context behind product decisions.",
     direction: "I designed the MVP platform, created the investor pitch deck, spoke with investors and advisors, and mentored 3 design interns while the product moved from concept to a live workflow.",
@@ -148,7 +148,7 @@ const projects: Project[] = [
       { name: "Zernote MCP", description: "A research-focused MCP setup for working with evidence and analysis wherever your workflow lives." },
     ],
     challengeStory: {
-      image: "/projects/zernote-mentoring.png",
+      image: "/projects/zernote-mentoring.webp",
       imageAlt: "Mentoring pre-junior design interns through research and product work",
       title: "Mentoring the next designers.",
       body: "Alongside product design, I mentored design interns at the pre-junior level: helping them structure research, make thoughtful interface decisions and grow confidence through regular feedback.",
@@ -164,9 +164,9 @@ const projects: Project[] = [
       "mentored 3 design interns",
       "concept to a live workflow",
     ],
-    directionVisual: "/projects/zernote-pitch-deck.png",
+    directionVisual: "/projects/zernote-pitch-deck.webp",
     directionVisualAlt: "Pitch deck presentation with product strategy, charts and investor discussion",
-    screensVisualImage: "/projects/zernote-design-research.png",
+    screensVisualImage: "/projects/zernote-design-research.webp",
     screensVisualImageAlt: "Interface design and user research workflow with interviews, insights and product screens",
     screensCopy: {
       title: "Interfaces shaped by research.",
@@ -184,13 +184,13 @@ const projects: Project[] = [
       "grow confidence through regular feedback",
     ],
     gallery: [
-      { src: "/projects/zernote-ideas.png", alt: "Zernote ideas table with confidence and evidence", label: "Evidence-backed ideas", fit: "contain" },
-      { src: "/projects/zernote-idea-detail.png", alt: "Zernote idea detail with supporting evidence", label: "Idea detail", fit: "contain" },
-      { src: "/projects/zernote-research-dashboard.png", alt: "Zernote research dashboard and activity graph", label: "Research overview", fit: "contain" },
-      { src: "/projects/zernote-jobs-tree.png", alt: "Zernote jobs tree and job detail panel", label: "Jobs tree", fit: "contain" },
-      { src: "/projects/zernote-design-notes.png", alt: "Annotated Zernote table design specifications", label: "System thinking", fit: "contain" },
-      { src: "/projects/zernote-pitch-solution.png", alt: "Zernote pitch deck solution slide", label: "Pitch deck · solution", fit: "contain" },
-      { src: "/projects/zernote-pitch-traction.png", alt: "Zernote pitch deck traction slide", label: "Pitch deck · traction", fit: "contain" },
+      { src: "/projects/zernote-ideas.webp", alt: "Zernote ideas table with confidence and evidence", label: "Evidence-backed ideas", fit: "contain" },
+      { src: "/projects/zernote-idea-detail.webp", alt: "Zernote idea detail with supporting evidence", label: "Idea detail", fit: "contain" },
+      { src: "/projects/zernote-research-dashboard.webp", alt: "Zernote research dashboard and activity graph", label: "Research overview", fit: "contain" },
+      { src: "/projects/zernote-jobs-tree.webp", alt: "Zernote jobs tree and job detail panel", label: "Jobs tree", fit: "contain" },
+      { src: "/projects/zernote-design-notes.webp", alt: "Annotated Zernote table design specifications", label: "System thinking", fit: "contain" },
+      { src: "/projects/zernote-pitch-solution.webp", alt: "Zernote pitch deck solution slide", label: "Pitch deck · solution", fit: "contain" },
+      { src: "/projects/zernote-pitch-traction.webp", alt: "Zernote pitch deck traction slide", label: "Pitch deck · traction", fit: "contain" },
     ],
     tone: "zernote",
   },
@@ -259,7 +259,7 @@ export default function Home() {
                     {project.tone === "museum" ? (
                       <Image
                         unoptimized
-                        src="/projects/ehu-museums-hero.png"
+                        src="/projects/ehu-museums-hero.webp"
                         alt="EHU Museum virtual exhibition poster"
                         fill
                         sizes="(max-width: 760px) 96vw, 88vw"
@@ -282,7 +282,7 @@ export default function Home() {
                       <span className="museum-floating-figure museum-floating-figure-reading">
                         <Image
                           unoptimized
-                          src="/projects/ehu-reading-figure.png"
+                          src="/projects/ehu-reading-figure.webp"
                           alt=""
                           fill
                           sizes="(max-width: 760px) 27vw, 16vw"
@@ -292,7 +292,7 @@ export default function Home() {
                       <span className="museum-floating-figure museum-floating-figure-campus">
                         <Image
                           unoptimized
-                          src="/projects/ehu-campus-figure.png"
+                          src="/projects/ehu-campus-figure.webp"
                           alt=""
                           fill
                           sizes="(max-width: 760px) 29vw, 18vw"
@@ -340,7 +340,7 @@ export default function Home() {
         <figure className="process-graph process-graph-image" data-reveal>
           <Image
             unoptimized
-            src="/process-diagram.png"
+            src="/process-diagram.webp"
             alt="Design process cycle: Define, Research, Develop, Measure and Refine"
             width={2170}
             height={725}
@@ -401,7 +401,7 @@ export default function Home() {
       <footer className="site-footer" id="contact">
         <Image
           className="footer-character"
-          src="/footer-character.png"
+          src="/footer-character.webp"
           alt=""
           aria-hidden="true"
           width={1122}

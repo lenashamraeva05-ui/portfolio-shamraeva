@@ -255,7 +255,7 @@ function NdaScreenVisual() {
     <div className="nda-screen-visual" role="img" aria-label="Private product screens shared in context only">
       <Image
         unoptimized
-        src="/projects/tbank-private-screens.png"
+        src="/projects/tbank-private-screens.webp"
         alt="Private product screens shared in context only"
         fill
         sizes="(max-width: 1024px) 100vw, 62vw"
@@ -552,7 +552,7 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
             <div className="statist-direction-visual">
               <Image
                 unoptimized
-                src="/projects/statist-direction.png"
+                src="/projects/statist-direction.webp"
                 alt="Statist analytics visual with charts, a rising trend line and Statist wordmark"
                 fill
                 sizes="(max-width: 1024px) 100vw, 62vw"

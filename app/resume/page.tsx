@@ -107,7 +107,7 @@ const experience: Experience[] = [
     description:
       "Worked on Statist, T-Bank’s internal analytics platform.",
     mark: "tbank",
-    logo: "/logos/t-bank.png",
+    logo: "/logos/t-bank.webp",
   },
   {
     company: "Student's Hub",
@@ -115,7 +115,7 @@ const experience: Experience[] = [
     dates: "Dec 2023 – Apr 2025 · 1 yr 5 mos",
     description: "Designed UX/UI for Student’s Hub, a freelance platform for students.",
     mark: "students",
-    logo: "/logos/students-hub.png",
+    logo: "/logos/students-hub.webp",
   },
   {
     company: "EHU IT Hub",
@@ -170,7 +170,7 @@ export default function ResumePage() {
           <div className="resume-reference-photo">
             <Image
               unoptimized
-              src="/resume-avatar.png"
+              src="/resume-avatar.webp"
               alt="Elena working at her laptop"
               fill
               priority
