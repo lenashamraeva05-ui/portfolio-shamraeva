@@ -86,7 +86,7 @@ type Experience = {
 const experience: Experience[] = [
   {
     company: "U-Servers",
-    role: "Middle UX/UI designer",
+    role: "UX/UI designer",
     dates: "Aug 2024 – Present · 2 yrs 2 mos",
     description: "Redesigned core product interfaces and maintained the design system for U-Servers.",
     mark: "uservers",
@@ -94,7 +94,7 @@ const experience: Experience[] = [
   },
   {
     company: "Zernote",
-    role: "Middle UX/UI Designer",
+    role: "UX/UI Designer",
     dates: "Feb 2026 – Present · 8 mos",
     description: "Designed AI-assisted research tools for interviews, insight extraction, and hypothesis validation at Zernote.",
     mark: "zernote",

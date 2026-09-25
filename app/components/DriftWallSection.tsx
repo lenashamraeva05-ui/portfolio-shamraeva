@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import DriftWall from "../../components/DriftWall";
 
 const items = [
@@ -35,27 +36,56 @@ const items = [
 ];
 
 export default function DriftWallSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    if (!("IntersectionObserver" in window)) {
+      const frame = window.requestAnimationFrame(() => setIsReady(true));
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setIsReady(true);
+        observer.disconnect();
+      },
+      // Start just before the wall enters view so its first frame is ready without
+      // competing with the initial page images.
+      { rootMargin: "600px 0px" },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="drift-wall-section" aria-label="Other projects gallery">
-      <DriftWall
-        items={items}
-        columns={6}
-        tileWidth={200}
-        tileHeight={132}
-        gap={18}
-        tilt={16}
-        turn={-14}
-        perspective={1200}
-        depth={120}
-        speed={24}
-        direction="up"
-        variance={0.45}
-        parallax={0.6}
-        lift={64}
-        fade={0.6}
-        dim={0.55}
-        overlayColor="#060010"
-      />
+    <div ref={sectionRef} className="drift-wall-section" aria-label="Other projects gallery" aria-busy={!isReady}>
+      {isReady && (
+        <DriftWall
+          items={items}
+          columns={6}
+          tileWidth={200}
+          tileHeight={132}
+          gap={18}
+          tilt={16}
+          turn={-14}
+          perspective={1200}
+          depth={120}
+          speed={24}
+          direction="up"
+          variance={0.45}
+          parallax={0.6}
+          lift={64}
+          fade={0.6}
+          dim={0.55}
+          overlayColor="#060010"
+        />
+      )}
     </div>
   );
 }
