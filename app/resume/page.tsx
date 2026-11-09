@@ -95,8 +95,8 @@ const experience: Experience[] = [
   {
     company: "Zernote",
     role: "UX/UI Designer",
-    dates: "Feb 2026 - Present · 8 mos",
-    description: "Designed AI-assisted research tools for interviews, insight extraction, and hypothesis validation at Zernote.",
+    dates: "Feb 2026 - Nov 2026",
+    description: "Designed AI-assisted research tools for interviews, insight extraction, and hypothesis validation at Zernote. The project concluded as the team shifted focus to new initiatives.",
     mark: "zernote",
     logo: "/logos/zernote.svg",
   },

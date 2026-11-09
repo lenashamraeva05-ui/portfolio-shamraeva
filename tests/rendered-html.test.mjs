@@ -171,3 +171,48 @@ test("versions static route payload requests across production deployments", asy
   const result = githubPagesRsc().transform(source, modulePath.pathname);
   assert.match(result.code, /url.searchParams.set\("__release",/);
 });
+
+test("renders a one-field contact note with explicit email handoff", async () => {
+  const html = await render();
+  assert.match(html, /Or leave a note here/);
+  assert.match(html, /id="portfolio-note"/);
+  assert.match(html, /Opens your email app with your note ready to send/);
+  assert.match(html, /Thoughtful design newsletters and new-role updates/);
+  const { contactNoteHref } = await import("../lib/contact-note.mjs");
+  assert.equal(contactNoteHref("   "), null);
+  const note = "A role & a thought?\nhttps://example.com/portfolio#work";
+  const href = contactNoteHref(note);
+  assert.ok(href.startsWith("mailto:lena.shamraeva.05@gmail.com?"));
+  const query = new URLSearchParams(href.split("?")[1]);
+  assert.equal(query.get("body"), note);
+  assert.equal(query.get("subject"), "A note about your portfolio");
+});
+
+test("records the Zernote project as concluded in November 2026", async () => {
+  const home = await render();
+  const resume = await render("/resume");
+  assert.match(home, /Startup project · concluded Nov 2026/);
+  assert.doesNotMatch(home, /Active startup|Zernote is becoming/);
+  assert.match(resume, /Feb 2026 - Nov 2026/);
+  assert.match(resume, /The project concluded as the team shifted focus to new initiatives/);
+  assert.doesNotMatch(resume, /Feb 2026 - Present/);
+});
+
+
+
+
+
+test("combines the AI, clay, handoff, research and UK story into one accessible section", async () => {
+  const html = await render();
+  assert.match(html, /Why work with me\?/);
+  for (const id of ["foundation", "workflow", "handoff", "research", "uk"]) {
+    assert.match(html, new RegExp(`id="why-me-tab-${id}"`));
+    assert.match(html, new RegExp(`id="why-me-panel-${id}"`));
+  }
+  assert.match(html, /Codex, Claude, Cursor/);
+  assert.match(html, /class="clay-media"/);
+  assert.match(html, /junior or mid-level role/);
+  assert.doesNotMatch(html, /class="ai-practice"|class="clay-section"/);
+  assert.ok(html.indexOf('id="why-me-title"') < html.indexOf('id="work"'));
+  assert.match(html, /application\/ld\+json/);
+});

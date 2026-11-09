@@ -52,6 +52,7 @@ export default function Lanyard({
     <div className="lanyard-wrapper" style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
       <Canvas
         fallback={<div role="img" aria-label="Elena Shamraeva, product designer" style={{ width: '100%', height: '100%', background: `center / contain no-repeat url(${frontImage || '/product-designer-card.webp'})` }} />}
+        style={{ touchAction: 'pan-y pinch-zoom' }}
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
@@ -267,11 +268,15 @@ function Band({
             onDoubleClick={() => setFlipped(value => !value)}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={e => (e.target.releasePointerCapture(e.pointerId), drag(false))}
-            onPointerDown={e => (
-              e.target.setPointerCapture(e.pointerId),
-              drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
-            )}
+            onPointerUp={e => {
+              if (e.target.hasPointerCapture(e.pointerId)) e.target.releasePointerCapture(e.pointerId);
+              drag(false);
+            }}
+            onPointerDown={e => {
+              if (e.pointerType === 'touch') return;
+              e.target.setPointerCapture(e.pointerId);
+              drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
+            }}
           >
             <group ref={tilt}>
               <mesh geometry={nodes.card.geometry}>

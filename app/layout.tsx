@@ -54,6 +54,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className={`${inter.variable} ${jakarta.variable}`}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org", "@type": "Person", name: "Elena Shamraeva",
+          url: "https://elena.shamraeva.co.uk", jobTitle: "Product Designer",
+          description: "Product designer based in Eastbourne, UK, with experience in UX research, interface design, design systems and AI-assisted workflows.",
+          knowsAbout: ["Product design", "UX research", "Figma", "Design systems", "Prototyping", "AI-assisted prototyping", "MCP workflows"],
+          sameAs: ["https://www.linkedin.com/in/elena-shamraeva-a73464393"],
+        }).replace(/</g, "\\u003c") }} />
         {children}
         <SlowLoadingFallback />
         <WelcomeSticker />

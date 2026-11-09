@@ -8,6 +8,8 @@ import LightRays from "../components/LightRays";
 import HeroBlurText from "./components/HeroBlurText";
 import DriftWallSection from "./components/DriftWallSection";
 import SpotlightCard from "@/components/SpotlightCard";
+import ContactNote from "./components/ContactNote";
+import WhyMe from "./components/WhyMe";
 
 type Project = ProjectCaseData & {
   id: string;
@@ -125,7 +127,7 @@ const projects: Project[] = [
     eyebrow: "AI research SaaS from interview to decision",
     summary: "An end-to-end research workspace that carries teams from the interview room to a clear decision.",
     role: "Product Design · MVP · Pitch deck · Investor communication",
-    status: "Active startup · pre-seed",
+    status: "Startup project · concluded Nov 2026",
     tags: ["AI SaaS", "UX research", "MVP", "Product strategy"],
     cover: "/projects/zernote-jobs-tree.webp",
     coverAlt: "Zernote jobs tree interface",
@@ -133,7 +135,7 @@ const projects: Project[] = [
     overviewImageAlt: "Zernote research collage with interview notes, insights, analytics and connected evidence",
     challenge: "Interview evidence was scattered across tools, analysis took hours and teams lost the context behind product decisions.",
     direction: "I designed the MVP platform, created the investor pitch deck, spoke with investors and advisors, and mentored 3 design interns while the product moved from concept to a live workflow.",
-    result: "Zernote is becoming an end-to-end research solution: an AI-assisted companion during interviews that helps refine questions and close hypotheses, then a workspace for full analysis, synthesis and presentations to a manager or client. AI supports the researcher throughout the process - it accelerates the work without replacing the person leading it.",
+    result: "Zernote was designed as an end-to-end research solution: an AI-assisted companion during interviews that helps refine questions and close hypotheses, then a workspace for full analysis, synthesis and presentations to a manager or client. AI supports the researcher throughout the process - it accelerates the work without replacing the person leading it. The project concluded in November 2026 as the team shifted focus to new initiatives.",
     metrics: [],
     overviewHighlights: [
       "end-to-end research solution",
@@ -244,6 +246,10 @@ export default function Home() {
         <p className="hero-meta">Graphic design background · 4th-year university student · Eastbourne, UK</p>
       </section>
 
+
+
+      <WhyMe />
+
       <div className="case-chapters" id="work">
         {projects.map((project) => (
           <article className={`project-story project-${project.tone}`} id={project.slug} key={project.slug}>
@@ -350,7 +356,9 @@ export default function Home() {
         </figure>
       </section>
 
-      <section className="contact-grid" aria-labelledby="connect-title">
+
+
+      <section className="contact-grid" id="contact" aria-labelledby="connect-title">
         <div className="contact-rays" aria-hidden="true">
           <LightRays
             raysOrigin="top-center"
@@ -396,6 +404,7 @@ export default function Home() {
             </a>
           </SpotlightCard>
         </div>
+        <ContactNote />
         <div className="contact-illustration" aria-hidden="true">
         <Image
           className="footer-character"
@@ -410,7 +419,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="site-footer" id="contact">
+      <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-copy">
             <strong>© 2026 Elena Shamraeva. All Rights Reserved.</strong>

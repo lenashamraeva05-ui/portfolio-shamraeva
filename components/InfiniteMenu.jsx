@@ -470,7 +470,8 @@ class ArcballControl {
       }
     }, options);
 
-    canvas.style.touchAction = 'none';
+    canvas.addEventListener('pointercancel', () => { this.isPointerDown = false; }, options);
+    canvas.style.touchAction = 'pan-y pinch-zoom';
   }
 
   update(deltaTime, targetFrameDuration = 16) {
