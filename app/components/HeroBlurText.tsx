@@ -14,7 +14,7 @@ const TypedBlurText = BlurText as unknown as ComponentType<{
 
 export default function HeroBlurText() {
   const handleAnimationComplete = () => {
-    console.log("Animation completed!");
+    // The heading remains the accessible source of this decorative text.
   };
 
   return (

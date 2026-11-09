@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import './DriftWall.css';
 
+/** @type {{ image: string, title: string, href?: string }[]} */
 const DEFAULT_ITEMS = Array.from({ length: 15 }, (_, i) => {
   const ids = [1015, 1025, 1039, 1043, 1044, 1050, 1062, 1069, 1074, 1080, 1084, 106, 110, 133, 164];
   return {
@@ -41,7 +42,7 @@ const DriftWall = ({
   grayscale = false,
   overlayColor = '#060010',
   className = '',
-  style
+  style = {}
 }) => {
   const containerRef = useRef(null);
   const planeRef = useRef(null);
@@ -118,7 +119,15 @@ const DriftWall = ({
   );
 
   useEffect(() => {
+    let visible = false;
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; lastTsRef.current = null; });
+    if (containerRef.current) observer.observe(containerRef.current);
     const animate = ts => {
+      if (!visible || document.hidden) {
+        lastTsRef.current = null;
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
       if (lastTsRef.current === null) lastTsRef.current = ts;
       const dt = Math.min(0.05, Math.max(0, ts - lastTsRef.current) / 1000);
       lastTsRef.current = ts;
@@ -162,6 +171,7 @@ const DriftWall = ({
     rafRef.current = requestAnimationFrame(animate);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      observer.disconnect();
       rafRef.current = null;
       lastTsRef.current = null;
     };
@@ -248,7 +258,7 @@ const DriftWall = ({
       );
     }
     return (
-      <div key={id} tabIndex={0} role="button" aria-label={item.title ?? 'tile'} {...commonProps}>
+      <div key={id} {...commonProps}>
         {inner}
       </div>
     );

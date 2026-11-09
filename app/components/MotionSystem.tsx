@@ -29,6 +29,17 @@ export default function MotionSystem() {
       { rootMargin: "0px 0px -9%", threshold: 0.08 },
     );
     revealNodes.forEach((node) => observer.observe(node));
+    // Filters and lazy components may add content after the route effect ran.
+    const additions = new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of record.addedNodes) {
+          if (!(node instanceof HTMLElement)) continue;
+          if (node.matches("[data-reveal]")) observer.observe(node);
+          node.querySelectorAll<HTMLElement>("[data-reveal]").forEach((child) => observer.observe(child));
+        }
+      }
+    });
+    additions.observe(document.body, { childList: true, subtree: true });
 
     const sceneNodes = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-scene]"));
     const panelNodes = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-panel]"));
@@ -78,6 +89,7 @@ export default function MotionSystem() {
     window.addEventListener("load", requestUpdate);
 
     return () => {
+      additions.disconnect();
       observer.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", requestUpdate);

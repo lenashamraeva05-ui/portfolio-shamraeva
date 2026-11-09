@@ -451,22 +451,24 @@ class ArcballControl {
     this._rotationVelocity = 0;
     this._combinedQuat = quat.create();
 
+    this.events = new AbortController();
+    const options = { signal: this.events.signal };
     canvas.addEventListener('pointerdown', e => {
       vec2.set(this.pointerPos, e.clientX, e.clientY);
       vec2.copy(this.previousPointerPos, this.pointerPos);
       this.isPointerDown = true;
-    });
+    }, options);
     canvas.addEventListener('pointerup', () => {
       this.isPointerDown = false;
-    });
+    }, options);
     canvas.addEventListener('pointerleave', () => {
       this.isPointerDown = false;
-    });
+    }, options);
     canvas.addEventListener('pointermove', e => {
       if (this.isPointerDown) {
         vec2.set(this.pointerPos, e.clientX, e.clientY);
       }
-    });
+    }, options);
 
     canvas.style.touchAction = 'none';
   }
@@ -606,6 +608,8 @@ class InfiniteGridMenu {
     this.scaleFactor = scale;
     this.camera.position[2] = 3 * scale;
     this.#init(onInit);
+    this.observer = new IntersectionObserver(([entry]) => { this.visible = entry.isIntersecting; });
+    this.observer.observe(canvas);
   }
 
   resize() {
@@ -620,16 +624,27 @@ class InfiniteGridMenu {
     this.#updateProjectionMatrix(gl);
   }
 
+  destroy() {
+    this.destroyed = true;
+    cancelAnimationFrame(this.frame);
+    this.control?.events.abort();
+    this.observer?.disconnect();
+    this.gl?.getExtension('WEBGL_lose_context')?.loseContext();
+  }
+
   run(time = 0) {
+    if (this.destroyed) return;
     this.#deltaTime = Math.min(32, time - this.#time);
     this.#time = time;
     this.#deltaFrames = this.#deltaTime / this.TARGET_FRAME_DURATION;
     this.#frames += this.#deltaFrames;
 
-    this.#animate(this.#deltaTime);
-    this.#render();
+    if (this.visible !== false && !document.hidden) {
+      this.#animate(this.#deltaTime);
+      this.#render();
+    }
 
-    requestAnimationFrame(t => this.run(t));
+    this.frame = requestAnimationFrame(t => this.run(t));
   }
 
   #init(onInit) {
@@ -714,15 +729,17 @@ class InfiniteGridMenu {
             const img = new Image();
             img.crossOrigin = 'anonymous';
             img.onload = () => resolve(img);
+            img.onerror = () => resolve(null);
             img.src = item.image;
           })
       )
     ).then(images => {
+      if (this.destroyed || gl.isContextLost()) return;
       images.forEach((img, i) => {
         const x = (i % this.atlasSize) * cellSize;
         const y = Math.floor(i / this.atlasSize) * cellSize;
         // Each supplied frame is square, so place it in the atlas without cropping.
-        ctx.drawImage(img, x, y, cellSize, cellSize);
+        if (img) ctx.drawImage(img, x, y, cellSize, cellSize);
       });
 
       gl.bindTexture(gl.TEXTURE_2D, this.tex);
@@ -914,6 +931,7 @@ const defaultItems = [
   }
 ];
 
+/** @param {{items?: {image: string, link: string, title: string, description: string}[], scale?: number, backgroundColor?: string}} props */
 export default function InfiniteMenu({ items = [], scale = 1.0, backgroundColor = '#000000' }) {
   const canvasRef = useRef(null);
   const [activeItem, setActiveItem] = useState(null);
@@ -924,8 +942,8 @@ export default function InfiniteMenu({ items = [], scale = 1.0, backgroundColor 
     let sketch;
 
     const handleActiveItem = index => {
-      const itemIndex = index % items.length;
-      setActiveItem(items[itemIndex]);
+      const source = items.length ? items : defaultItems;
+      setActiveItem(source[index % source.length]);
     };
 
     if (canvas) {
@@ -950,13 +968,14 @@ export default function InfiniteMenu({ items = [], scale = 1.0, backgroundColor 
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      sketch?.destroy();
     };
   }, [items, scale]);
 
   const handleButtonClick = () => {
     if (!activeItem?.link) return;
     if (activeItem.link.startsWith('http')) {
-      window.open(activeItem.link, '_blank');
+      window.open(activeItem.link, '_blank', 'noopener,noreferrer');
     } else {
       console.log('Internal route:', activeItem.link);
     }

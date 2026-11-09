@@ -1,8 +1,7 @@
 import type { CSSProperties } from "react";
 import PortfolioHeader from "../components/PortfolioHeader";
 import DarkVeil from "../../components/DarkVeil";
-import Lanyard from "../../components/Lanyard";
-import InfiniteMenu from "../../components/InfiniteMenu";
+import { ProfileCard, OutsideWorkGallery } from "../components/AboutVisuals";
 
 const outsideWorkItems = [
   { image: "/outside-work-item-1.webp", link: "https://www.instagram.com/ftr0ys_emmm?stkn=MW16YXg5NmxtNDg2bw==", title: "Cookie & Masya", description: "Aren’t they the cutest?" },
@@ -20,14 +19,8 @@ export default function AboutPage() {
         <div className="about-opening-veil" aria-hidden="true">
           <DarkVeil hueShift={200} />
         </div>
-        <div className="about-opening-lanyard" data-reveal aria-label="Interactive Elena Shamraeva profile card. Drag to move it and double-click to turn it over.">
-          <Lanyard
-            position={[0, 0, 20]}
-            gravity={[0, -40, 0]}
-            frontImage="/product-designer-card.webp"
-            imageFit="cover"
-            showLanyardLogo={false}
-          />
+        <div className="about-opening-lanyard" aria-label="Interactive Elena Shamraeva profile card. Drag to move it and double-click to turn it over.">
+          <ProfileCard />
         </div>
         <div className="about-opening-statement" data-reveal style={{ "--delay": "60ms" } as CSSProperties}>
           <h1>I’m a team player</h1>
@@ -53,7 +46,7 @@ export default function AboutPage() {
           <p>Places, rhythms and small moments that stay behind the scenes.</p>
         </div>
         <div className="about-infinite-menu" data-reveal style={{ "--delay": "100ms" } as CSSProperties}>
-          <InfiniteMenu items={outsideWorkItems} backgroundColor="#0e0f10" />
+          <OutsideWorkGallery items={outsideWorkItems} />
         </div>
         <p className="about-infinite-menu-hint">
           <span>Drag to explore</span>

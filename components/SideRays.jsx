@@ -71,15 +71,17 @@ const SideRays = ({
       cleanupFunctionRef.current = null;
     }
 
+    let cancelled = false;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const initializeWebGL = async () => {
       if (!containerRef.current) return;
 
       await new Promise(resolve => setTimeout(resolve, 10));
 
-      if (!containerRef.current) return;
+      if (cancelled || !containerRef.current) return;
 
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
+        dpr: Math.min(window.devicePixelRatio, 1.5),
         alpha: true
       });
       rendererRef.current = renderer;
@@ -186,7 +188,7 @@ void main() {
 
       const updateSize = () => {
         if (!containerRef.current || !renderer) return;
-        renderer.dpr = Math.min(window.devicePixelRatio, 2);
+        renderer.dpr = Math.min(window.devicePixelRatio, 1.5);
         const { clientWidth: w, clientHeight: h } = containerRef.current;
         renderer.setSize(w, h);
         uniforms.iResolution.value = [w * renderer.dpr, h * renderer.dpr];
@@ -197,7 +199,7 @@ void main() {
         if (animate) uniforms.iTime.value = t * 0.001;
         try {
           renderer.render({ scene: mesh });
-          if (animate) animationIdRef.current = requestAnimationFrame(loop);
+          if (animate && !reducedMotion) animationIdRef.current = requestAnimationFrame(loop);
         } catch {
           return;
         }
@@ -205,7 +207,7 @@ void main() {
 
       window.addEventListener('resize', updateSize);
       updateSize();
-      if (animate) {
+      if (animate && !reducedMotion) {
         animationIdRef.current = requestAnimationFrame(loop);
       } else {
         // Render a stable frame when decorative motion is disabled.
@@ -232,9 +234,13 @@ void main() {
       };
     };
 
-    initializeWebGL();
+    void initializeWebGL().catch(() => {
+      cleanupFunctionRef.current?.();
+      cleanupFunctionRef.current = null;
+    });
 
     return () => {
+      cancelled = true;
       if (cleanupFunctionRef.current) {
         cleanupFunctionRef.current();
         cleanupFunctionRef.current = null;

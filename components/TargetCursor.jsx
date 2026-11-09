@@ -9,6 +9,13 @@ import './TargetCursor.css';
 // ancestor establishes a containing block (transform, perspective, filter,
 // will-change of those, or contain). When that happens, the cursor's translate
 // no longer maps to viewport coordinates, so we measure and compensate for it.
+const cursorMedia = '(hover: hover) and (pointer: fine) and (min-width: 769px) and (prefers-reduced-motion: no-preference)';
+const subscribeCursorMedia = listener => {
+  const media = window.matchMedia(cursorMedia);
+  media.addEventListener('change', listener);
+  return () => media.removeEventListener('change', listener);
+};
+
 const getContainingBlock = element => {
   let node = element?.parentElement;
   while (node && node !== document.documentElement) {
@@ -61,15 +68,11 @@ const TargetCursor = ({
     () => false
   );
 
-  const isMobile = useMemo(() => {
-    if (typeof window === 'undefined') return false;
-    const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const isSmallScreen = window.innerWidth <= 768;
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
-    const isMobileUserAgent = mobileRegex.test(userAgent.toLowerCase());
-    return (hasTouchScreen && isSmallScreen) || isMobileUserAgent;
-  }, []);
+  const isMobile = useSyncExternalStore(
+    subscribeCursorMedia,
+    () => !window.matchMedia(cursorMedia).matches,
+    () => true
+  );
 
   const constants = useMemo(
     () => ({

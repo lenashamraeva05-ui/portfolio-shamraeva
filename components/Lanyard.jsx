@@ -51,6 +51,7 @@ export default function Lanyard({
   return (
     <div className="lanyard-wrapper">
       <Canvas
+        fallback={<div role="img" aria-label="Elena Shamraeva, product designer" style={{ width: '100%', height: '100%', background: `center / contain no-repeat url(${frontImage || '/product-designer-card.webp'})` }} />}
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}

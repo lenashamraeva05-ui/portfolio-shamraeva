@@ -1,7 +1,7 @@
 "use client";
 
 import { Mail, Phone } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type ContactKind = "email" | "phone";
 
@@ -30,18 +30,29 @@ async function copyText(value: string) {
   textArea.style.opacity = "0";
   document.body.appendChild(textArea);
   textArea.select();
-  document.execCommand("copy");
-  textArea.remove();
+  try {
+    if (!document.execCommand("copy")) throw new Error("Copy unavailable");
+  } finally { textArea.remove(); }
 }
 
 export default function ContactActions() {
   const [toast, setToast] = useState<string | null>(null);
 
-  const handleCopy = (kind: ContactKind) => {
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; clearTimeout(timerRef.current); };
+  }, []);
+  const handleCopy = async (kind: ContactKind) => {
     const { value, message } = contactDetails[kind];
-    void copyText(value).catch(() => undefined);
-    setToast(message);
-    window.setTimeout(() => setToast(null), 2200);
+    let result = message;
+    try { await copyText(value); }
+    catch { result = "Could not copy. Please select and copy the contact."; }
+    if (!mountedRef.current) return;
+    clearTimeout(timerRef.current);
+    setToast(result);
+    timerRef.current = setTimeout(() => setToast(null), 2200);
   };
 
   return (
@@ -49,11 +60,7 @@ export default function ContactActions() {
       <a
         href={contactDetails.email.href}
         className="resume-contact-link"
-        onClick={(event) => {
-          event.preventDefault();
-          handleCopy("email");
-          window.open(contactDetails.email.href, "_blank", "noopener,noreferrer");
-        }}
+        onClick={() => { void handleCopy("email"); }}
         title="Copy email and write"
       >
         <Mail className="resume-contact-icon" aria-hidden="true" />

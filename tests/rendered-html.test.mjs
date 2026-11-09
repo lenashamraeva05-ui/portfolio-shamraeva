@@ -96,3 +96,35 @@ test("ships the real project visuals and processed portrait", async () => {
     access(new URL("../dist/client/welcome-sticker.png", import.meta.url)),
   ]);
 });
+
+test("all rendered local images, scripts, styles and route links exist in the export", async () => {
+  for (const pathname of ["", "/about", "/resume", "/blog"]) {
+    const html = await render(pathname);
+    const references = [...html.matchAll(/(?:src|href|poster)="(\/[^"?#]*)(?:[^"\s]*)"/g)];
+    for (const [, path] of references) {
+      if (path.startsWith("//")) continue;
+      const file = /\.[a-z0-9]+$/i.test(path) ? path : `${path.replace(/\/$/, "")}/index.html`;
+      await assert.doesNotReject(access(new URL(`../dist/client${file}`, import.meta.url)), `${pathname || "/"}: ${path}`);
+    }
+    assert.match(html, /<main[^>]+id="main-content"/);
+  }
+});
+
+test("keeps heavyweight visuals deferred and video network loading opt-in", async () => {
+  const home = await render();
+  const about = await render("/about");
+  assert.match(home, /<video[^>]+preload="none"/);
+  assert.doesNotMatch(home, /<video[^>]+src=/);
+  assert.doesNotMatch(about, /rel="modulepreload"[^>]+href="[^"]*Lanyard/);
+  assert.match(about, /alt="Elena Shamraeva, product designer"/);
+});
+
+test("GitHub Pages restoration preserves local paths and rejects external redirects", async () => {
+  const { restoreLocalPath } = await import("../lib/navigation.mjs");
+  const origin = "https://elena.shamraeva.co.uk";
+  assert.equal(restoreLocalPath("/about?from=home#about", origin), "/about?from=home#about");
+  assert.equal(restoreLocalPath("/resume?ghp-path=%2Fabout&x=1", origin), "/resume?x=1");
+  for (const path of [null, "", "about", "https://example.com", "//example.com/path", "/\\example.com/path"]) {
+    assert.equal(restoreLocalPath(path, origin), null, String(path));
+  }
+});

@@ -167,7 +167,7 @@ p, li { text-wrap: pretty; }
   opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-7px) scale(.97); transform-origin: top right;
   transition: opacity 180ms ease, visibility 180ms ease, transform 220ms var(--ease-out);
 }
-.contact-menu:hover .contact-popover, .contact-menu:focus-within .contact-popover, .contact-menu.is-open .contact-popover { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+.contact-menu.is-open .contact-popover { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
 .contact-popover a {
   min-height: 46px; padding: 8px 11px; display: grid; grid-template-columns: 28px 1fr; gap: 9px; align-items: center;
   border-radius: 16px; color: #afb5b0; font-size: 14px; transition: color 160ms ease, background 160ms ease;
@@ -288,7 +288,7 @@ html.motion-ready [data-reveal].is-visible { opacity: 1; transform: none; }
   background: var(--bg);
 }
 /* The interactive About card must be able to travel beyond its opening panel. */
-body:has(.about-page) { overflow-x: visible; overscroll-behavior-x: auto; }
+body:has(.about-page) { overflow-x: clip; overscroll-behavior-x: none; }
 .project-zernote .cinema-glow { display: none; }
 .project-zernote .project-stage-sticky::after {
   display: none;

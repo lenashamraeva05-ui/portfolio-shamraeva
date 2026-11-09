@@ -8,6 +8,7 @@ export default function SlowLoadingFallback() {
   const animationRef = useRef<{ destroy?: () => void } | undefined>(undefined);
   const pathname = usePathname();
   const timerRef = useRef<number | undefined>(undefined);
+  const previousPathRef = useRef(pathname);
 
   const cancelPending = () => {
     if (timerRef.current) window.clearTimeout(timerRef.current);
@@ -44,23 +45,27 @@ export default function SlowLoadingFallback() {
 
     const handleClick = (event: MouseEvent) => {
       const target = event.target;
-      if (!(target instanceof Element)) return;
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || !(target instanceof Element)) return;
       const link = target.closest("a[href]");
-      if (!(link instanceof HTMLAnchorElement) || link.target === "_blank" || link.hasAttribute("download")) return;
+      if (!(link instanceof HTMLAnchorElement) || (link.target && link.target !== "_self") || link.hasAttribute("download")) return;
       const url = new URL(link.href, window.location.href);
       if (url.origin === window.location.origin && url.pathname !== window.location.pathname) startPending();
     };
 
+    const handlePopState = () => {
+      if (window.location.pathname !== previousPathRef.current) startPending();
+    };
     document.addEventListener("click", handleClick, true);
-    window.addEventListener("popstate", startPending);
+    window.addEventListener("popstate", handlePopState);
     return () => {
       document.removeEventListener("click", handleClick, true);
-      window.removeEventListener("popstate", startPending);
+      window.removeEventListener("popstate", handlePopState);
       if (timerRef.current) window.clearTimeout(timerRef.current);
     };
   }, []);
 
   useEffect(() => {
+    previousPathRef.current = pathname;
     const resetTimer = window.setTimeout(cancelPending, 0);
     return () => window.clearTimeout(resetTimer);
   }, [pathname]);

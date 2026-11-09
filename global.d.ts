@@ -16,6 +16,9 @@ declare module "meshline" {
 }
 
 declare global {
+  namespace Cloudflare {
+    interface Env { DB?: D1Database; }
+  }
   namespace JSX {
     interface IntrinsicElements {
       meshLineGeometry: any;

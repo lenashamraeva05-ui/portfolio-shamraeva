@@ -6,7 +6,7 @@ import Link from "next/link";
 import MotionSystem from "./MotionSystem";
 
 export default function PortfolioHeader() {
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/\/$/, "") || "/";
   const [contactOpen, setContactOpen] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -74,7 +74,6 @@ export default function PortfolioHeader() {
 
           <div
             className={`contact-menu ${contactOpen ? "is-open" : ""}`}
-            onMouseEnter={() => setContactOpen(true)}
             onMouseLeave={() => setContactOpen(false)}
             onBlur={(event) => {
               if (!event.currentTarget.contains(event.relatedTarget)) setContactOpen(false);
@@ -92,7 +91,7 @@ export default function PortfolioHeader() {
             >
               <span>Let&apos;s chat</span><b aria-hidden="true">↗</b>
             </button>
-            <div className="contact-popover" id="contact-options">
+            <div className="contact-popover" id="contact-options" inert={!contactOpen}>
               <a href="https://calendly.com/lena-shamraeva-05/30min" target="_blank" rel="noreferrer" onClick={() => setContactOpen(false)}>
                 <i aria-hidden="true">↗</i><span>Book a call</span>
               </a>

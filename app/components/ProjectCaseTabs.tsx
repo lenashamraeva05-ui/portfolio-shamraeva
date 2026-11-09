@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent, type WheelEvent } from "react";
+import ProjectVideo from "./ProjectVideo";
+import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { ReactNode } from "react";
 
 type ProjectImage = {
@@ -106,7 +107,6 @@ const museumLandingCopy = [
 function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => void }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const progressRef = useRef(0);
   const visualProgressRef = useRef(0);
@@ -125,13 +125,19 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
   useEffect(() => {
     let frame = 0;
     const duration = 72000;
+    let inView = false;
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      lastFrameRef.current = 0;
+    });
+    if (viewportRef.current) observer.observe(viewportRef.current);
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const tick = (now: number) => {
       const viewport = viewportRef.current;
       const track = trackRef.current;
-      if (viewport && track) {
+      if (viewport && track && inView && !document.hidden) {
         const maxShift = Math.max(0, track.scrollHeight - viewport.clientHeight);
-        const delta = lastFrameRef.current ? now - lastFrameRef.current : 0;
+        const delta = lastFrameRef.current ? Math.min(64, now - lastFrameRef.current) : 0;
         lastFrameRef.current = now;
         if (!draggingRef.current && !pausedRef.current && !prefersReducedMotion && now >= resumeAtRef.current) {
           progressRef.current = (progressRef.current + delta / duration) % 1;
@@ -140,7 +146,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
         const smoothing = prefersReducedMotion ? 1 : Math.min(1, delta / 220);
         visualProgressRef.current += (targetProgress - visualProgressRef.current) * smoothing;
         const progress = visualProgressRef.current;
-        setOffset(maxShift * progress);
+        track.style.transform = `translate3d(0, -${maxShift * progress}px, 0)`;
         const phase = Math.min(museumLandingCopy.length - 1, Math.floor(progress * museumLandingCopy.length));
         if (phase !== phaseRef.current) {
           phaseRef.current = phase;
@@ -150,7 +156,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
+    return () => { cancelAnimationFrame(frame); observer.disconnect(); };
   }, [onProgress]);
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
@@ -162,7 +168,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     // Touch scrolling is custom because the landing track is transformed, not natively scrolled.
-    if (!draggingRef.current || event.pointerType === "mouse") return;
+    if (!draggingRef.current) return;
     const viewport = viewportRef.current;
     const track = trackRef.current;
     if (!viewport || !track) return;
@@ -174,7 +180,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
     resumeAtRef.current = performance.now() + 3200;
   };
 
-  const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
+  const handleWheel = useCallback((event: WheelEvent) => {
     const viewport = viewportRef.current;
     const track = trackRef.current;
     if (!viewport || !track) return;
@@ -188,7 +194,13 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
       onProgress(progressRef.current);
     }
     resumeAtRef.current = performance.now() + 3200;
-  };
+  }, [onProgress]);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    viewport?.addEventListener("wheel", handleWheel, { passive: false });
+    return () => viewport?.removeEventListener("wheel", handleWheel);
+  }, [handleWheel]);
 
   const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
     if (!draggingRef.current) return;
@@ -199,8 +211,8 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
 
   return (
     <div className="museum-overview-visual">
-      <div className="museum-landing-scroll" ref={viewportRef} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onWheel={handleWheel} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp}>
-        <div className="museum-landing-track" ref={trackRef} style={{ transform: `translate3d(0, -${offset}px, 0)` }}>
+      <div className="museum-landing-scroll" ref={viewportRef} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp}>
+        <div className="museum-landing-track" ref={trackRef}>
           {museumLandingParts.map((part, index) => (
               <Image key={part.src} unoptimized src={part.src} alt={index === 0 ? "EHU Museums landing page" : ""} width={1380} height={part.height} sizes="(max-width: 1100px) 100vw, 62vw" className="museum-landing-part" />
           ))}
@@ -574,16 +586,7 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
             <MuseumLandingScroll onProgress={updateMuseumProgress} />
           ) : activeTab === "overview" && project.overviewVideo ? (
             <div className="project-overview-video">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                aria-label={project.coverAlt}
-              >
-                <source src={project.overviewVideo} type="video/webm" />
-              </video>
+              <ProjectVideo src={project.overviewVideo} poster={project.cover} label={project.coverAlt} />
             </div>
           ) : (
             <Image

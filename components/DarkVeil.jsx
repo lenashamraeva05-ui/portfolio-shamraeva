@@ -101,10 +101,10 @@ export default function DarkVeil({
     const canvas = ref.current;
     const parent = canvas.parentElement;
 
-    const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
-      canvas
-    });
+    let renderer;
+    try {
+      renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio, 1.5), canvas });
+    } catch { return; }
 
     const gl = renderer.gl;
     const geometry = new Triangle(gl);
@@ -136,10 +136,15 @@ export default function DarkVeil({
     window.addEventListener('resize', resize);
     resize();
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let visible = true;
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
+    observer.observe(canvas);
     const start = performance.now();
     let frame = 0;
 
     const loop = () => {
+      if (visible && !document.hidden) {
       program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
       program.uniforms.uHueShift.value = hueShift;
       program.uniforms.uNoise.value = noiseIntensity;
@@ -148,7 +153,8 @@ export default function DarkVeil({
       program.uniforms.uWarp.value = warpAmount;
       program.uniforms.uLightMode.value = lightMode ? 1 : 0;
       renderer.render({ scene: mesh });
-      frame = requestAnimationFrame(loop);
+      }
+      if (!reducedMotion) frame = requestAnimationFrame(loop);
     };
 
     loop();
@@ -156,6 +162,10 @@ export default function DarkVeil({
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener('resize', resize);
+      observer.disconnect();
+      geometry.remove();
+      program.remove();
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale, lightMode]);
 

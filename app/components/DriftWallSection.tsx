@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import DriftWall from "../../components/DriftWall";
+import { lazy, Suspense } from "react";
+const DriftWall = lazy(() => import("../../components/DriftWall"));
 
 const items = [
   { image: "/projects/other-nft.webp", title: "NFT" },
@@ -43,7 +44,7 @@ export default function DriftWallSection() {
     const section = sectionRef.current;
     if (!section) return;
 
-    if (!("IntersectionObserver" in window)) {
+    if (typeof IntersectionObserver === "undefined") {
       const frame = window.requestAnimationFrame(() => setIsReady(true));
       return () => window.cancelAnimationFrame(frame);
     }
@@ -66,7 +67,7 @@ export default function DriftWallSection() {
   return (
     <div ref={sectionRef} className="drift-wall-section" aria-label="Other projects gallery" aria-busy={!isReady}>
       {isReady && (
-        <DriftWall
+        <Suspense fallback={null}><DriftWall
           items={items}
           columns={6}
           tileWidth={200}
@@ -84,7 +85,7 @@ export default function DriftWallSection() {
           fade={0.6}
           dim={0.55}
           overlayColor="#060010"
-        />
+        /></Suspense>
       )}
     </div>
   );
