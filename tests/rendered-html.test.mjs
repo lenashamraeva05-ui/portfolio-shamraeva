@@ -163,3 +163,11 @@ test("keeps typography in normal case and the contact illustration in document f
   const about = await render("/about");
   assert.match(about, /class="profile-card-poster"/);
 });
+
+test("versions static route payload requests across production deployments", async () => {
+  const { githubPagesRsc } = await import("../lib/github-pages-rsc-plugin.mjs");
+  const modulePath = new URL("../node_modules/vinext/dist/server/app-rsc-cache-busting.js", import.meta.url);
+  const source = await readFile(modulePath, "utf8");
+  const result = githubPagesRsc().transform(source, modulePath.pathname);
+  assert.match(result.code, /url.searchParams.set\("__release",/);
+});
