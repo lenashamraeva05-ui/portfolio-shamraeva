@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   BookOpen,
   Blocks,
@@ -24,7 +25,7 @@ import {
   Workflow,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import Image from "next/image";
+import Image from "@/components/ResponsiveImage";
 import PortfolioHeader from "../components/PortfolioHeader";
 import DarkVeil from "../../components/DarkVeil";
 import ContactActions from "./ContactActions";
@@ -70,7 +71,7 @@ const skillGroups: SkillGroup[] = [
 ];
 
 const languages = [
-  { name: "English", level: "B1", flag: "gb" },
+  { name: "English", level: "B2", flag: "gb" },
   { name: "Russian", level: "Native", flag: "ru" },
 ];
 
@@ -86,26 +87,26 @@ type Experience = {
 const experience: Experience[] = [
   {
     company: "U-Servers",
-    role: "UX/UI designer",
+    role: "Middle UX/UI designer",
     dates: "Aug 2024 - Present · 2 yrs 2 mos",
-    description: "Redesigned core product interfaces and maintained the design system for U-Servers.",
+    description: "A digital gaming platform. Drove product discovery, CustDev, growth-oriented UX optimisation, and scalable design systems across core product experiences.",
     mark: "uservers",
     logo: "/logos/uservers.svg",
   },
   {
     company: "Zernote",
-    role: "UX/UI Designer",
-    dates: "Feb 2026 - Nov 2026",
-    description: "Designed AI-assisted research tools for interviews, insight extraction, and hypothesis validation at Zernote. The project concluded as the team shifted focus to new initiatives.",
+    role: "Middle Product designer",
+    dates: "Feb 2026 - Nov 2026 · 10 mos",
+    description: "An AI-powered user research platform. Led user interviews, mentored pre-junior designers, prototyped an MVP in Figma, vibe-coded its implementation, created pitch deck, and pitched to investors.",
     mark: "zernote",
     logo: "/logos/zernote.svg",
   },
   {
     company: "T-Bank",
-    role: "Intern",
+    role: "Intern Product Designer",
     dates: "May 2026 - Sep 2026 · 3 mos",
     description:
-      "Worked on Statist, T-Bank’s internal analytics platform.",
+      "A major digital bank. Designed and refined interfaces for Statist, an internal analytics platform, contributing to product launch readiness and go-to-market preparation.",
     mark: "tbank",
     logo: "/logos/t-bank.webp",
   },
@@ -113,7 +114,7 @@ const experience: Experience[] = [
     company: "Student's Hub",
     role: "Junior Product designer",
     dates: "Dec 2023 - Apr 2025 · 1 yr 5 mos",
-    description: "Designed UX/UI for Student’s Hub, a freelance platform for students.",
+    description: "A university-backed student freelance marketplace. Shaped marketplace UX, user flows, and product discovery to streamline student-client interactions.",
     mark: "students",
     logo: "/logos/students-hub.webp",
   },
@@ -121,7 +122,7 @@ const experience: Experience[] = [
     company: "EHU IT Hub",
     role: "Designer",
     dates: "Mar 2024 - Nov 2024 · 9 mos",
-    description: "Designed dashboards, landing pages, and digital content for EHU IT Hub.",
+    description: "A university IT community. Built visual systems, data dashboards, and conversion-focused landing pages.",
     mark: "ehu",
     logo: "/logos/ehu-it-hub.svg",
   },
@@ -129,7 +130,7 @@ const experience: Experience[] = [
     company: "Freelance",
     role: "Freelance Designer",
     dates: "Feb 2022 - May 2023 · 1 yr 4 mos",
-    description: "Worked on UX/UI design projects for freelance clients.",
+    description: "Worked on design projects for freelance clients.",
     mark: "freelance",
   },
 ];
@@ -153,8 +154,14 @@ const education: Education[] = [
   {
     institution: "Moscow Polytechnic University",
     program: "Bachelor's degree, Graphic Design",
-    dates: "Aug 2023 - Feb 2027",
+    dates: "Aug 2023 - Feb 2028",
     icon: University,
+  },
+  {
+    institution: "yudaevschool",
+    program: "UX/UI",
+    dates: "Sep 2021 - Apr 2022 · 6 mos",
+    icon: GraduationCap,
   },
 ];
 
@@ -171,7 +178,7 @@ export default function ResumePage() {
             <Image
               unoptimized
               src="/resume-avatar.webp"
-              alt="Elena working at her laptop"
+              alt="Helen working at her laptop"
               fill
               priority
               sizes="(max-width: 760px) 26vw, 148px"
@@ -180,12 +187,19 @@ export default function ResumePage() {
           <h1 className="resume-reference-title">Experience at a glance</h1>
         </div>
         <p className="resume-reference-subtitle">
-          User-centered product designer. Data-driven, growth-focused.
+          Passionate about user-centered design, data-driven strategies, and product growth. With a background in graphic design, I bring strong visual thinking and craft into digital product experiences.
         </p>
         <div className="resume-reference-contact">
           <span><MapPin className="resume-contact-icon" aria-hidden="true" />Eastbourne, UK</span>
           <ContactActions />
         </div>
+        <nav className="resume-profile-links" aria-label="Professional links">
+          <Link href="/">Visit my portfolio <span aria-hidden="true">↗</span></Link>
+          <a href="https://www.linkedin.com/in/elena-shamraeva-a73464393/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://calendly.com/lena-shamraeva-05/30min" target="_blank" rel="noreferrer">Calendly</a>
+          <a href="https://wa.me/447956042838" target="_blank" rel="noreferrer">WhatsApp</a>
+          <a href="https://t.me/ftr0ys_emmm" target="_blank" rel="noreferrer">Telegram</a>
+        </nav>
       </header>
 
       <section className="resume-reference-skills" aria-labelledby="resume-skills-title">
@@ -229,7 +243,7 @@ export default function ResumePage() {
             <span className="resume-label-dot" aria-hidden="true" />
             <h2 id="resume-experience-title">Experience</h2>
           </div>
-          <a className="resume-download" href="/resume.pdf" download>
+          <a className="resume-download" href="/resume.pdf?v=62720381fe29" download>
             <Download aria-hidden="true" />
             <span>Download CV</span>
           </a>

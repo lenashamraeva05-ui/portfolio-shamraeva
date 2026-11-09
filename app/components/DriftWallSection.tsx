@@ -1,5 +1,6 @@
 "use client";
 
+import { imageSource } from "@/lib/image-sources";
 import { useEffect, useRef, useState } from "react";
 import { lazy, Suspense } from "react";
 const DriftWall = lazy(() => import("../../components/DriftWall"));
@@ -68,7 +69,7 @@ export default function DriftWallSection() {
     <div ref={sectionRef} className="drift-wall-section" aria-label="Other projects gallery" aria-busy={!isReady}>
       {isReady && (
         <Suspense fallback={null}><DriftWall
-          items={items}
+          items={items.map(item => ({ ...item, image: imageSource(item.image, 360) }))}
           columns={6}
           tileWidth={200}
           tileHeight={132}

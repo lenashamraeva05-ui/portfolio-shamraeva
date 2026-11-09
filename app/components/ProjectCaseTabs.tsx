@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ResponsiveImage";
 import ProjectVideo from "./ProjectVideo";
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { ReactNode } from "react";
@@ -107,7 +107,6 @@ const museumLandingCopy = [
 function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => void }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const rangeRef = useRef<HTMLInputElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const progressRef = useRef(0);
   const visualProgressRef = useRef(0);
@@ -148,7 +147,6 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
         visualProgressRef.current += (targetProgress - visualProgressRef.current) * smoothing;
         const progress = visualProgressRef.current;
         track.style.transform = `translate3d(0, -${maxShift * progress}px, 0)`;
-        if (rangeRef.current && document.activeElement !== rangeRef.current) rangeRef.current.value = String(Math.round(progress * 1000));
         const phase = Math.min(museumLandingCopy.length - 1, Math.floor(progress * museumLandingCopy.length));
         if (phase !== phaseRef.current) {
           phaseRef.current = phase;
@@ -162,7 +160,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
   }, [onProgress]);
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== "mouse" || event.button !== 0) return;
+    if (event.pointerType === "mouse" && event.button !== 0) return;
     draggingRef.current = true;
     lastPointerYRef.current = event.clientY;
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -223,7 +221,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
       <div className="museum-interaction-hint" aria-label="EHU exhibition controls">
         <span className="museum-hint-item">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M6.5 5.5 10 2l3.5 3.5M6.5 14.5 10 18l3.5-3.5" /></svg>
-          <span>Explore the exhibition</span>
+          <span>Scroll to explore</span>
         </span>
         <button type="button" className="museum-hint-item museum-hint-toggle" onClick={togglePaused} aria-pressed={isPaused} aria-label={isPaused ? "Play EHU exhibition animation" : "Pause EHU exhibition animation"}>
           {isPaused ? (
@@ -234,20 +232,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
           <span>{isPaused ? "Play animation" : "Pause animation"}</span>
         </button>
       </div>
-      <input
-        ref={rangeRef}
-        className="museum-exhibition-range"
-        type="range"
-        aria-label="Explore EHU exhibition"
-        min={0}
-        max={1000}
-        defaultValue={0}
-        onChange={(event) => {
-          progressRef.current = Number(event.target.value) / 1000;
-          resumeAtRef.current = performance.now() + 3200;
-          onProgress(progressRef.current);
-        }}
-      />
+
     </div>
   );
 }
@@ -268,7 +253,7 @@ function StatistChallengeDashboard() {
     { name: "Homepage modules", key: "homepage", status: "Draft", delta: 4, value: 53 },
     { name: "Search suggestions", key: "search", status: "Live", delta: 9, value: 71 },
   ]).map((row, index) => ({ ...row, value: Math.max(18, Math.min(96, row.value + ((refresh * 11 + index * 7) % 13) - 6)) })), [refresh]);
-  const filterOptions: Record<string, string[]> = { Status: ["All", "Live", "Draft", "Paused"], Product: ["All products", "Mobile app", "Web app"], Author: ["Everyone", "Elena", "Growth team"] };
+  const filterOptions: Record<string, string[]> = { Status: ["All", "Live", "Draft", "Paused"], Product: ["All products", "Mobile app", "Web app"], Author: ["Everyone", "Helen", "Growth team"] };
 
   return (
     <div className="statist-dashboard hippo-dashboard" aria-label="Interactive Hippo experiments preview">

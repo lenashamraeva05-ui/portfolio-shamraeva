@@ -1588,8 +1588,8 @@ body:has(.resume-reference) .global-gradual-blur { display: none; }
 .dashboard-side-label, .dashboard-kicker, .dashboard-table-head, .direction-board-top, .hippo-table-head { text-transform: none; }
 
 /* Flexible learning section; the square media slot can also hold a video. */
-.clay-media { position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; border: 1px solid var(--line); border-radius: 28px; background: radial-gradient(ellipse at 40% 32%, #242a28, #111514 65%); }
-.clay-media svg { display: block; width: 100%; height: 100%; }
+.clay-media { position: relative; width: 100%; aspect-ratio: 1; overflow: visible; border: 0; border-radius: 0; background: transparent; }
+.clay-media img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .clay-media > span { position: absolute; bottom: 24px; left: 24px; right: 24px; text-align: center; color: #a9b6af; font-size: 13px; }
 html { overflow-x: clip; }
 
@@ -1654,16 +1654,16 @@ html { overflow-x: clip; }
 .why-me-tabs button { flex: 1 0 auto; min-height: 48px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 999px; background: #101412; color: #aeb7b1; font: inherit; font-size: 14px; cursor: pointer; white-space: nowrap; }
 .why-me-tabs button[aria-selected="true"] { color: #e6f2fb; border-color: rgba(150,200,255,.55); background: rgba(150,200,255,.1); }
 .why-me-tabs button:focus-visible, .why-me-panel:focus-visible { outline: 2px solid #96c8ff; outline-offset: 2px; }
-.why-me-panel { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: clamp(30px, 5vw, 70px); min-height: 440px; padding-top: 26px; }
+.why-me-panel { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 5vw, 64px); min-height: 420px; padding-top: 24px; }
 .why-me-panel[hidden] { display: none; }
-.why-me-kicker { margin: 0 0 16px; color: #96c8ff; font-size: 14px; }
+.why-me-copy { min-width: 0; max-width: 540px; }
 .why-me-copy h3 { margin: 0 0 22px; font-size: clamp(28px, 3vw, 40px); font-weight: 550; line-height: 1.12; letter-spacing: -.035em; }
-.why-me-copy > p:not(.why-me-kicker):not(.why-me-note) { margin: 0; color: var(--muted-strong); font-size: 16px; line-height: 1.65; }
+.why-me-copy > p:not(.why-me-note) { margin: 0; color: var(--muted-strong); font-size: 16px; line-height: 1.65; }
 .why-me-copy ul { display: grid; gap: 10px; padding-left: 20px; margin: 24px 0 0; color: #c9cdca; font-size: 14px; line-height: 1.5; }
 .why-me-copy li::marker { color: #96c8ff; }
 .why-me-note { margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line-soft); color: var(--muted-strong); font-size: 13px; line-height: 1.6; }
 .why-me-visual { width: 100%; aspect-ratio: 1; padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; justify-content: center; gap: 24px; border: 1px solid var(--line); border-radius: 28px; background: radial-gradient(ellipse at 25% 20%, #1c2929, #101513 75%); }
-.why-me-visual-label { color: #b0c7cd; font-size: 13px; }
+
 .why-me-visual ol { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .why-me-visual li { display: flex; align-items: center; gap: 14px; padding: 16px 14px; border: 1px solid rgba(213,234,227,.13); border-radius: 14px; background: rgba(213,234,227,.035); color: #d8e5df; font-size: 15px; }
 .why-me-visual li > span { color: #96c8ff; font-size: 12px; }
@@ -1697,4 +1697,43 @@ html { overflow-x: clip; }
 @media (max-width: 760px) {
   html { scroll-padding-top: 0; scroll-behavior: auto; }
   #work, #about, #contact, #resume, #skills { scroll-margin-top: 88px; }
+}
+
+.resume-reference-subtitle { max-width: 860px; margin: 22px auto 0; transform: none; line-height: 1.55; text-wrap: pretty; }
+.resume-profile-links { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px 22px; margin-top: 24px; color: #c9ceca; font-size: 14px; }
+.resume-profile-links a { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; }
+.resume-profile-links a:hover { color: #fff; }
+.hero-text-word { animation: hero-text-reveal 500ms var(--ease-out) var(--word-delay, 0ms) both; }
+@keyframes hero-text-reveal { from { opacity: .65; filter: blur(3px); transform: translateY(8px); } to { opacity: 1; filter: none; transform: none; } }
+.museum-landing-scroll { touch-action: none; }
+.footer-character { position: absolute; z-index: 3; left: 50%; top: -287px; width: 355px; height: auto; max-width: none; transform: translateX(-50%); pointer-events: none; }
+@media (min-width: 1201px) { .contact-grid { padding-bottom: 320px; } }
+@media (max-width: 1200px) { .footer-character { display: none; } .contact-grid { padding-bottom: 64px; } }
+@media (max-width: 760px) { .museum-landing-scroll { touch-action: none; } .resume-reference-subtitle { max-width: 100%; } .resume-profile-links { justify-content: flex-start; gap: 4px 18px; } .hero-text-word { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-text-word { animation: none; } }
+
+.contact-note form { background: linear-gradient(135deg, rgba(71,90,79,.3), rgba(16,25,20,.6)); border-color: rgba(226,245,233,.2); -webkit-backdrop-filter: blur(24px) saturate(150%); backdrop-filter: blur(24px) saturate(150%); box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 18px 54px rgba(0,0,0,.2); }
+.contact-note textarea, .contact-note input[type="email"] { background: rgba(5,12,8,.38); border-color: rgba(224,245,233,.19); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.contact-email-label { margin-top: 18px; }
+.contact-email-label span { color: var(--muted); font-weight: 400; }
+.contact-note input[type="email"] { width: 100%; min-height: 48px; padding: 12px 14px; border-style: solid; border-width: 1px; border-radius: 12px; color: var(--ink); font: inherit; font-size: 16px; }
+.contact-note input[type="email"]:focus-visible { outline: 2px solid #96c8ff; outline-offset: 2px; }
+.contact-note input::placeholder { color: #838d86; }
+.contact-honeypot { display: none; }
+.contact-note-status { margin-top: 16px; color: #bad7c6; font-size: 14px; line-height: 1.5; }
+.contact-note-status:empty { display: none; }
+.contact-note-status[role="alert"] { color: #efc5bc; }
+.contact-note-actions a { text-decoration: underline; text-underline-offset: 3px; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .contact-note form { background: #17211c; } }
+
+/* Keep the reason panels compact, aligned and easy to scan. */
+.why-me-copy h3 { max-width: 18ch; margin-bottom: 20px; text-wrap: balance; }
+.why-me-copy > p:not(.why-me-note) { font-size: clamp(16px, 1.25vw, 18px); line-height: 1.65; text-wrap: pretty; }
+.why-me-copy ul { list-style: none; padding: 0; gap: 0; margin-top: 24px; }
+.why-me-copy li { padding: 10px 0; border-top: 1px solid var(--line-soft); }
+.why-me-panel > .clay-media, .why-me-panel > .why-me-visual { min-width: 0; max-width: 440px; justify-self: end; }
+@media (min-width: 761px) { .why-me-tabs button { flex: 1 1 0; min-width: 0; padding-inline: 10px; } }
+@media (max-width: 760px) {
+  .why-me-copy { max-width: 100%; }
+  .why-me-panel > .clay-media, .why-me-panel > .why-me-visual { width: 100%; max-width: 360px; justify-self: center; }
 }

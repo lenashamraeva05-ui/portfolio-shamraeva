@@ -1,0 +1,1840 @@
+{
+  "/blue-clay-v2.webp": {
+    "width": 1080,
+    "height": 1018,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/blue-clay-v2-134752b3ef-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/blue-clay-v2-134752b3ef-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/blue-clay-v2-134752b3ef-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/blue-clay-v2.webp"
+      }
+    ]
+  },
+  "/elena-portrait-blue-v1.webp": {
+    "width": 943,
+    "height": 936,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/elena-portrait-blue-v1-b94f4cdc25-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/elena-portrait-blue-v1-b94f4cdc25-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/elena-portrait-blue-v1-b94f4cdc25-720.webp"
+      },
+      {
+        "width": 943,
+        "src": "/elena-portrait-blue-v1.webp"
+      }
+    ]
+  },
+  "/footer-character.webp": {
+    "width": 1122,
+    "height": 1402,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/footer-character-9c8d7b689b-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/footer-character-9c8d7b689b-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/footer-character-9c8d7b689b-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/footer-character-9c8d7b689b-1080.webp"
+      },
+      {
+        "width": 1122,
+        "src": "/footer-character.webp"
+      }
+    ]
+  },
+  "/lanyard.webp": {
+    "width": 1025,
+    "height": 250,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/lanyard-f9286b9572-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/lanyard-f9286b9572-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/lanyard-f9286b9572-720.webp"
+      },
+      {
+        "width": 1025,
+        "src": "/lanyard.webp"
+      }
+    ]
+  },
+  "/logos/students-hub.webp": {
+    "width": 276,
+    "height": 210,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/students-hub-e1df6fc63b-160.webp"
+      },
+      {
+        "width": 276,
+        "src": "/logos/students-hub.webp"
+      }
+    ]
+  },
+  "/logos/t-bank.webp": {
+    "width": 225,
+    "height": 242,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/t-bank-1b7c98dd5b-160.webp"
+      },
+      {
+        "width": 225,
+        "src": "/logos/t-bank.webp"
+      }
+    ]
+  },
+  "/outside-work-item-1.webp": {
+    "width": 1600,
+    "height": 1600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/outside-work-item-1-5d668c51eb-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/outside-work-item-1-5d668c51eb-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/outside-work-item-1-5d668c51eb-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/outside-work-item-1-5d668c51eb-1080.webp"
+      },
+      {
+        "width": 1600,
+        "src": "/outside-work-item-1.webp"
+      }
+    ]
+  },
+  "/outside-work-item-2.webp": {
+    "width": 1600,
+    "height": 1600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/outside-work-item-2-aff346f438-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/outside-work-item-2-aff346f438-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/outside-work-item-2-aff346f438-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/outside-work-item-2-aff346f438-1080.webp"
+      },
+      {
+        "width": 1600,
+        "src": "/outside-work-item-2.webp"
+      }
+    ]
+  },
+  "/outside-work-item-3.webp": {
+    "width": 1600,
+    "height": 1600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/outside-work-item-3-60d13ae1ef-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/outside-work-item-3-60d13ae1ef-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/outside-work-item-3-60d13ae1ef-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/outside-work-item-3-60d13ae1ef-1080.webp"
+      },
+      {
+        "width": 1600,
+        "src": "/outside-work-item-3.webp"
+      }
+    ]
+  },
+  "/outside-work-item-4.webp": {
+    "width": 1600,
+    "height": 1600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/outside-work-item-4-cd4fa77804-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/outside-work-item-4-cd4fa77804-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/outside-work-item-4-cd4fa77804-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/outside-work-item-4-cd4fa77804-1080.webp"
+      },
+      {
+        "width": 1600,
+        "src": "/outside-work-item-4.webp"
+      }
+    ]
+  },
+  "/process-diagram.webp": {
+    "width": 2172,
+    "height": 724,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/process-diagram-6bea31ec5e-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/process-diagram-6bea31ec5e-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/process-diagram-6bea31ec5e-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/process-diagram-6bea31ec5e-1080.webp"
+      },
+      {
+        "width": 2172,
+        "src": "/process-diagram.webp"
+      }
+    ]
+  },
+  "/product-designer-card.webp": {
+    "width": 1200,
+    "height": 1802,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/product-designer-card-b124b125e0-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/product-designer-card-b124b125e0-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/product-designer-card-b124b125e0-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/product-designer-card-b124b125e0-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/product-designer-card.webp"
+      }
+    ]
+  },
+  "/projects/ehu-campus-figure.webp": {
+    "width": 1119,
+    "height": 1406,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/ehu-campus-figure-e08f4ef0a7-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/ehu-campus-figure-e08f4ef0a7-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/ehu-campus-figure-e08f4ef0a7-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/ehu-campus-figure-e08f4ef0a7-1080.webp"
+      },
+      {
+        "width": 1119,
+        "src": "/projects/ehu-campus-figure.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-01.webp": {
+    "width": 1380,
+    "height": 3600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-01-aa8025b4e0-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-01-aa8025b4e0-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-01-aa8025b4e0-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-01-aa8025b4e0-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-01.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-02.webp": {
+    "width": 1380,
+    "height": 3600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-02-e3c9d08e33-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-02-e3c9d08e33-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-02-e3c9d08e33-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-02-e3c9d08e33-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-02.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-03.webp": {
+    "width": 1380,
+    "height": 3600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-03-767ad64f56-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-03-767ad64f56-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-03-767ad64f56-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-03-767ad64f56-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-03.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-04.webp": {
+    "width": 1380,
+    "height": 3600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-04-2291546f1c-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-04-2291546f1c-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-04-2291546f1c-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-04-2291546f1c-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-04.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-05.webp": {
+    "width": 1380,
+    "height": 3600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-05-be53b0f6ee-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-05-be53b0f6ee-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-05-be53b0f6ee-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-05-be53b0f6ee-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-05.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-06.webp": {
+    "width": 1380,
+    "height": 3600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-06-e1c64484b9-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-06-e1c64484b9-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-06-e1c64484b9-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-06-e1c64484b9-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-06.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-07.webp": {
+    "width": 1380,
+    "height": 3600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-07-b7cf37b5fd-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-07-b7cf37b5fd-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-07-b7cf37b5fd-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-07-b7cf37b5fd-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-07.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-08.webp": {
+    "width": 1380,
+    "height": 3600,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-08-ee456d8f07-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-08-ee456d8f07-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-08-ee456d8f07-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-08-ee456d8f07-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-08.webp"
+      }
+    ]
+  },
+  "/projects/ehu-landing/part-09.webp": {
+    "width": 1380,
+    "height": 1966,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/part-09-403c20d0e6-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/part-09-403c20d0e6-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/part-09-403c20d0e6-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/part-09-403c20d0e6-1080.webp"
+      },
+      {
+        "width": 1380,
+        "src": "/projects/ehu-landing/part-09.webp"
+      }
+    ]
+  },
+  "/projects/ehu-museums-flow.webp": {
+    "width": 833,
+    "height": 966,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/ehu-museums-flow-769ee8f335-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/ehu-museums-flow-769ee8f335-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/ehu-museums-flow-769ee8f335-720.webp"
+      },
+      {
+        "width": 833,
+        "src": "/projects/ehu-museums-flow.webp"
+      }
+    ]
+  },
+  "/projects/ehu-museums-hero.webp": {
+    "width": 1566,
+    "height": 1005,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/ehu-museums-hero-f4bf350573-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/ehu-museums-hero-f4bf350573-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/ehu-museums-hero-f4bf350573-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/ehu-museums-hero-f4bf350573-1080.webp"
+      },
+      {
+        "width": 1566,
+        "src": "/projects/ehu-museums-hero.webp"
+      }
+    ]
+  },
+  "/projects/ehu-museums-overview.webp": {
+    "width": 830,
+    "height": 1147,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/ehu-museums-overview-14becde9cb-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/ehu-museums-overview-14becde9cb-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/ehu-museums-overview-14becde9cb-720.webp"
+      },
+      {
+        "width": 830,
+        "src": "/projects/ehu-museums-overview.webp"
+      }
+    ]
+  },
+  "/projects/ehu-reading-figure.webp": {
+    "width": 1122,
+    "height": 1402,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/ehu-reading-figure-423fda6ec3-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/ehu-reading-figure-423fda6ec3-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/ehu-reading-figure-423fda6ec3-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/ehu-reading-figure-423fda6ec3-1080.webp"
+      },
+      {
+        "width": 1122,
+        "src": "/projects/ehu-reading-figure.webp"
+      }
+    ]
+  },
+  "/projects/other-auth.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-auth-6a0f2166c4-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-auth-6a0f2166c4-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-auth-6a0f2166c4-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-auth-6a0f2166c4-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-auth.webp"
+      }
+    ]
+  },
+  "/projects/other-banners.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-banners-fb331fdf3a-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-banners-fb331fdf3a-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-banners-fb331fdf3a-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-banners-fb331fdf3a-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-banners.webp"
+      }
+    ]
+  },
+  "/projects/other-branding.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-branding-236d8ea217-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-branding-236d8ea217-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-branding-236d8ea217-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-branding-236d8ea217-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-branding.webp"
+      }
+    ]
+  },
+  "/projects/other-career.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-career-762b09c86a-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-career-762b09c86a-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-career-762b09c86a-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-career-762b09c86a-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-career.webp"
+      }
+    ]
+  },
+  "/projects/other-drawing.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-drawing-35c2d05108-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-drawing-35c2d05108-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-drawing-35c2d05108-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-drawing-35c2d05108-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-drawing.webp"
+      }
+    ]
+  },
+  "/projects/other-ehu-ceo.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-ehu-ceo-c4c0b6b6a8-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-ehu-ceo-c4c0b6b6a8-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-ehu-ceo-c4c0b6b6a8-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-ehu-ceo-c4c0b6b6a8-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-ehu-ceo.webp"
+      }
+    ]
+  },
+  "/projects/other-ehu-hub.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-ehu-hub-75f7c39419-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-ehu-hub-75f7c39419-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-ehu-hub-75f7c39419-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-ehu-hub-75f7c39419-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-ehu-hub.webp"
+      }
+    ]
+  },
+  "/projects/other-ehu-mastering.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-ehu-mastering-c14c1f048f-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-ehu-mastering-c14c1f048f-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-ehu-mastering-c14c1f048f-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-ehu-mastering-c14c1f048f-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-ehu-mastering.webp"
+      }
+    ]
+  },
+  "/projects/other-engine.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-engine-21bea9e32d-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-engine-21bea9e32d-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-engine-21bea9e32d-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-engine-21bea9e32d-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-engine.webp"
+      }
+    ]
+  },
+  "/projects/other-flowers.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-flowers-f224910aa3-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-flowers-f224910aa3-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-flowers-f224910aa3-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-flowers-f224910aa3-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-flowers.webp"
+      }
+    ]
+  },
+  "/projects/other-greenpath.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-greenpath-afdd0677c6-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-greenpath-afdd0677c6-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-greenpath-afdd0677c6-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-greenpath-afdd0677c6-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-greenpath.webp"
+      }
+    ]
+  },
+  "/projects/other-header.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-header-b14f26e1c3-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-header-b14f26e1c3-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-header-b14f26e1c3-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-header-b14f26e1c3-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-header.webp"
+      }
+    ]
+  },
+  "/projects/other-hippo.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-hippo-72723e7021-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-hippo-72723e7021-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-hippo-72723e7021-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-hippo-72723e7021-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-hippo.webp"
+      }
+    ]
+  },
+  "/projects/other-idea.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-idea-c746b453a6-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-idea-c746b453a6-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-idea-c746b453a6-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-idea-c746b453a6-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-idea.webp"
+      }
+    ]
+  },
+  "/projects/other-illustrations.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-illustrations-302814b244-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-illustrations-302814b244-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-illustrations-302814b244-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-illustrations-302814b244-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-illustrations.webp"
+      }
+    ]
+  },
+  "/projects/other-inventory.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-inventory-4027f75265-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-inventory-4027f75265-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-inventory-4027f75265-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-inventory-4027f75265-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-inventory.webp"
+      }
+    ]
+  },
+  "/projects/other-job-tree.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-job-tree-5d8b0b70f0-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-job-tree-5d8b0b70f0-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-job-tree-5d8b0b70f0-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-job-tree-5d8b0b70f0-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-job-tree.webp"
+      }
+    ]
+  },
+  "/projects/other-mascot.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-mascot-c8413cdaee-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-mascot-c8413cdaee-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-mascot-c8413cdaee-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-mascot-c8413cdaee-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-mascot.webp"
+      }
+    ]
+  },
+  "/projects/other-nft.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-nft-d1b287cc2a-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-nft-d1b287cc2a-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-nft-d1b287cc2a-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-nft-d1b287cc2a-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-nft.webp"
+      }
+    ]
+  },
+  "/projects/other-platform.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-platform-5ad805398e-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-platform-5ad805398e-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-platform-5ad805398e-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-platform-5ad805398e-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-platform.webp"
+      }
+    ]
+  },
+  "/projects/other-quest.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-quest-51c34faf26-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-quest-51c34faf26-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-quest-51c34faf26-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-quest-51c34faf26-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-quest.webp"
+      }
+    ]
+  },
+  "/projects/other-stud-hub.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-stud-hub-200ffdd584-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-stud-hub-200ffdd584-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-stud-hub-200ffdd584-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-stud-hub-200ffdd584-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-stud-hub.webp"
+      }
+    ]
+  },
+  "/projects/other-student-hub.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-student-hub-338b925a21-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-student-hub-338b925a21-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-student-hub-338b925a21-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-student-hub-338b925a21-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-student-hub.webp"
+      }
+    ]
+  },
+  "/projects/other-tbank.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-tbank-4f12c98a72-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-tbank-4f12c98a72-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-tbank-4f12c98a72-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-tbank-4f12c98a72-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-tbank.webp"
+      }
+    ]
+  },
+  "/projects/other-userflow-map.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-userflow-map-8b5820e294-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-userflow-map-8b5820e294-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-userflow-map-8b5820e294-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-userflow-map-8b5820e294-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-userflow-map.webp"
+      }
+    ]
+  },
+  "/projects/other-userflow.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-userflow-1e5db85090-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-userflow-1e5db85090-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-userflow-1e5db85090-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-userflow-1e5db85090-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-userflow.webp"
+      }
+    ]
+  },
+  "/projects/other-uservers.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-uservers-cb708854da-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-uservers-cb708854da-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-uservers-cb708854da-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-uservers-cb708854da-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-uservers.webp"
+      }
+    ]
+  },
+  "/projects/other-yandex.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-yandex-7c2f65a664-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-yandex-7c2f65a664-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-yandex-7c2f65a664-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-yandex-7c2f65a664-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-yandex.webp"
+      }
+    ]
+  },
+  "/projects/other-zernote-social.webp": {
+    "width": 1200,
+    "height": 800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/other-zernote-social-1948ae7551-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/other-zernote-social-1948ae7551-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/other-zernote-social-1948ae7551-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/other-zernote-social-1948ae7551-1080.webp"
+      },
+      {
+        "width": 1200,
+        "src": "/projects/other-zernote-social.webp"
+      }
+    ]
+  },
+  "/projects/statist-direction.webp": {
+    "width": 1080,
+    "height": 728,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/statist-direction-4c40f496fd-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/statist-direction-4c40f496fd-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/statist-direction-4c40f496fd-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/projects/statist-direction.webp"
+      }
+    ]
+  },
+  "/projects/tbank-internship-clock.webp": {
+    "width": 2385,
+    "height": 1854,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/tbank-internship-clock-bb3b8d3f37-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/tbank-internship-clock-bb3b8d3f37-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/tbank-internship-clock-bb3b8d3f37-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/tbank-internship-clock-bb3b8d3f37-1080.webp"
+      },
+      {
+        "width": 2385,
+        "src": "/projects/tbank-internship-clock.webp"
+      }
+    ]
+  },
+  "/projects/tbank-internship.webp": {
+    "width": 936,
+    "height": 728,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/tbank-internship-0fb4cdb849-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/tbank-internship-0fb4cdb849-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/tbank-internship-0fb4cdb849-720.webp"
+      },
+      {
+        "width": 936,
+        "src": "/projects/tbank-internship.webp"
+      }
+    ]
+  },
+  "/projects/tbank-private-screens.webp": {
+    "width": 1448,
+    "height": 1086,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/tbank-private-screens-71b5c9c404-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/tbank-private-screens-71b5c9c404-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/tbank-private-screens-71b5c9c404-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/tbank-private-screens-71b5c9c404-1080.webp"
+      },
+      {
+        "width": 1448,
+        "src": "/projects/tbank-private-screens.webp"
+      }
+    ]
+  },
+  "/projects/tbank-statist-cover.webp": {
+    "width": 827,
+    "height": 482,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/tbank-statist-cover-2b16d24a2b-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/tbank-statist-cover-2b16d24a2b-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/tbank-statist-cover-2b16d24a2b-720.webp"
+      },
+      {
+        "width": 827,
+        "src": "/projects/tbank-statist-cover.webp"
+      }
+    ]
+  },
+  "/projects/tbank-statist-hero.webp": {
+    "width": 2208,
+    "height": 920,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/tbank-statist-hero-d308942bc4-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/tbank-statist-hero-d308942bc4-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/tbank-statist-hero-d308942bc4-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/tbank-statist-hero-d308942bc4-1080.webp"
+      },
+      {
+        "width": 2208,
+        "src": "/projects/tbank-statist-hero.webp"
+      }
+    ]
+  },
+  "/projects/zernote-design-notes.webp": {
+    "width": 1905,
+    "height": 860,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-design-notes-f3740d9b36-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-design-notes-f3740d9b36-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-design-notes-f3740d9b36-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-design-notes-f3740d9b36-1080.webp"
+      },
+      {
+        "width": 1905,
+        "src": "/projects/zernote-design-notes.webp"
+      }
+    ]
+  },
+  "/projects/zernote-design-research.optimized.webp": {
+    "width": 1800,
+    "height": 1800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-design-research.optimized-95cf2494ec-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-design-research.optimized-95cf2494ec-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-design-research.optimized-95cf2494ec-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-design-research.optimized-95cf2494ec-1080.webp"
+      },
+      {
+        "width": 1800,
+        "src": "/projects/zernote-design-research.optimized.webp"
+      }
+    ]
+  },
+  "/projects/zernote-hero-collage.optimized.webp": {
+    "width": 1800,
+    "height": 1800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-hero-collage.optimized-642a0952b2-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-hero-collage.optimized-642a0952b2-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-hero-collage.optimized-642a0952b2-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-hero-collage.optimized-642a0952b2-1080.webp"
+      },
+      {
+        "width": 1800,
+        "src": "/projects/zernote-hero-collage.optimized.webp"
+      }
+    ]
+  },
+  "/projects/zernote-idea-detail.webp": {
+    "width": 1252,
+    "height": 870,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-idea-detail-934fafe5ef-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-idea-detail-934fafe5ef-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-idea-detail-934fafe5ef-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-idea-detail-934fafe5ef-1080.webp"
+      },
+      {
+        "width": 1252,
+        "src": "/projects/zernote-idea-detail.webp"
+      }
+    ]
+  },
+  "/projects/zernote-ideas.webp": {
+    "width": 1412,
+    "height": 953,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-ideas-a88bfef932-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-ideas-a88bfef932-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-ideas-a88bfef932-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-ideas-a88bfef932-1080.webp"
+      },
+      {
+        "width": 1412,
+        "src": "/projects/zernote-ideas.webp"
+      }
+    ]
+  },
+  "/projects/zernote-jobs-tree.webp": {
+    "width": 1383,
+    "height": 1007,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-jobs-tree-148ae1fbad-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-jobs-tree-148ae1fbad-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-jobs-tree-148ae1fbad-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-jobs-tree-148ae1fbad-1080.webp"
+      },
+      {
+        "width": 1383,
+        "src": "/projects/zernote-jobs-tree.webp"
+      }
+    ]
+  },
+  "/projects/zernote-mentoring.optimized.webp": {
+    "width": 1800,
+    "height": 1800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-mentoring.optimized-4e1c95912c-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-mentoring.optimized-4e1c95912c-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-mentoring.optimized-4e1c95912c-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-mentoring.optimized-4e1c95912c-1080.webp"
+      },
+      {
+        "width": 1800,
+        "src": "/projects/zernote-mentoring.optimized.webp"
+      }
+    ]
+  },
+  "/projects/zernote-pitch-deck.optimized.webp": {
+    "width": 1800,
+    "height": 1800,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-pitch-deck.optimized-73943dbb91-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-pitch-deck.optimized-73943dbb91-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-pitch-deck.optimized-73943dbb91-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-pitch-deck.optimized-73943dbb91-1080.webp"
+      },
+      {
+        "width": 1800,
+        "src": "/projects/zernote-pitch-deck.optimized.webp"
+      }
+    ]
+  },
+  "/projects/zernote-pitch-solution.webp": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-pitch-solution-e1914610dd-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-pitch-solution-e1914610dd-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-pitch-solution-e1914610dd-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-pitch-solution-e1914610dd-1080.webp"
+      },
+      {
+        "width": 1280,
+        "src": "/projects/zernote-pitch-solution.webp"
+      }
+    ]
+  },
+  "/projects/zernote-pitch-traction.webp": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-pitch-traction-f03bfeefb0-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-pitch-traction-f03bfeefb0-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-pitch-traction-f03bfeefb0-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/zernote-pitch-traction-f03bfeefb0-1080.webp"
+      },
+      {
+        "width": 1280,
+        "src": "/projects/zernote-pitch-traction.webp"
+      }
+    ]
+  },
+  "/projects/zernote-research-dashboard.webp": {
+    "width": 787,
+    "height": 716,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/zernote-research-dashboard-37c45642bb-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/zernote-research-dashboard-37c45642bb-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/zernote-research-dashboard-37c45642bb-720.webp"
+      },
+      {
+        "width": 787,
+        "src": "/projects/zernote-research-dashboard.webp"
+      }
+    ]
+  },
+  "/resume-avatar.webp": {
+    "width": 1145,
+    "height": 1374,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/resume-avatar-8f0b2062ee-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/resume-avatar-8f0b2062ee-360.webp"
+      },
+      {
+        "width": 720,
+        "src": "/optimized/resume-avatar-8f0b2062ee-720.webp"
+      },
+      {
+        "width": 1080,
+        "src": "/optimized/resume-avatar-8f0b2062ee-1080.webp"
+      },
+      {
+        "width": 1145,
+        "src": "/resume-avatar.webp"
+      }
+    ]
+  }
+}

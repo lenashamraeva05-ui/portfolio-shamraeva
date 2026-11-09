@@ -19,7 +19,7 @@ export default function AboutPage() {
         <div className="about-opening-veil" aria-hidden="true">
           <DarkVeil hueShift={200} />
         </div>
-        <div className="about-opening-lanyard" aria-label="Interactive Elena Shamraeva profile card. Drag to move it and double-click to turn it over.">
+        <div className="about-opening-lanyard" aria-label="Interactive Helen Shamraeva profile card. Drag to move it and double-click to turn it over.">
           <ProfileCard />
         </div>
         <div className="about-opening-statement" data-reveal style={{ "--delay": "60ms" } as CSSProperties}>

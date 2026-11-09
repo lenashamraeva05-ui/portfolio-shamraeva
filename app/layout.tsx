@@ -1,14 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans, Geist } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 import GlobalGradualBlur from "./components/GlobalGradualBlur";
 import GitHubPagesPathRestore from "./components/GitHubPagesPathRestore";
-import TargetCursor from "@/components/TargetCursor";
+import CursorEnhancement from "./components/CursorEnhancement";
 import SlowLoadingFallback from "./components/SlowLoadingFallback";
-import WelcomeSticker from "./components/WelcomeSticker";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"] });
@@ -23,7 +20,7 @@ export function generateMetadata(): Metadata {
 
   return {
     metadataBase: base,
-    title: "Elena Shamraeva - Product Designer",
+    title: "Helen Shamraeva - Product Designer",
     description: "Product designer turning research, complex systems and business goals into clear digital products.",
     icons: {
       icon: "/elena-portrait-icon.png",
@@ -31,19 +28,19 @@ export function generateMetadata(): Metadata {
       apple: "/elena-portrait-icon.png",
     },
     openGraph: {
-      title: "Elena Shamraeva - Product Designer",
+      title: "Helen Shamraeva - Product Designer",
       description: "Product design where business goals and user needs meet.",
       type: "website",
       images: [{
         url: new URL("/og-portfolio.png", base),
         width: 1731,
         height: 911,
-        alt: "Elena Shamraeva product design portfolio",
+        alt: "Helen Shamraeva product design portfolio",
       }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Elena Shamraeva - Product Designer",
+      title: "Helen Shamraeva - Product Designer",
       description: "Product design where business goals and user needs meet.",
       images: [new URL("/og-portfolio.png", base)],
     },
@@ -52,10 +49,10 @@ export function generateMetadata(): Metadata {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html lang="en" className="font-sans">
       <body className={`${inter.variable} ${jakarta.variable}`}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org", "@type": "Person", name: "Elena Shamraeva",
+          "@context": "https://schema.org", "@type": "Person", name: "Helen Shamraeva",
           url: "https://elena.shamraeva.co.uk", jobTitle: "Product Designer",
           description: "Product designer based in Eastbourne, UK, with experience in UX research, interface design, design systems and AI-assisted workflows.",
           knowsAbout: ["Product design", "UX research", "Figma", "Design systems", "Prototyping", "AI-assisted prototyping", "MCP workflows"],
@@ -63,17 +60,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         }).replace(/</g, "\\u003c") }} />
         {children}
         <SlowLoadingFallback />
-        <WelcomeSticker />
         <GitHubPagesPathRestore />
         <GlobalGradualBlur />
-        <TargetCursor
-          targetSelector="a, button, [role='button'], [tabindex='0'], .cursor-target"
-          spinDuration={2}
-          hideDefaultCursor={true}
-          parallaxOn={true}
-          cursorColor="#ffffff"
-          cursorColorOnTarget="#ffffff"
-        />
+        <CursorEnhancement />
       </body>
     </html>
   );

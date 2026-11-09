@@ -7,7 +7,8 @@ import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphe
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 
 // Keep binary assets in public so route transitions receive stable URL strings.
-const cardGLB = '/card.glb';
+import modelAssets from "../lib/model-manifest.json";
+const cardGLB = modelAssets.card;
 const lanyard = '/lanyard.webp';
 
 import * as THREE from 'three';
@@ -51,7 +52,7 @@ export default function Lanyard({
   return (
     <div className="lanyard-wrapper" style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
       <Canvas
-        fallback={<div role="img" aria-label="Elena Shamraeva, product designer" style={{ width: '100%', height: '100%', background: `center / contain no-repeat url(${frontImage || '/product-designer-card.webp'})` }} />}
+        fallback={<div role="img" aria-label="Helen Shamraeva, product designer" style={{ width: '100%', height: '100%', background: `center / contain no-repeat url(${frontImage || '/product-designer-card.webp'})` }} />}
         style={{ touchAction: 'pan-y pinch-zoom' }}
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}

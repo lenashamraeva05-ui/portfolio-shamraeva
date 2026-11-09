@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ResponsiveImage";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import PortfolioHeader from "./components/PortfolioHeader";
@@ -230,7 +230,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <h1 className="sr-only">I’m Elena, an empathetic product designer with 4 years’ experience for B2C</h1>
+          <h1 className="sr-only">I’m Helen, a product designer with 3 years’ experience across B2C and B2B</h1>
           <HeroBlurText />
           <p className="hero-summary">I make complex products feel clear, useful and human.</p>
           <div className="hero-actions">
@@ -379,7 +379,7 @@ export default function Home() {
         </div>
         <div className="contact-cards" data-reveal>
           <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)">
-            <a href="mailto:lena.shamraeva.05@gmail.com" aria-label="Email Elena">
+            <a href="mailto:lena.shamraeva.05@gmail.com" aria-label="Email Helen">
               <i className="contact-icon contact-icon-mail" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 6.75h17v10.5h-17z"/><path d="m4 7.5 8 6 8-6"/></svg></i><span>Email</span>
             </a>
           </SpotlightCard>
@@ -405,7 +405,10 @@ export default function Home() {
           </SpotlightCard>
         </div>
         <ContactNote />
-        <div className="contact-illustration" aria-hidden="true">
+
+      </section>
+
+      <footer className="site-footer">
         <Image
           className="footer-character"
           src="/footer-character.webp"
@@ -416,13 +419,10 @@ export default function Home() {
           sizes="(max-width: 760px) 72vw, 420px"
           unoptimized
         />
-        </div>
-      </section>
 
-      <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-copy">
-            <strong>© 2026 Elena Shamraeva. All Rights Reserved.</strong>
+            <strong>© 2026 Helen Shamraeva. All Rights Reserved.</strong>
             <span>Built with care. Research-led, detail-driven.</span>
           </div>
           <div className="site-footer-links">

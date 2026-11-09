@@ -114,7 +114,7 @@ export default function BlogPage() {
           {visiblePosts.length === 0 && <p className="blog-empty">No notes in this category yet.</p>}
         </section>
       </div>
-      <footer className="inner-footer"><span>© 2026 Elena Shamraeva</span><Link href="/">Back home ↑</Link></footer>
+      <footer className="inner-footer"><span>© 2026 Helen Shamraeva</span><Link href="/">Back home ↑</Link></footer>
     </main>
   );
 }

@@ -137,7 +137,27 @@ const TargetCursor = ({
 
     createSpinTimeline();
 
+    // Hover targets can resize while their own CSS transition is running.
+    const updateTargetBounds = () => {
+      if (!activeTarget?.isConnected) return false;
+      const rect = activeTarget.getBoundingClientRect();
+      const { borderWidth, cornerSize } = constants;
+      const { x: offsetX, y: offsetY } = getOffset();
+      targetCornerPositionsRef.current = [
+        { x: rect.left - borderWidth - offsetX, y: rect.top - borderWidth - offsetY },
+        { x: rect.right + borderWidth - cornerSize - offsetX, y: rect.top - borderWidth - offsetY },
+        { x: rect.right + borderWidth - cornerSize - offsetX, y: rect.bottom + borderWidth - cornerSize - offsetY },
+        { x: rect.left - borderWidth - offsetX, y: rect.bottom + borderWidth - cornerSize - offsetY }
+      ];
+
+      return true;
+    };
+
     const tickerFn = () => {
+      if (!updateTargetBounds()) {
+        currentLeaveHandler?.();
+        return;
+      }
       if (!targetCornerPositionsRef.current || !cursorRef.current || !cornersRef.current) {
         return;
       }
@@ -252,18 +272,9 @@ const TargetCursor = ({
         }
       }
 
-      const rect = target.getBoundingClientRect();
-      const { borderWidth, cornerSize } = constants;
-      const { x: offsetX, y: offsetY } = getOffset();
+      updateTargetBounds();
       const cursorX = gsap.getProperty(cursorRef.current, 'x');
       const cursorY = gsap.getProperty(cursorRef.current, 'y');
-
-      targetCornerPositionsRef.current = [
-        { x: rect.left - borderWidth - offsetX, y: rect.top - borderWidth - offsetY },
-        { x: rect.right + borderWidth - cornerSize - offsetX, y: rect.top - borderWidth - offsetY },
-        { x: rect.right + borderWidth - cornerSize - offsetX, y: rect.bottom + borderWidth - cornerSize - offsetY },
-        { x: rect.left - borderWidth - offsetX, y: rect.bottom + borderWidth - cornerSize - offsetY }
-      ];
 
       isActiveRef.current = true;
       gsap.ticker.add(tickerFnRef.current);

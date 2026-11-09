@@ -1,32 +1,7 @@
-"use client";
+import type { CSSProperties } from "react";
 
-import BlurText from "../../components/BlurText";
-import type { ComponentType } from "react";
-
-const TypedBlurText = BlurText as unknown as ComponentType<{
-  text: string;
-  delay: number;
-  animateBy: string;
-  direction: string;
-  onAnimationComplete: () => void;
-  className: string;
-}>;
+const text = "I’m Helen, a product designer with 3 years’ experience across B2C and B2B";
 
 export default function HeroBlurText() {
-  const handleAnimationComplete = () => {
-    // The heading remains the accessible source of this decorative text.
-  };
-
-  return (
-    <div aria-hidden="true">
-      <TypedBlurText
-        text="I’m Elena - an empathetic product designer with 4 years’ experience for B2C"
-        delay={150}
-        animateBy="words"
-        direction="top"
-        onAnimationComplete={handleAnimationComplete}
-        className="text-2xl mb-8"
-      />
-    </div>
-  );
+  return <div aria-hidden="true"><p className="text-2xl mb-8">{text.split(" ").map((word, index) => <span key={index} className="hero-text-word" style={{ "--word-delay": `${index * 30}ms` } as CSSProperties}>{word}</span>)}</p></div>;
 }

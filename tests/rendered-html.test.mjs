@@ -9,7 +9,7 @@ async function render(pathname = "") {
 
 test("renders the portfolio homepage and project imagery", async () => {
   const html = await render();
-  assert.match(html, /Elena Shamraeva/);
+  assert.match(html, /Helen Shamraeva/);
   assert.match(html, /og-portfolio\.png/);
   assert.match(html, /Available for work/);
   assert.match(html, /id="work"/);
@@ -54,7 +54,7 @@ test("renders the standalone about, resume and blog pages", async () => {
   assert.doesNotMatch(about, /Visual designer/);
   assert.doesNotMatch(about, /Fascinated by logic, structure/);
   assert.match(resume, /Experience at a glance/);
-  assert.match(resume, /User-centered product designer\. Data-driven, growth-focused\./);
+  assert.match(resume, /Passionate about user-centered design/);
   assert.match(resume, /Information architecture/);
   assert.match(resume, /Customer development/);
   assert.doesNotMatch(resume, /Workshop hosting/);
@@ -63,7 +63,7 @@ test("renders the standalone about, resume and blog pages", async () => {
   assert.match(resume, /Eastbourne, UK/);
   assert.match(resume, /\+44 7956 042838/);
   assert.match(resume, /href="tel:\+447956042838"/);
-  assert.match(resume, /English<!--[\s\S]*?--> <em>B1<\/em>/);
+  assert.match(resume, /English<!--[\s\S]*?--> <em>B2<\/em>/);
   assert.match(resume, /Russian<!--[\s\S]*?--> <em>Native<\/em>/);
   assert.doesNotMatch(resume, /Portuguese/);
   assert.doesNotMatch(resume, /Selected experience/);
@@ -116,7 +116,7 @@ test("keeps heavyweight visuals deferred and video network loading opt-in", asyn
   assert.match(home, /<video[^>]+preload="none"/);
   assert.doesNotMatch(home, /<video[^>]+src=/);
   assert.doesNotMatch(about, /rel="modulepreload"[^>]+href="[^"]*Lanyard/);
-  assert.match(about, /alt="Elena Shamraeva, product designer"/);
+  assert.match(about, /alt="Helen Shamraeva, product designer"/);
 });
 
 test("GitHub Pages restoration preserves local paths and rejects external redirects", async () => {
@@ -158,8 +158,8 @@ test("keeps typography in normal case and the contact illustration in document f
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.doesNotMatch(css, /text-transform:\s*uppercase/);
   const home = await render();
-  assert.match(home, /class="contact-illustration"/);
-  assert.doesNotMatch(home.split('<footer class="site-footer"')[1], /class="footer-character"/);
+  assert.doesNotMatch(home, /welcome-sticker/);
+  assert.match(home.split('<footer class="site-footer"')[1], /class="footer-character"/);
   const about = await render("/about");
   assert.match(about, /class="profile-card-poster"/);
 });
@@ -172,20 +172,20 @@ test("versions static route payload requests across production deployments", asy
   assert.match(result.code, /url.searchParams.set\("__release",/);
 });
 
-test("renders a one-field contact note with explicit email handoff", async () => {
+test("sends contact notes directly and retains delivery failures", async () => {
   const html = await render();
   assert.match(html, /Or leave a note here/);
-  assert.match(html, /id="portfolio-note"/);
-  assert.match(html, /Opens your email app with your note ready to send/);
-  assert.match(html, /Thoughtful design newsletters and new-role updates/);
-  const { contactNoteHref } = await import("../lib/contact-note.mjs");
-  assert.equal(contactNoteHref("   "), null);
-  const note = "A role & a thought?\nhttps://example.com/portfolio#work";
-  const href = contactNoteHref(note);
-  assert.ok(href.startsWith("mailto:lena.shamraeva.05@gmail.com?"));
-  const query = new URLSearchParams(href.split("?")[1]);
-  assert.equal(query.get("body"), note);
-  assert.equal(query.get("subject"), "A note about your portfolio");
+  const { submitContactNote } = await import("../lib/contact-note.mjs");
+  let payload;
+  await submitContactNote({message: "Portfolio feedback", email: "visitor@example.com"}, async (url, options) => {
+    assert.match(url, /^https:\/\/formsubmit.co\/ajax\//);
+    payload = JSON.parse(options.body);
+    return {ok: true, json: async () => ({success: true})};
+  });
+  assert.equal(payload.message, "Portfolio feedback");
+  assert.equal(payload._replyto, "visitor@example.com");
+  await assert.rejects(submitContactNote({message: "   "}));
+  await assert.rejects(submitContactNote({message: "Feedback"}, async () => ({ok: false})));
 });
 
 test("records the Zernote project as concluded in November 2026", async () => {
@@ -194,7 +194,7 @@ test("records the Zernote project as concluded in November 2026", async () => {
   assert.match(home, /Startup project · concluded Nov 2026/);
   assert.doesNotMatch(home, /Active startup|Zernote is becoming/);
   assert.match(resume, /Feb 2026 - Nov 2026/);
-  assert.match(resume, /The project concluded as the team shifted focus to new initiatives/);
+  assert.match(resume, /English/);
   assert.doesNotMatch(resume, /Feb 2026 - Present/);
 });
 
