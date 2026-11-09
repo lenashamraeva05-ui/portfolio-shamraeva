@@ -266,3 +266,33 @@ test("gates physics imports on desktop and hides the mobile card container", asy
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(css, /@media \(max-width: 760px\)\s*{\s*\.about-opening-lanyard { display: none !important; }/);
 });
+
+
+test("accepts a late contact confirmation without aborting at 20 seconds", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const { submitContactNote } = await import("../lib/contact-note.mjs");
+  let signal;
+  let confirm;
+  const pending = submitContactNote({ message: "A late confirmation" }, async (_url, options) => {
+    signal = options.signal;
+    return new Promise(resolve => { confirm = resolve; });
+  });
+  t.mock.timers.tick(30000);
+  assert.equal(signal.aborted, false);
+  confirm({ ok: true, json: async () => ({ success: true }) });
+  assert.deepEqual(await pending, { activationPending: false });
+});
+
+test("does not label lost contact confirmations as definite delivery failures", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const { submitContactNote, ContactDeliveryUnknownError } = await import("../lib/contact-note.mjs");
+  const pending = submitContactNote({ message: "Slow request" }, async (_url, options) => new Promise((_resolve, reject) => {
+    options.signal.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")));
+  }));
+  const result = assert.rejects(pending, ContactDeliveryUnknownError);
+  t.mock.timers.tick(90001);
+  await result;
+  await assert.rejects(submitContactNote({ message: "Lost response" }, async () => { throw new TypeError("Network error"); }), ContactDeliveryUnknownError);
+  await assert.rejects(submitContactNote({ message: "Gateway timeout" }, async () => ({ ok: false, status: 504 })), ContactDeliveryUnknownError);
+  await assert.rejects(submitContactNote({ message: "Invalid response" }, async () => ({ ok: true, json: async () => { throw new SyntaxError("Invalid JSON"); } })), ContactDeliveryUnknownError);
+});
