@@ -1,4 +1,4 @@
-import { copyFile, readFile, access } from "node:fs/promises";
+import { copyFile, readFile, access, readdir, unlink } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const root = process.cwd();
@@ -21,3 +21,22 @@ if (!fallback.includes("ghp-path")) {
 }
 
 console.log("Prepared dist/client for GitHub Pages.");
+
+// Authoring PNGs stay in public for editing; ship only the ones referenced by the site.
+async function filesUnder(directory) {
+  const files = [];
+  for (const item of await readdir(directory, { withFileTypes: true })) {
+    const file = resolve(directory, item.name);
+    if (item.isDirectory()) files.push(...await filesUnder(file));
+    else files.push(file);
+  }
+  return files;
+}
+const files = await filesUnder(outputDir);
+const text = (await Promise.all(files.filter(file => /\.(?:html|rsc|js|css|json)$/.test(file)).map(file => readFile(file, "utf8")))).join("\n");
+let removed = 0;
+for (const file of files.filter(file => file.endsWith(".png"))) {
+  const url = "/" + file.slice(outputDir.length + 1).replaceAll("\\", "/");
+  if (!text.includes(url)) { await unlink(file); removed++; }
+}
+console.log(`Excluded ${removed} unreferenced authoring PNGs from the Pages artifact.`);
