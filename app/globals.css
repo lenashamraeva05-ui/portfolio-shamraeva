@@ -1739,3 +1739,7 @@ html { overflow-x: clip; }
 
 /* Above-the-fold content stays readable during hydration. */
 .about-opening-statement[data-reveal] { opacity: 1 !important; transform: none !important; }
+
+@media (max-width: 760px) {
+  .about-opening-lanyard { display: none !important; }
+}

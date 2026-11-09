@@ -3,7 +3,7 @@ import model from "./model-manifest.json";
 import { imageSource } from "./image-sources";
 let pending: Promise<unknown> | undefined;
 export function prewarmAbout() {
-  if (pending) return;
+  if (pending || !window.matchMedia("(min-width: 761px)").matches) return;
   for (const href of [physics.wasm, model.card, imageSource("/product-designer-card.webp", 720)]) {
     const link = document.createElement("link");
     link.rel = "preload";

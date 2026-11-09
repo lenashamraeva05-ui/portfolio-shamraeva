@@ -4,7 +4,6 @@ import "./globals.css";
 import GlobalGradualBlur from "./components/GlobalGradualBlur";
 import GitHubPagesPathRestore from "./components/GitHubPagesPathRestore";
 import CursorEnhancement from "./components/CursorEnhancement";
-import SlowLoadingFallback from "./components/SlowLoadingFallback";
 
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -59,7 +58,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           sameAs: ["https://www.linkedin.com/in/elena-shamraeva-a73464393"],
         }).replace(/</g, "\\u003c") }} />
         {children}
-        <SlowLoadingFallback />
         <GitHubPagesPathRestore />
         <GlobalGradualBlur />
         <CursorEnhancement />

@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
-import { prewarmAbout } from "@/lib/prewarm-about";
+import Link from "@/app/components/StaticLink";
 import MotionSystem from "./MotionSystem";
 
 export default function PortfolioHeader() {
@@ -54,7 +53,7 @@ export default function PortfolioHeader() {
           <Link prefetch={true} href="/#work" aria-current={pathname === "/" ? "page" : undefined} onClick={() => setNavOpen(false)}>Work</Link>
           <Link prefetch={true} href="/#contact" onClick={() => setNavOpen(false)}>Contact</Link>
           <Link prefetch={true} href="/resume/" aria-current={pathname === "/resume" ? "page" : undefined} onClick={() => setNavOpen(false)}>Resume</Link>
-          <Link onPointerEnter={prewarmAbout} onFocus={prewarmAbout} onTouchStart={prewarmAbout} prefetch={true} href="/about/" aria-current={pathname === "/about" ? "page" : undefined} onClick={() => setNavOpen(false)}>About</Link>
+          <Link prefetch={true} href="/about/" aria-current={pathname === "/about" ? "page" : undefined} onClick={() => setNavOpen(false)}>About</Link>
         </nav>
 
         <div className="header-actions">

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { CSSProperties } from "react";
-import Link from "next/link";
+import Link from "@/app/components/StaticLink";
 import PortfolioHeader from "../components/PortfolioHeader";
 
 type Category = "All" | "Operations" | "Design systems" | "Research" | "Culture";

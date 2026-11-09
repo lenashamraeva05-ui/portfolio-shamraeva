@@ -1,5 +1,5 @@
 import Image from "@/components/ResponsiveImage";
-import Link from "next/link";
+import Link from "@/app/components/StaticLink";
 import type { CSSProperties } from "react";
 import PortfolioHeader from "./components/PortfolioHeader";
 import ProjectCaseTabs, { type ProjectCaseData } from "./components/ProjectCaseTabs";

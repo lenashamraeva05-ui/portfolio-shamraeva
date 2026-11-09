@@ -115,7 +115,7 @@ test("keeps heavyweight visuals deferred and video network loading opt-in", asyn
   assert.match(home, /<video[^>]+preload="none"/);
   assert.doesNotMatch(home, /<video[^>]+src=/);
   assert.doesNotMatch(about, /rel="modulepreload"[^>]+href="[^"]*Lanyard/);
-  assert.match(about, /alt="Helen Shamraeva, product designer"/);
+  assert.match(about, /Interactive Helen Shamraeva profile card/);
 });
 
 test("GitHub Pages restoration preserves local paths and rejects external redirects", async () => {
@@ -160,7 +160,7 @@ test("keeps typography in normal case and the contact illustration in document f
   assert.doesNotMatch(home, /welcome-sticker/);
   assert.match(home.split('<footer class="site-footer"')[1], /class="footer-character"/);
   const about = await render("/about");
-  assert.match(about, /class="profile-card-poster"/);
+  assert.match(about, /class="about-opening-lanyard"[^>]*><\/div>/);
 });
 
 test("versions static route payload requests across production deployments", async () => {
@@ -244,4 +244,25 @@ test("static route cache keys do not vary with irrelevant server headers", async
 test("never hides an entire route behind an entrance animation", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.doesNotMatch(css, /animation:\s*route-enter/);
+});
+
+
+test("uses direct HTML navigation without waiting for the RSC router", async () => {
+  for (const route of ["", "/about", "/resume"]) {
+    const html = await render(route);
+    assert.match(html, /href="\/resume\/" data-static-navigation="true"/);
+    assert.match(html, /href="\/about\/" data-static-navigation="true"/);
+  }
+  const source = await readFile(new URL("../app/components/StaticLink.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(source, /next\/link|preventDefault|router\.push/);
+  assert.match(source, /link.as = "document"/);
+});
+
+test("gates physics imports on desktop and hides the mobile card container", async () => {
+  const component = await readFile(new URL("../app/components/AboutVisuals.tsx", import.meta.url), "utf8");
+  assert.match(component, /return desktop \? <DesktopProfileCard \/> : null/);
+  const warmup = await readFile(new URL("../lib/prewarm-about.ts", import.meta.url), "utf8");
+  assert.match(warmup, /!window.matchMedia\("\(min-width: 761px\)"\).matches/);
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /@media \(max-width: 760px\)\s*{\s*\.about-opening-lanyard { display: none !important; }/);
 });

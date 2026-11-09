@@ -2,7 +2,7 @@
 
 import Image from "@/components/ResponsiveImage";
 import { imageSource } from "@/lib/image-sources";
-import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 
 const Lanyard = lazy(() => import("../../components/Lanyard"));
 const InfiniteMenu = lazy(() => import("../../components/InfiniteMenu"));
@@ -30,7 +30,16 @@ function DeferredVisual({ children, fallback }: { children: ReactNode; fallback:
   </div>;
 }
 
+const subscribeDesktop = (listener: () => void) => {
+  const media = window.matchMedia("(min-width: 761px)");
+  media.addEventListener("change", listener);
+  return () => media.removeEventListener("change", listener);
+};
 export function ProfileCard() {
+  const desktop = useSyncExternalStore(subscribeDesktop, () => window.matchMedia("(min-width: 761px)").matches, () => false);
+  return desktop ? <DesktopProfileCard /> : null;
+}
+function DesktopProfileCard() {
   const [interactive, setInteractive] = useState(false);
   const handleReady = useCallback(() => setInteractive(true), []);
   // Native image is also the no-WebGL/error fallback for the interactive card.
