@@ -15,7 +15,7 @@ import './Lanyard.css';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
-// 1x1 transparent pixel — lets useTexture be called unconditionally when a
+// 1x1 transparent pixel - lets useTexture be called unconditionally when a
 // front/back image isn't supplied.
 const BLANK_PIXEL =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
@@ -49,7 +49,7 @@ export default function Lanyard({
   }, []);
 
   return (
-    <div className="lanyard-wrapper">
+    <div className="lanyard-wrapper" style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
       <Canvas
         fallback={<div role="img" aria-label="Elena Shamraeva, product designer" style={{ width: '100%', height: '100%', background: `center / contain no-repeat url(${frontImage || '/product-designer-card.webp'})` }} />}
         camera={{ position: position, fov: fov }}
@@ -206,6 +206,8 @@ function Band({
   }, [hovered, dragged]);
 
   useFrame((state, delta) => {
+    // Keep interpolation bounded after shader/physics startup or a background tab.
+    delta = Math.min(delta, 1 / 30);
     if (dragged) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
@@ -216,12 +218,12 @@ function Band({
     if (fixed.current) {
       if (visual.current) {
         const targetScale = dragged ? 2.38 : hovered ? 2.32 : 2.25;
-        visual.current.scale.lerp(scaleTarget.set(targetScale, targetScale, targetScale), delta * 10);
-        visual.current.rotation.y = THREE.MathUtils.lerp(visual.current.rotation.y, flipped ? Math.PI : 0, delta * 7);
+        visual.current.scale.lerp(scaleTarget.set(targetScale, targetScale, targetScale), 1 - Math.exp(-delta * 10));
+        visual.current.rotation.y = THREE.MathUtils.lerp(visual.current.rotation.y, flipped ? Math.PI : 0, 1 - Math.exp(-delta * 7));
       }
       if (tilt.current) {
-        tilt.current.rotation.x = THREE.MathUtils.lerp(tilt.current.rotation.x, hovered ? -state.pointer.y * 0.12 : 0, delta * 8);
-        tilt.current.rotation.z = THREE.MathUtils.lerp(tilt.current.rotation.z, hovered ? -state.pointer.x * 0.1 : 0, delta * 8);
+        tilt.current.rotation.x = THREE.MathUtils.lerp(tilt.current.rotation.x, hovered ? -state.pointer.y * 0.12 : 0, 1 - Math.exp(-delta * 8));
+        tilt.current.rotation.z = THREE.MathUtils.lerp(tilt.current.rotation.z, hovered ? -state.pointer.x * 0.1 : 0, 1 - Math.exp(-delta * 8));
       }
       [j1, j2].forEach(ref => {
         if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
@@ -260,7 +262,7 @@ function Band({
         </RigidBody>
         <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
-          <group ref={visual}
+          <group ref={visual} scale={2.25}
             position={[0, -1.2, -0.05]}
             onDoubleClick={() => setFlipped(value => !value)}
             onPointerOver={() => hover(true)}

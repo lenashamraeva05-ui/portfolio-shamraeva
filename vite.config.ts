@@ -1,4 +1,5 @@
 import vinext from "vinext";
+import { githubPagesRsc } from "./lib/github-pages-rsc-plugin.mjs";
 import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json";
 import { sites } from "./build/sites-vite-plugin";
@@ -49,6 +50,7 @@ export default defineConfig(async () => {
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,
     plugins: [
+      githubPagesRsc(),
       vinext(),
       sites(),
       cloudflare({

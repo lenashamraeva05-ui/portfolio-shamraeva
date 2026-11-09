@@ -31,7 +31,7 @@ function DeferredVisual({ children, fallback }: { children: ReactNode; fallback:
 export function ProfileCard() {
   // Native image is also the no-WebGL/error fallback for the interactive card.
   // eslint-disable-next-line @next/next/no-img-element
-  const fallback = <img src="/product-designer-card.webp" alt="Elena Shamraeva, product designer" width={1024} height={1536} style={{ width: "100%", height: "100%", objectFit: "contain" }} />;
+  const fallback = <img src="/product-designer-card.webp" alt="Elena Shamraeva, product designer" width={1024} height={1536} className="profile-card-poster" style={{ position: "absolute", top: "42%", left: "50%", width: "44%", height: "auto", maxHeight: "34%", objectFit: "contain", transform: "translateX(-50%)" }} />;
   return <DeferredVisual fallback={fallback}><Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} frontImage="/product-designer-card.webp" imageFit="cover" showLanyardLogo={false} /></DeferredVisual>;
 }
 
@@ -39,7 +39,7 @@ type Item = { image: string; link: string; title: string; description: string };
 export function OutsideWorkGallery({ items }: { items: Item[] }) {
   const fallback = <div style={{ display: "flex", height: "100%", overflowX: "auto" }}>{items.map(item => <a key={item.image} href={item.link} target="_blank" rel="noreferrer" style={{ flex: "0 0 75%" }}>
     {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img src={item.image} alt={item.title} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+    <img src={item.image} alt={item.title} loading="lazy" className="profile-card-poster" style={{ position: "absolute", top: "42%", left: "50%", width: "44%", height: "auto", maxHeight: "34%", objectFit: "contain", transform: "translateX(-50%)" }} />
   </a>)}</div>;
   return <DeferredVisual fallback={fallback}><InfiniteMenu items={items} backgroundColor="#0e0f10" /></DeferredVisual>;
 }

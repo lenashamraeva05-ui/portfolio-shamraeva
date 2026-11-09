@@ -19,16 +19,16 @@ test("renders the portfolio homepage and project imagery", async () => {
   assert.match(html, /Zernote/);
   assert.match(html, /Whispers of the City/);
   assert.match(html, /TableQuest/);
-  assert.match(html, /EHU IT Hub — Social/);
-  assert.match(html, /EHU IT Hub — Landing/);
-  assert.match(html, /EHU IT Hub — Portal/);
+  assert.match(html, /EHU IT Hub - Social/);
+  assert.match(html, /EHU IT Hub - Landing/);
+  assert.match(html, /EHU IT Hub - Portal/);
   assert.match(html, /Let&#x27;s chat/);
   assert.match(html, /LinkedIn/);
   assert.match(html, /https:\/\/www\.linkedin\.com\/in\/elena-shamraeva-a73464393/);
   assert.match(html, /Telegram/);
   assert.match(html, /WhatsApp/);
-  assert.match(html, /href="\/about"/);
-  assert.match(html, /href="\/resume"/);
+  assert.match(html, /href="\/about\/"/);
+  assert.match(html, /href="\/resume\/"/);
   assert.doesNotMatch(html, /href="\/blog"/);
   assert.match(html, /role="tablist"/);
   assert.match(html, /role="tab"/);
@@ -127,4 +127,39 @@ test("GitHub Pages restoration preserves local paths and rejects external redire
   for (const path of [null, "", "about", "https://example.com", "//example.com/path", "/\\example.com/path"]) {
     assert.equal(restoreLocalPath(path, origin), null, String(path));
   }
+});
+
+test("adapts static RSC MIME checks without accepting HTML fallbacks", async () => {
+  const { githubPagesRsc } = await import("../lib/github-pages-rsc-plugin.mjs");
+  const plugin = githubPagesRsc();
+  const source = 'if (!type.startsWith("text/x-component")) return false; return type.startsWith("text/x-component");';
+  const result = plugin.transform(source, "/node_modules/vinext/dist/server/app-browser-entry.js");
+  const accepts = new Function("type", result.code);
+  assert.equal(accepts("application/octet-stream"), true);
+  assert.equal(accepts("text/x-component; charset=utf-8"), true);
+  assert.equal(accepts("text/html"), false);
+  assert.throws(() => plugin.transform("changed upstream", "/node_modules/vinext/dist/server/app-browser-entry.js"));
+});
+
+test("uses the exported homepage RSC filename and retains other route paths", async () => {
+  const { githubPagesRsc } = await import("../lib/github-pages-rsc-plugin.mjs");
+  const source = 'const beforeHash = href.split("#")[0]; const queryIndex = beforeHash.indexOf("?"); const pathname = queryIndex === -1 ? beforeHash : beforeHash.slice(0, queryIndex); return pathname;';
+  const result = githubPagesRsc().transform(source, "/node_modules/vinext/dist/server/app-rsc-cache-busting.js");
+  const route = new Function("href", result.code);
+  assert.equal(route("/"), "/index");
+  assert.equal(route("/about/?from=home"), "/about/");
+  await access(new URL("../dist/client/index.rsc", import.meta.url));
+});
+
+test("keeps typography in normal case and the contact illustration in document flow", async () => {
+  for (const path of ["", "/about", "/resume", "/blog"]) {
+    assert.doesNotMatch(await render(path), /[\u2013\u2014]/);
+  }
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.doesNotMatch(css, /text-transform:\s*uppercase/);
+  const home = await render();
+  assert.match(home, /class="contact-illustration"/);
+  assert.doesNotMatch(home.split('<footer class="site-footer"')[1], /class="footer-character"/);
+  const about = await render("/about");
+  assert.match(about, /class="profile-card-poster"/);
 });

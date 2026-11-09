@@ -43,7 +43,7 @@ export default function PortfolioHeader() {
       <MotionSystem />
       <a className="skip-link" href="#main-content">Skip to content</a>
       <header ref={headerRef} className={`site-header ${scrolled ? "is-scrolled" : ""} ${navOpen ? "is-menu-open" : ""}`}>
-        <Link className="mark" href="/" aria-label="Elena Shamraeva — home">
+        <Link className="mark" href="/" aria-label="Elena Shamraeva - home">
           <span className="mark-greeting">Hey, I&apos;m</span>
           <span className="intro-avatar" aria-hidden="true" />
           <span className="mark-name">Elena</span>
@@ -51,8 +51,8 @@ export default function PortfolioHeader() {
 
         <nav aria-label="Primary navigation" id="primary-navigation">
           <Link href="/#work" aria-current={pathname === "/" ? "page" : undefined} onClick={() => setNavOpen(false)}>Work</Link>
-          <Link href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={() => setNavOpen(false)}>About</Link>
-          <Link href="/resume" aria-current={pathname === "/resume" ? "page" : undefined} onClick={() => setNavOpen(false)}>Resume</Link>
+          <Link prefetch={true} href="/about/" aria-current={pathname === "/about" ? "page" : undefined} onClick={() => setNavOpen(false)}>About</Link>
+          <Link prefetch={true} href="/resume/" aria-current={pathname === "/resume" ? "page" : undefined} onClick={() => setNavOpen(false)}>Resume</Link>
           <Link href="/#contact" onClick={() => setNavOpen(false)}>Contact</Link>
         </nav>
 

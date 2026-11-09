@@ -47,9 +47,9 @@ const projects: Project[] = [
       { value: "55M+", label: "customers · chose T‑Bank" },
     ],
     overviewDetails: {
-      companyDescription: "T‑Bank is a digital bank and financial ecosystem built around everyday services — from payments and cards to investments, travel and more.",
+      companyDescription: "T‑Bank is a digital bank and financial ecosystem built around everyday services - from payments and cards to investments, travel and more.",
       companyUrl: "https://www.tbank.ru/",
-      internship: "May–Sep 2026 · 3 months",
+      internship: "May-Sep 2026 · 3 months",
       focus: ["Learning by doing", "Working across the ecosystem", "Building a component library", "Pages & research", "Simplifying workflows"],
     },
     overviewHighlights: [
@@ -68,7 +68,7 @@ const projects: Project[] = [
         { label: "Working in a system", text: "I saw how design reviews, approvals and component libraries keep a large ecosystem consistent.", highlights: ["component libraries"] },
         { label: "Research to action", text: "I dug for context, turned findings into tasks and moved ideas forward with product and engineering teams.", highlights: ["turned findings into tasks"] },
         { label: "Collaboration", text: "Regular communication with designers, developers, product managers and partners made the work sharper.", highlights: ["made the work sharper"] },
-        { label: "What came next", text: "The internship ended with an invitation to continue working together — a meaningful sign that the contribution was valued.", highlights: ["invitation to continue working together"] },
+        { label: "What came next", text: "The internship ended with an invitation to continue working together - a meaningful sign that the contribution was valued.", highlights: ["invitation to continue working together"] },
       ],
     },
     challengeHighlights: [
@@ -81,7 +81,7 @@ const projects: Project[] = [
     screensVisual: "nda",
     screensCopy: {
       title: "Product work, kept private.",
-      body: "I owned the design of reusable components and key product surfaces across Event Properties, User Properties and related data views. I shaped the property library, the table that brings properties into focus and the detail view behind each row — then made change updates easier to discover with a clear changelog. Along the way, I researched workflows, spoke with users in quick corridor conversations and used those signals to make the pages more useful. There were plenty of smaller product tasks around the edges, too: clarifying states, tightening interactions and helping the system grow without losing its logic.",
+      body: "I owned the design of reusable components and key product surfaces across Event Properties, User Properties and related data views. I shaped the property library, the table that brings properties into focus and the detail view behind each row - then made change updates easier to discover with a clear changelog. Along the way, I researched workflows, spoke with users in quick corridor conversations and used those signals to make the pages more useful. There were plenty of smaller product tasks around the edges, too: clarifying states, tightening interactions and helping the system grow without losing its logic.",
       highlights: [
         "reusable components",
         "User Properties",
@@ -133,7 +133,7 @@ const projects: Project[] = [
     overviewImageAlt: "Zernote research collage with interview notes, insights, analytics and connected evidence",
     challenge: "Interview evidence was scattered across tools, analysis took hours and teams lost the context behind product decisions.",
     direction: "I designed the MVP platform, created the investor pitch deck, spoke with investors and advisors, and mentored 3 design interns while the product moved from concept to a live workflow.",
-    result: "Zernote is becoming an end-to-end research solution: an AI-assisted companion during interviews that helps refine questions and close hypotheses, then a workspace for full analysis, synthesis and presentations to a manager or client. AI supports the researcher throughout the process — it accelerates the work without replacing the person leading it.",
+    result: "Zernote is becoming an end-to-end research solution: an AI-assisted companion during interviews that helps refine questions and close hypotheses, then a workspace for full analysis, synthesis and presentations to a manager or client. AI supports the researcher throughout the process - it accelerates the work without replacing the person leading it.",
     metrics: [],
     overviewHighlights: [
       "end-to-end research solution",
@@ -329,13 +329,13 @@ export default function Home() {
         <header>
           <h2 id="more-work-title" data-reveal>Other projects.</h2>
         </header>
-        <span className="sr-only">Whispers of the City, TableQuest, EHU IT Hub — Social, EHU IT Hub — Landing, EHU IT Hub — Portal</span>
+        <span className="sr-only">Whispers of the City, TableQuest, EHU IT Hub - Social, EHU IT Hub - Landing, EHU IT Hub - Portal</span>
         <DriftWallSection />
       </section>
 
       <section className="principles-section" id="about">
         <div className="principles-heading" data-reveal>
-          <h2>I design functional products <span className="principles-highlight">step by step – even when things get complex.</span></h2>
+          <h2>I design functional products <span className="principles-highlight">step by step - even when things get complex.</span></h2>
         </div>
         <figure className="process-graph process-graph-image" data-reveal>
           <Image
@@ -396,9 +396,7 @@ export default function Home() {
             </a>
           </SpotlightCard>
         </div>
-      </section>
-
-      <footer className="site-footer" id="contact">
+        <div className="contact-illustration" aria-hidden="true">
         <Image
           className="footer-character"
           src="/footer-character.webp"
@@ -409,6 +407,10 @@ export default function Home() {
           sizes="(max-width: 760px) 72vw, 420px"
           unoptimized
         />
+        </div>
+      </section>
+
+      <footer className="site-footer" id="contact">
         <div className="site-footer-inner">
           <div className="site-footer-copy">
             <strong>© 2026 Elena Shamraeva. All Rights Reserved.</strong>

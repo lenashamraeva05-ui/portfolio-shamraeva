@@ -87,7 +87,7 @@ const experience: Experience[] = [
   {
     company: "U-Servers",
     role: "UX/UI designer",
-    dates: "Aug 2024 – Present · 2 yrs 2 mos",
+    dates: "Aug 2024 - Present · 2 yrs 2 mos",
     description: "Redesigned core product interfaces and maintained the design system for U-Servers.",
     mark: "uservers",
     logo: "/logos/uservers.svg",
@@ -95,7 +95,7 @@ const experience: Experience[] = [
   {
     company: "Zernote",
     role: "UX/UI Designer",
-    dates: "Feb 2026 – Present · 8 mos",
+    dates: "Feb 2026 - Present · 8 mos",
     description: "Designed AI-assisted research tools for interviews, insight extraction, and hypothesis validation at Zernote.",
     mark: "zernote",
     logo: "/logos/zernote.svg",
@@ -103,7 +103,7 @@ const experience: Experience[] = [
   {
     company: "T-Bank",
     role: "Intern",
-    dates: "May 2026 – Sep 2026 · 3 mos",
+    dates: "May 2026 - Sep 2026 · 3 mos",
     description:
       "Worked on Statist, T-Bank’s internal analytics platform.",
     mark: "tbank",
@@ -112,7 +112,7 @@ const experience: Experience[] = [
   {
     company: "Student's Hub",
     role: "Junior Product designer",
-    dates: "Dec 2023 – Apr 2025 · 1 yr 5 mos",
+    dates: "Dec 2023 - Apr 2025 · 1 yr 5 mos",
     description: "Designed UX/UI for Student’s Hub, a freelance platform for students.",
     mark: "students",
     logo: "/logos/students-hub.webp",
@@ -120,7 +120,7 @@ const experience: Experience[] = [
   {
     company: "EHU IT Hub",
     role: "Designer",
-    dates: "Mar 2024 – Nov 2024 · 9 mos",
+    dates: "Mar 2024 - Nov 2024 · 9 mos",
     description: "Designed dashboards, landing pages, and digital content for EHU IT Hub.",
     mark: "ehu",
     logo: "/logos/ehu-it-hub.svg",
@@ -128,7 +128,7 @@ const experience: Experience[] = [
   {
     company: "Freelance",
     role: "Freelance Designer",
-    dates: "Feb 2022 – May 2023 · 1 yr 4 mos",
+    dates: "Feb 2022 - May 2023 · 1 yr 4 mos",
     description: "Worked on UX/UI design projects for freelance clients.",
     mark: "freelance",
   },
@@ -146,14 +146,14 @@ const education: Education[] = [
   {
     institution: "Yandex Practicum",
     program: "UX Research for Designers",
-    dates: "Oct 2024 – Feb 2025",
+    dates: "Oct 2024 - Feb 2025",
     detail: "Grade: 160 hours",
     icon: BookOpen,
   },
   {
     institution: "Moscow Polytechnic University",
     program: "Bachelor's degree, Graphic Design",
-    dates: "Aug 2023 – Feb 2027",
+    dates: "Aug 2023 - Feb 2027",
     icon: University,
   },
 ];
@@ -191,7 +191,7 @@ export default function ResumePage() {
       <section className="resume-reference-skills" aria-labelledby="resume-skills-title">
         <div className="resume-reference-section-label">
           <span className="resume-label-dot" aria-hidden="true" />
-          <h2 id="resume-skills-title">SKILLS</h2>
+          <h2 id="resume-skills-title">Skills</h2>
         </div>
 
         <div className="resume-reference-grid">
@@ -227,7 +227,7 @@ export default function ResumePage() {
         <header className="resume-experience-heading">
           <div className="resume-reference-section-label">
             <span className="resume-label-dot" aria-hidden="true" />
-            <h2 id="resume-experience-title">EXPERIENCE</h2>
+            <h2 id="resume-experience-title">Experience</h2>
           </div>
           <a className="resume-download" href="/resume.pdf" download>
             <Download aria-hidden="true" />
@@ -268,7 +268,7 @@ export default function ResumePage() {
         <header className="resume-experience-heading">
           <div className="resume-reference-section-label">
             <span className="resume-label-dot" aria-hidden="true" />
-            <h2 id="resume-education-title">EDUCATION</h2>
+            <h2 id="resume-education-title">Education</h2>
           </div>
         </header>
 
