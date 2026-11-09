@@ -240,3 +240,8 @@ test("static route cache keys do not vary with irrelevant server headers", async
   assert.doesNotMatch(result.code, /setRscCacheBustingSearchParam\(url, await compute/);
   assert.match(result.code, /__release/);
 });
+
+test("never hides an entire route behind an entrance animation", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.doesNotMatch(css, /animation:\s*route-enter/);
+});

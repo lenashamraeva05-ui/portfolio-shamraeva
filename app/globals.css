@@ -82,8 +82,7 @@ p, li { text-wrap: pretty; }
   .welcome-sticker { animation: none; }
   .welcome-sticker-image { transition: none; }
 }
-.home-page, .inner-page { animation: route-enter 420ms ease-out both; }
-@keyframes route-enter { from { opacity: 0; } }
+.home-page, .inner-page { opacity: 1; }
 
 .slow-loading-fallback {
   position: fixed;
