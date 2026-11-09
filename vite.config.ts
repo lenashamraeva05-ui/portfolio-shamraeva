@@ -1,4 +1,5 @@
 import vinext from "vinext";
+import { rapierWasm } from "./lib/rapier-wasm-plugin.mjs";
 import { githubPagesRsc } from "./lib/github-pages-rsc-plugin.mjs";
 import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json";
@@ -51,6 +52,7 @@ export default defineConfig(async () => {
       : undefined,
     plugins: [
       githubPagesRsc(),
+      rapierWasm(),
       vinext(),
       sites(),
       cloudflare({

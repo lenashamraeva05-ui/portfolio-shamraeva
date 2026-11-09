@@ -1737,3 +1737,6 @@ html { overflow-x: clip; }
   .why-me-copy { max-width: 100%; }
   .why-me-panel > .clay-media, .why-me-panel > .why-me-visual { width: 100%; max-width: 360px; justify-self: center; }
 }
+
+/* Above-the-fold content stays readable during hydration. */
+.about-opening-statement[data-reveal] { opacity: 1 !important; transform: none !important; }

@@ -723,29 +723,25 @@ class InfiniteGridMenu {
     canvas.width = this.atlasSize * cellSize;
     canvas.height = this.atlasSize * cellSize;
 
-    Promise.all(
-      this.items.map(
-        item =>
-          new Promise(resolve => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = () => resolve(img);
-            img.onerror = () => resolve(null);
-            img.src = item.image;
-          })
-      )
-    ).then(images => {
+    const upload = () => {
       if (this.destroyed || gl.isContextLost()) return;
-      images.forEach((img, i) => {
-        const x = (i % this.atlasSize) * cellSize;
-        const y = Math.floor(i / this.atlasSize) * cellSize;
-        // Each supplied frame is square, so place it in the atlas without cropping.
-        if (img) ctx.drawImage(img, x, y, cellSize, cellSize);
-      });
-
       gl.bindTexture(gl.TEXTURE_2D, this.tex);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
-      gl.generateMipmap(gl.TEXTURE_2D);
+    };
+    ctx.fillStyle = '#141917';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    upload();
+    this.items.forEach((item, i) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        if (this.destroyed || gl.isContextLost()) return;
+        const x = (i % this.atlasSize) * cellSize;
+        const y = Math.floor(i / this.atlasSize) * cellSize;
+        ctx.drawImage(img, x, y, cellSize, cellSize);
+        upload();
+      };
+      img.src = item.image;
     });
   }
 

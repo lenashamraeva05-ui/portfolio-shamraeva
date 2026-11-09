@@ -2,7 +2,7 @@
 
 import Image from "@/components/ResponsiveImage";
 import { imageSource } from "@/lib/image-sources";
-import { Component, lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 const Lanyard = lazy(() => import("../../components/Lanyard"));
 const InfiniteMenu = lazy(() => import("../../components/InfiniteMenu"));
@@ -31,9 +31,14 @@ function DeferredVisual({ children, fallback }: { children: ReactNode; fallback:
 }
 
 export function ProfileCard() {
+  const [interactive, setInteractive] = useState(false);
+  const handleReady = useCallback(() => setInteractive(true), []);
   // Native image is also the no-WebGL/error fallback for the interactive card.
   const fallback = <Image priority sizes="180px" src="/product-designer-card.webp" alt="Helen Shamraeva, product designer" width={1024} height={1536} className="profile-card-poster" style={{ position: "absolute", top: "42%", left: "50%", width: "44%", height: "auto", maxHeight: "34%", objectFit: "contain", transform: "translateX(-50%)" }} />;
-  return <DeferredVisual fallback={fallback}><Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} frontImage={imageSource("/product-designer-card.webp", 720)} imageFit="cover" showLanyardLogo={false} /></DeferredVisual>;
+  return <div style={{ position: "relative", width: "100%", height: "100%" }}>
+    {!interactive && fallback}
+    <DeferredVisual fallback={null}><Lanyard onReady={handleReady} position={[0, 0, 20]} gravity={[0, -40, 0]} frontImage={imageSource("/product-designer-card.webp", 720)} imageFit="cover" showLanyardLogo={false} /></DeferredVisual>
+  </div>;
 }
 
 type Item = { image: string; link: string; title: string; description: string };

@@ -238,7 +238,7 @@ const DriftWall = ({
       <span className="drift-wall__inner">
         {/* Native image keeps arbitrary tile URLs compatible with this reusable component. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} />
+        <img src={item.image} alt={item.title ?? ''} loading="eager" decoding="async" draggable={false} />
         <span className="drift-wall__overlay" aria-hidden="true" />
         <span className="drift-wall__label" aria-hidden="true">{item.title}</span>
       </span>

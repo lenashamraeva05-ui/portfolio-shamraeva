@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { prewarmAbout } from "@/lib/prewarm-about";
 import MotionSystem from "./MotionSystem";
 
 export default function PortfolioHeader() {
@@ -43,17 +44,17 @@ export default function PortfolioHeader() {
       <MotionSystem />
       <a className="skip-link" href="#main-content">Skip to content</a>
       <header ref={headerRef} className={`site-header ${scrolled ? "is-scrolled" : ""} ${navOpen ? "is-menu-open" : ""}`}>
-        <Link className="mark" href="/" aria-label="Helen Shamraeva - home">
+        <Link prefetch={true} className="mark" href="/" aria-label="Helen Shamraeva - home">
           <span className="mark-greeting">Hey, I&apos;m</span>
           <span className="intro-avatar" aria-hidden="true" />
           <span className="mark-name">Helen</span>
         </Link>
 
         <nav aria-label="Primary navigation" id="primary-navigation">
-          <Link href="/#work" aria-current={pathname === "/" ? "page" : undefined} onClick={() => setNavOpen(false)}>Work</Link>
-          <Link href="/#contact" onClick={() => setNavOpen(false)}>Contact</Link>
+          <Link prefetch={true} href="/#work" aria-current={pathname === "/" ? "page" : undefined} onClick={() => setNavOpen(false)}>Work</Link>
+          <Link prefetch={true} href="/#contact" onClick={() => setNavOpen(false)}>Contact</Link>
           <Link prefetch={true} href="/resume/" aria-current={pathname === "/resume" ? "page" : undefined} onClick={() => setNavOpen(false)}>Resume</Link>
-          <Link prefetch={true} href="/about/" aria-current={pathname === "/about" ? "page" : undefined} onClick={() => setNavOpen(false)}>About</Link>
+          <Link onPointerEnter={prewarmAbout} onFocus={prewarmAbout} onTouchStart={prewarmAbout} prefetch={true} href="/about/" aria-current={pathname === "/about" ? "page" : undefined} onClick={() => setNavOpen(false)}>About</Link>
         </nav>
 
         <div className="header-actions">

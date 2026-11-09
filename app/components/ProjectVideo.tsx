@@ -1,5 +1,6 @@
 "use client";
 
+import { imageSource } from "@/lib/image-sources";
 import { useEffect, useRef, useState } from "react";
 
 export default function ProjectVideo({ src, poster, label }: { src: string; poster: string; label: string }) {
@@ -27,5 +28,5 @@ export default function ProjectVideo({ src, poster, label }: { src: string; post
       video.pause();
     };
   }, [ready]);
-  return <video ref={ref} src={ready ? src : undefined} poster={poster} loop muted playsInline preload="none" aria-label={label} />;
+  return <video ref={ref} src={ready ? src : undefined} poster={imageSource(poster, 1080)} loop muted playsInline preload="none" aria-label={label} />;
 }

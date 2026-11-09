@@ -216,3 +216,28 @@ test("combines the AI, clay, handoff, research and UK story into one accessible 
   assert.ok(html.indexOf('id="why-me-title"') < html.indexOf('id="work"'));
   assert.match(html, /application\/ld\+json/);
 });
+
+
+test("streams the unchanged physics binary instead of parsing base64 JS", async () => {
+  const { rapierWasm } = await import("../lib/rapier-wasm-plugin.mjs");
+  const { createRequire } = await import("node:module");
+  const require = createRequire(import.meta.url);
+  const entry = require.resolve("@dimforge/rapier3d-compat").replace(/rapier\.cjs$/, "rapier.mjs");
+  const source = await readFile(entry, "utf8");
+  const encoded = source.match(/lg\.toByteArray\("(AGFzb[A-Za-z0-9+/=]+)"\)/)[1];
+  const transformed = rapierWasm().transform(source, entry).code;
+  assert.doesNotMatch(transformed, /module_or_path:[^}]+}\.buffer/);
+  assert.doesNotMatch(transformed, /lg\.toByteArray\("AGFzb/);
+  const url = transformed.match(/fetch\("([^" ]+\.wasm)"\)/)[1];
+  const bytes = await readFile(new URL(`../dist/client${url}`, import.meta.url));
+  assert.deepEqual(bytes, Buffer.from(encoded, "base64"));
+  assert.equal(WebAssembly.validate(bytes), true);
+});
+
+test("static route cache keys do not vary with irrelevant server headers", async () => {
+  const { githubPagesRsc } = await import("../lib/github-pages-rsc-plugin.mjs");
+  const file = new URL("../node_modules/vinext/dist/server/app-rsc-cache-busting.js", import.meta.url);
+  const result = githubPagesRsc().transform(await readFile(file, "utf8"), file.pathname);
+  assert.doesNotMatch(result.code, /setRscCacheBustingSearchParam\(url, await compute/);
+  assert.match(result.code, /__release/);
+});

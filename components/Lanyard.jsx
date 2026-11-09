@@ -28,7 +28,7 @@ const BLANK_PIXEL =
 const FRONT_UV_RECT = { x: 0, y: 0, w: 0.5, h: 0.755 };
 const BACK_UV_RECT = { x: 0.5, y: 0, w: 0.5, h: 0.757 };
 
-/** @param {{ position?: number[], gravity?: number[], fov?: number, transparent?: boolean, frontImage?: string | null, backImage?: string | null, imageFit?: 'cover' | 'contain', lanyardImage?: string | null, lanyardWidth?: number, showLanyardLogo?: boolean }} props */
+/** @param {{ position?: number[], gravity?: number[], fov?: number, transparent?: boolean, frontImage?: string | null, backImage?: string | null, imageFit?: 'cover' | 'contain', lanyardImage?: string | null, lanyardWidth?: number, showLanyardLogo?: boolean, onReady?: () => void }} props */
 export default function Lanyard({
   position = [0, 0, 30],
   gravity = [0, -40, 0],
@@ -39,7 +39,8 @@ export default function Lanyard({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1,
-  showLanyardLogo = true
+  showLanyardLogo = true,
+  onReady
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
@@ -62,6 +63,7 @@ export default function Lanyard({
         <ambientLight intensity={Math.PI} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band
+            onReady={onReady}
             isMobile={isMobile}
             frontImage={frontImage}
             backImage={backImage}
@@ -114,7 +116,8 @@ function Band({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1,
-  showLanyardLogo = true
+  showLanyardLogo = true,
+  onReady
 }) {
   const band = useRef(),
     fixed = useRef(),
@@ -207,7 +210,9 @@ function Band({
     }
   }, [hovered, dragged]);
 
+  const readyFrames = useRef(0);
   useFrame((state, delta) => {
+    if (++readyFrames.current === 2) onReady?.();
     // Keep interpolation bounded after shader/physics startup or a background tab.
     delta = Math.min(delta, 1 / 30);
     if (dragged) {

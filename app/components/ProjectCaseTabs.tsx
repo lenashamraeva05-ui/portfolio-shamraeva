@@ -117,6 +117,15 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
   const phaseRef = useRef(-1);
   const pausedRef = useRef(false);
 
+  const [imagesReady, setImagesReady] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setImagesReady(true); observer.disconnect(); }
+    }, { rootMargin: "1200px" });
+    if (viewportRef.current) observer.observe(viewportRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const togglePaused = () => {
     pausedRef.current = !pausedRef.current;
     setIsPaused(pausedRef.current);
@@ -214,7 +223,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
       <div className="museum-landing-scroll" ref={viewportRef} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp}>
         <div className="museum-landing-track" ref={trackRef}>
           {museumLandingParts.map((part, index) => (
-              <Image key={part.src} unoptimized src={part.src} alt={index === 0 ? "EHU Museums landing page" : ""} width={1380} height={part.height} sizes="(max-width: 1100px) 100vw, 62vw" className="museum-landing-part" />
+              <Image key={part.src} loading={imagesReady ? "eager" : "lazy"} unoptimized src={part.src} alt={index === 0 ? "EHU Museums landing page" : ""} width={1380} height={part.height} sizes="(max-width: 1100px) 100vw, 62vw" className="museum-landing-part" />
           ))}
         </div>
       </div>
