@@ -58,7 +58,7 @@ export default function DriftWallSection() {
       },
       // Start just before the wall enters view so its first frame is ready without
       // competing with the initial page images.
-      { rootMargin: "600px 0px" },
+      { rootMargin: "300px 0px" },
     );
 
     observer.observe(section);
@@ -69,7 +69,7 @@ export default function DriftWallSection() {
     <div ref={sectionRef} className="drift-wall-section" aria-label="Other projects gallery" aria-busy={!isReady}>
       {isReady && (
         <Suspense fallback={null}><DriftWall
-          items={items.map(item => ({ ...item, image: imageSource(item.image, 360) }))}
+          items={items.map(item => ({ ...item, image: imageSource(item.image, 320, "avif") }))}
           columns={6}
           tileWidth={200}
           tileHeight={132}

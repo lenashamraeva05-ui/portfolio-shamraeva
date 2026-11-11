@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { Renderer, Program, Triangle, Mesh } from 'ogl';
 import './SideRays.css';
 
 const hexToRgb = hex => {
@@ -80,8 +79,11 @@ const SideRays = ({
 
       if (cancelled || !containerRef.current) return;
 
+      // Mobile/offscreen decorations never download the WebGL library.
+      const { Renderer, Program, Triangle, Mesh } = await import('ogl');
+      if (cancelled || !containerRef.current) return;
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 1.5),
+        dpr: Math.min(window.devicePixelRatio, 1.25),
         alpha: true
       });
       rendererRef.current = renderer;
@@ -191,14 +193,21 @@ void main() {
 
       const updateSize = () => {
         if (!containerRef.current || !renderer) return;
-        renderer.dpr = Math.min(window.devicePixelRatio, 1.5);
+        renderer.dpr = Math.min(window.devicePixelRatio, 1.25);
         const { clientWidth: w, clientHeight: h } = containerRef.current;
         renderer.setSize(w, h);
         uniforms.iResolution.value = [w * renderer.dpr, h * renderer.dpr];
       };
 
       let animationStart = null;
+      let lastRenderedAt = -Infinity;
       const loop = t => {
+        // Decorative rays do not need a full GPU render on every display refresh.
+        if (t - lastRenderedAt < 1000 / 30) {
+          animationIdRef.current = requestAnimationFrame(loop);
+          return;
+        }
+        lastRenderedAt = t;
         if (!rendererRef.current || !uniformsRef.current || !meshRef.current) return;
         if (animationStart === null) animationStart = t;
         if (animate) uniforms.iTime.value = (t - animationStart) * 0.001;

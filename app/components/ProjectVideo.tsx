@@ -11,20 +11,24 @@ export default function ProjectVideo({ src, poster, label }: { src: string; post
     if (!video) return;
     let visible = false;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const connection = (navigator as Navigator & { connection?: EventTarget & { saveData?: boolean; effectiveType?: string } }).connection;
     const sync = () => {
-      if (visible && !document.hidden && !media.matches) {
+      const slowConnection = connection?.saveData || /^(slow-)?2g$/.test(connection?.effectiveType ?? "");
+      if (visible && !document.hidden && !media.matches && !slowConnection) {
         setReady(true);
         if (ready) void video.play().catch(() => { /* Poster remains visible when autoplay is unavailable. */ });
       } else video.pause();
     };
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); }, { rootMargin: "200px" });
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting && entry.intersectionRatio >= .15; sync(); }, { threshold: [.15] });
     observer.observe(video);
     document.addEventListener("visibilitychange", sync);
     media.addEventListener("change", sync);
+    connection?.addEventListener("change", sync);
     return () => {
       observer.disconnect();
       document.removeEventListener("visibilitychange", sync);
       media.removeEventListener("change", sync);
+      connection?.removeEventListener("change", sync);
       video.pause();
     };
   }, [ready]);

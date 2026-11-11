@@ -137,13 +137,21 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
     let frame = 0;
     const duration = 72000;
     let inView = false;
+    const syncAnimation = () => {
+      lastFrameRef.current = 0;
+      if (inView && !document.hidden) {
+        if (!frame) frame = requestAnimationFrame(tick);
+      } else { cancelAnimationFrame(frame); frame = 0; }
+    };
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
-      lastFrameRef.current = 0;
+      syncAnimation();
     });
     if (viewportRef.current) observer.observe(viewportRef.current);
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const tick = (now: number) => {
+      frame = 0;
+      if (!inView || document.hidden) return;
       const viewport = viewportRef.current;
       const track = trackRef.current;
       if (viewport && track && inView && !document.hidden) {
@@ -162,8 +170,12 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
       }
       frame = requestAnimationFrame(tick);
     };
-    frame = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(frame); observer.disconnect(); };
+    document.addEventListener("visibilitychange", syncAnimation);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", syncAnimation);
+    };
   }, [onProgress]);
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {

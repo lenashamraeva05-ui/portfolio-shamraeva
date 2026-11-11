@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { Renderer, Program, Triangle, Mesh } from 'ogl';
 import './LightRays.css';
 
 const DEFAULT_COLOR = '#ffffff';
@@ -98,8 +97,11 @@ const LightRays = ({
 
       if (cancelled || !containerRef.current) return;
 
+      // Mobile/offscreen decorations never download the WebGL library.
+      const { Renderer, Program, Triangle, Mesh } = await import('ogl');
+      if (cancelled || !containerRef.current) return;
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 1.5),
+        dpr: Math.min(window.devicePixelRatio, 1.25),
         alpha: true
       });
       rendererRef.current = renderer;
@@ -258,7 +260,7 @@ void main() {
       const updatePlacement = () => {
         if (!containerRef.current || !renderer) return;
 
-        renderer.dpr = Math.min(window.devicePixelRatio, 1.5);
+        renderer.dpr = Math.min(window.devicePixelRatio, 1.25);
 
         const { clientWidth: wCSS, clientHeight: hCSS } = containerRef.current;
         renderer.setSize(wCSS, hCSS);
@@ -274,7 +276,14 @@ void main() {
         uniforms.rayDir.value = dir;
       };
 
+      let lastRenderedAt = -Infinity;
       const loop = t => {
+        // Decorative rays do not need a full GPU render on every display refresh.
+        if (t - lastRenderedAt < 1000 / 30) {
+          animationIdRef.current = requestAnimationFrame(loop);
+          return;
+        }
+        lastRenderedAt = t;
         if (!rendererRef.current || !uniformsRef.current || !meshRef.current) {
           return;
         }

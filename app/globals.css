@@ -1660,17 +1660,8 @@ html { overflow-x: clip; }
 .why-me-panel[hidden] { display: none; }
 .why-me-copy { min-width: 0; max-width: 540px; }
 .why-me-copy h3 { margin: 0 0 22px; font-size: clamp(28px, 3vw, 40px); font-weight: 550; line-height: 1.12; letter-spacing: -.035em; }
-.why-me-copy > p:not(.why-me-note) { margin: 0; color: var(--muted-strong); font-size: 16px; line-height: 1.65; }
 .why-me-copy ul { display: grid; gap: 10px; padding-left: 20px; margin: 24px 0 0; color: #c9cdca; font-size: 14px; line-height: 1.5; }
 .why-me-copy li::marker { color: #96c8ff; }
-.why-me-note { margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line-soft); color: var(--muted-strong); font-size: 13px; line-height: 1.6; }
-.why-me-visual { width: 100%; aspect-ratio: 1; padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; justify-content: center; gap: 24px; border: 1px solid var(--line); border-radius: 28px; background: radial-gradient(ellipse at 25% 20%, #1c2929, #101513 75%); }
-
-.why-me-visual ol { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.why-me-visual li { display: flex; align-items: center; gap: 14px; padding: 16px 14px; border: 1px solid rgba(213,234,227,.13); border-radius: 14px; background: rgba(213,234,227,.035); color: #d8e5df; font-size: 15px; }
-.why-me-visual li > span { color: var(--success); font-size: 12px; }
-.why-me-visual-tags { display: flex; gap: 7px; flex-wrap: wrap; }
-.why-me-visual-tags span { padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: #a9bdb2; font-size: 11px; }
 /* A pseudo-element keeps the header's blur from isolating dropdown backdrops. */
 .site-header, .site-header.is-scrolled { isolation: isolate; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; border-color: rgba(238,248,241,.22); box-shadow: none; }
 .site-header::before { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; border-radius: inherit; background: linear-gradient(135deg, rgba(114,133,121,.25), rgba(20,28,24,.62)); -webkit-backdrop-filter: blur(24px) saturate(155%); backdrop-filter: blur(24px) saturate(155%); box-shadow: inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(255,255,255,.04), 0 12px 40px rgba(0,0,0,.24); }
@@ -1684,7 +1675,7 @@ html { overflow-x: clip; }
   .why-me-intro p { font-size: 16px; }
   .why-me-tabs button { flex: 0 0 auto; min-height: 48px; padding-inline: 15px; }
   .why-me-panel { grid-template-columns: 1fr; gap: 28px; min-height: 0; padding-top: 20px; }
-  .why-me-panel > .clay-media, .why-me-visual { max-width: 420px; margin-inline: auto; }
+  .why-me-panel > .clay-media { max-width: 420px; margin-inline: auto; }
   .why-me-copy h3 { font-size: 30px; }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -1730,14 +1721,13 @@ html { overflow-x: clip; }
 
 /* Keep the reason panels compact, aligned and easy to scan. */
 .why-me-copy h3 { max-width: 18ch; margin-bottom: 20px; text-wrap: balance; }
-.why-me-copy > p:not(.why-me-note) { font-size: clamp(16px, 1.25vw, 18px); line-height: 1.65; text-wrap: pretty; }
 .why-me-copy ul { list-style: none; padding: 0; gap: 0; margin-top: 24px; }
 .why-me-copy li { padding: 10px 0; border-top: 1px solid var(--line-soft); }
-.why-me-panel > .clay-media, .why-me-panel > .why-me-visual { min-width: 0; max-width: 440px; justify-self: end; }
+.why-me-panel > .clay-media { min-width: 0; max-width: 440px; justify-self: end; }
 @media (min-width: 761px) { .why-me-tabs button { flex: 0 0 auto; } }
 @media (max-width: 760px) {
   .why-me-copy { max-width: 100%; }
-  .why-me-panel > .clay-media, .why-me-panel > .why-me-visual { width: 100%; max-width: 360px; justify-self: center; }
+  .why-me-panel > .clay-media { width: 100%; max-width: 360px; justify-self: center; }
 }
 
 /* Above-the-fold content stays readable during hydration. */
@@ -1763,55 +1753,21 @@ html { overflow-x: clip; }
 /* Interface studies: each future card settles above the preceding one. */
 .style-showcase { max-width: 1280px; margin: 0 auto; padding: 100px var(--page-x) 120px; }
 .style-showcase-heading { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; gap: 64px; width: min(100%, 1120px); margin: 0 auto 44px; }
-.style-showcase-eyebrow { display: block; margin-bottom: 20px; color: #8b9f92; font-size: 11px; letter-spacing: .15em; }
 .style-showcase-heading h2 { margin: 0; max-width: none; font-size: clamp(40px, 4vw, 60px); line-height: 1.08; font-weight: 550; letter-spacing: -.045em; white-space: nowrap; }
 .style-showcase-heading > p { max-width: 270px; margin: 0 0 4px; color: #98a39c; font-size: 15px; line-height: 1.65; }
 .style-showcase-stack { position: relative; isolation: isolate; }
 .style-showcase-card { position: sticky; top: calc(112px + var(--stack-index) * 18px); padding: 24px 28px 12px; margin-bottom: 100px; border: 1px solid #303a33; border-radius: 28px; background: #111713; box-shadow: 0 25px 80px #0005; }
 .style-showcase-card:last-child { margin-bottom: 0; }
-.style-showcase-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 26px; }
-.style-showcase-caption { display: flex; align-items: center; gap: 16px; }
-.style-showcase-number { color: #84978b; font-size: 12px; font-variant-numeric: tabular-nums; }
-.style-showcase-caption h3 { margin: 0 0 5px; font-size: 21px; font-weight: 550; letter-spacing: -.025em; }
-.style-showcase-caption p { margin: 0; color: #87988d; font-size: 12px; }
-.style-showcase-theme { display: flex; gap: 3px; padding: 4px; border: 1px solid #354239; border-radius: 999px; }
-.style-showcase-theme button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 7px 13px; border: 0; border-radius: 999px; background: transparent; color: #92a298; font: inherit; font-size: 12px; cursor: pointer; }
-.style-showcase-theme button[aria-pressed="true"] { background: #2a3b30; color: #e7f1eb; }
 .style-showcase-perspective { perspective: 1600px; padding: 8px 0 12px; }
-.style-showcase-screen { position: relative; display: block; width: 100%; padding: 0; overflow: hidden; border: 1px solid #414943; border-radius: 14px; background: #0c0e0d; cursor: zoom-in; box-shadow: 0 25px 40px #0006; transform: rotateX(var(--tilt-x, 2deg)) rotateY(var(--tilt-y, -1.5deg)); transition: transform 280ms ease-out, border-color 200ms ease; }
-.style-showcase-screen img { display: block; width: 100%; height: auto; aspect-ratio: 1346 / 958; object-fit: contain; }
-.style-showcase-screen:hover { border-color: #698671; }
-.style-showcase-expand { position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 13px; border: 1px solid #65816c; border-radius: 999px; background: #132019eb; color: #e5f0e8; font-size: 12px; opacity: 0; transform: translateY(5px); transition: opacity 180ms ease, transform 180ms ease; }
-.style-showcase-screen:hover .style-showcase-expand, .style-showcase-screen:focus-visible .style-showcase-expand { opacity: 1; transform: none; }
-.style-showcase-description { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 18px 0 8px; color: #a8b6ac; font-size: 13px; line-height: 1.5; }
-.style-showcase-description svg { color: #698c76; flex-shrink: 0; }
-.style-showcase-dialog { width: min(1500px, 96vw); max-width: 96vw; max-height: 96svh; padding: 0; border: 1px solid #526458; border-radius: 18px; background: #0e1510; color: #eef3ef; }
-.style-showcase-dialog::backdrop { background: #030705ed; backdrop-filter: blur(8px); }
-.style-showcase-dialog > .style-showcase-dialog-content > header { position: sticky; top: 0; z-index: 1; background: #0e1510; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px 18px; font-size: 13px; }
-.style-showcase-dialog > .style-showcase-dialog-content > header button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #435a4b; border-radius: 50%; background: #1a2b20; color: white; cursor: pointer; }
-.style-showcase-dialog img { display: block; width: 100%; height: auto; }
 @media (max-width: 760px) {
   .style-showcase { padding: 64px 20px 72px; }
   .style-showcase-heading { display: block; margin-bottom: 28px; }
   .style-showcase-heading h2 { max-width: 100%; font-size: 44px; }
   .style-showcase-heading > p { margin-top: 20px; max-width: 32ch; font-size: 14px; }
   .style-showcase-card { position: relative; top: auto; padding: 16px 12px 10px; border-radius: 20px; margin-bottom: 28px; }
-  .style-showcase-toolbar { gap: 10px; margin-bottom: 14px; }
-  .style-showcase-caption { gap: 9px; }
-  .style-showcase-caption h3 { font-size: 17px; }
-  .style-showcase-caption p { max-width: 15ch; font-size: 10px; }
-  .style-showcase-theme { padding: 2px; }
-  .style-showcase-theme button { min-height: 44px; padding: 6px 9px; gap: 5px; font-size: 11px; }
-  .style-showcase-screen { transform: none; border-radius: 9px; }
-  .style-showcase-expand { position: static; display: flex; width: fit-content; margin: 10px auto; opacity: 1; transform: none; font-size: 11px; padding: 7px 10px; }
-  .style-showcase-description { font-size: 12px; }
-  .style-showcase-dialog { max-height: 94svh; overflow: auto; }
-  .style-showcase-dialog img { width: max(100%, 900px); max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .style-showcase-card { position: relative; top: auto; }
-  .style-showcase-screen { transform: none !important; transition: none; }
-  .style-showcase-expand { transition: none; }
 }
 
 #style { scroll-margin-top: 110px; }
@@ -1828,8 +1784,6 @@ html { overflow-x: clip; }
 .style-showcase { max-width: 1480px; }
 .style-showcase-heading > p { max-width: 460px; }
 .style-showcase-card { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
-.style-showcase-toolbar { margin-bottom: 22px; }
-.style-showcase-work-label { color: #9ba89f; font-size: 14px; }
 .style-showcase-surface { border: 0; }
 @media (max-width:760px) { .style-showcase-card { padding: 0; } .style-showcase-heading > p { max-width: 100%; } }
 

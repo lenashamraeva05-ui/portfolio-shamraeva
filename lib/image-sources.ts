@@ -2,8 +2,10 @@ import data from "./image-manifest.json";
 
 export type ImageSource = { width: number; src: string };
 export const imageManifest = data as Record<string, { width: number; height: number; sources: ImageSource[]; avifSources?: ImageSource[] }>;
-export function imageSource(src: string, width: number) {
-  return imageManifest[src]?.sources.find((source) => source.width >= width)?.src ?? imageManifest[src]?.sources.at(-1)?.src ?? src;
+export function imageSource(src: string, width: number, format: "webp" | "avif" = "webp") {
+  const image = imageManifest[src];
+  const sources = format === "avif" ? image?.avifSources ?? image?.sources : image?.sources;
+  return sources?.find(source => source.width >= width)?.src ?? sources?.at(-1)?.src ?? src;
 }
 
 // Match the displayed image's srcset so warming a tab reuses the same request.

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 async function render(pathname = "") {
@@ -412,4 +412,22 @@ test("clay variations share the same canvas and visible area", async () => {
     assert.ok(Math.abs(ysum/area - 440) < 3, `${name}: off-centre vertically`);
   }
   assert.ok(Math.max(...areas)/Math.min(...areas) < 1.02);
+});
+
+
+test("keeps initial JavaScript and gallery thumbnails within the performance budget", async () => {
+  const html = await render();
+  const scripts = [...new Set([...html.matchAll(/(?:src|href)="(\/assets\/[^"?#]+\.js)"/g)].map(match => match[1]))];
+  let scriptBytes = 0;
+  for (const url of scripts) scriptBytes += (await stat(new URL(`../dist/client${url}`, import.meta.url))).size;
+  assert.ok(scriptBytes < 450000, `Initial referenced JS: ${scriptBytes} bytes`);
+  const manifest = JSON.parse(await readFile(new URL("../lib/image-manifest.json", import.meta.url), "utf8"));
+  let galleryBytes = 0;
+  for (const [url, image] of Object.entries(manifest)) {
+    if (!url.startsWith("/projects/other-")) continue;
+    const thumbnail = image.avifSources.find(source => source.width >= 320);
+    assert.equal(thumbnail.width, 320);
+    galleryBytes += (await stat(new URL(`../dist/client${thumbnail.src}`, import.meta.url))).size;
+  }
+  assert.ok(galleryBytes < 128000, `Gallery thumbnails: ${galleryBytes} bytes`);
 });
