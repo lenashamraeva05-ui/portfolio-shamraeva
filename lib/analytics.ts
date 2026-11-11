@@ -17,6 +17,13 @@ export function saveConsent(value: AnalyticsConsent, storage: Pick<Storage, "set
 
 export function installClarity(consent: AnalyticsConsent | null, win: Window & typeof globalThis = window, doc: Document = document) {
   if (consent !== "granted") return () => {};
+  // Browser prerenders are preparation, not visits. Start only upon activation.
+  if ((doc as Document & { prerendering?: boolean }).prerendering) {
+    let cleanup = () => {};
+    const activate = () => { cleanup = installClarity(consent, win, doc); };
+    doc.addEventListener("prerenderingchange", activate, { once: true });
+    return () => { doc.removeEventListener("prerenderingchange", activate); cleanup(); };
+  }
   // Never send local development or preview visits to the production dashboard.
   if (!["elena.shamraeva.co.uk", "www.elena.shamraeva.co.uk"].includes(win.location.hostname)) return () => {};
   if (!win.clarity) {

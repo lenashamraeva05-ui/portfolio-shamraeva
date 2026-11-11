@@ -1803,3 +1803,13 @@ html { overflow-x: clip; }
 
 .analytics-consent-close { position: absolute; top: 2px; right: 2px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: #dce8df; font-size: 23px; cursor: pointer; }
 .analytics-consent h2 { padding-right: 24px; }
+
+/* Available before hydration; no extra animation library or network request. */
+.navigation-feedback { display: none; pointer-events: none; }
+html[data-navigation-pending] .navigation-feedback { display: block; }
+.navigation-progress { position: fixed; z-index: 10000; top: 0; left: 0; width: 100%; height: 3px; overflow: hidden; background: #ffffff25; }
+.navigation-progress::after { content: ""; display: block; width: 35%; height: 100%; background: #fff; animation: navigation-progress 1s ease-in-out infinite; }
+.navigation-label { position: fixed; z-index: 10000; left: 50%; bottom: 26px; transform: translateX(-50%); padding: 10px 17px; border: 1px solid #ffffff26; border-radius: 999px; background: #111714; color: #fff; font-size: 13px; opacity: 0; animation: navigation-label-in 0s 600ms forwards; }
+@keyframes navigation-progress { from { transform: translateX(-100%); } to { transform: translateX(385%); } }
+@keyframes navigation-label-in { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .navigation-progress::after { width: 100%; animation: none; } }

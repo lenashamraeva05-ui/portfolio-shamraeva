@@ -471,3 +471,47 @@ test("ships the compact video used by the portfolio", async () => {
   // WebM AlphaMode is retained so the animation keeps its transparent background.
   assert.ok(video.includes(Buffer.from([0x53, 0xc0, 0x81, 0x01])));
 });
+
+test("shows navigation feedback before hydration and skips non-page clicks", async () => {
+  const { runInNewContext } = await import("node:vm");
+  const source = await readFile(new URL("../lib/navigation-bootstrap.ts", import.meta.url), "utf8");
+  const script = source.split("String.raw`")[1].split("`;")[0];
+  const attributes = new Map();
+  const listeners = {};
+  const microtasks = [];
+  class Element { closest() { return this; } }
+  const root = { setAttribute: (name, value) => attributes.set(name, value), removeAttribute: name => attributes.delete(name) };
+  runInNewContext(script, {
+    document: { documentElement: root, addEventListener: (name, callback) => { listeners[name] = callback; } },
+    location: new URL("https://elena.shamraeva.co.uk/"), navigator: {}, Element,
+    HTMLScriptElement: {}, URL, setTimeout: () => 1, clearTimeout: () => {},
+    queueMicrotask: callback => microtasks.push(callback),
+    addEventListener: (name, callback) => { listeners[name] = callback; },
+  });
+  function click(href, options = {}) {
+    const link = Object.assign(new Element(), { href, target: "", hasAttribute: name => options.download && name === "download" });
+    const event = { target: link, button: 0, ...options };
+    listeners.click(event);
+    return event;
+  }
+  for (const [href, options] of [
+    ["https://elena.shamraeva.co.uk/#work", {}],
+    ["https://example.com/", {}],
+    ["https://elena.shamraeva.co.uk/resume/", { ctrlKey: true }],
+    ["https://elena.shamraeva.co.uk/resume.pdf", { download: true }],
+  ]) { click(href, options); assert.equal(attributes.size, 0); }
+  click("https://elena.shamraeva.co.uk/resume/");
+  assert.equal(attributes.get("data-navigation-pending"), "true");
+  listeners.pageshow();
+  assert.equal(attributes.size, 0);
+  const cancelled = click("https://elena.shamraeva.co.uk/about/");
+  cancelled.defaultPrevented = true;
+  microtasks.forEach(callback => callback());
+  assert.equal(attributes.size, 0);
+  for (const route of ["", "/about", "/resume"]) {
+    const html = await render(route);
+    assert.match(html, /class="navigation-feedback" role="status"/);
+    assert.match(html, /Loading page…/);
+    assert.match(html, /speculationrules/);
+  }
+});

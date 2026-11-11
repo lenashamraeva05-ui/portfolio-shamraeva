@@ -4,6 +4,7 @@ import "./globals.css";
 import GlobalGradualBlur from "./components/GlobalGradualBlur";
 import GitHubPagesPathRestore from "./components/GitHubPagesPathRestore";
 import PortfolioAnalytics from "./components/PortfolioAnalytics";
+import NavigationFeedback from "./components/NavigationFeedback";
 import CursorEnhancement from "./components/CursorEnhancement";
 
 
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           knowsAbout: ["Product design", "UX research", "Figma", "Design systems", "Prototyping", "AI-assisted prototyping", "MCP workflows"],
           sameAs: ["https://www.linkedin.com/in/elena-shamraeva-a73464393"],
         }).replace(/</g, "\\u003c") }} />
+        <NavigationFeedback />
         {children}
         <GitHubPagesPathRestore />
         <GlobalGradualBlur />
