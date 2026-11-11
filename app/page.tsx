@@ -342,22 +342,7 @@ export default function Home() {
         <DriftWallSection />
       </section>
 
-      <section className="principles-section" id="about">
-        <div className="principles-heading">
-          <h2>I design functional products <span className="principles-highlight">step by step - even when things get complex.</span></h2>
-        </div>
-        <figure className="process-graph process-graph-image" data-reveal>
-          <Image
-            unoptimized
-            src="/process-diagram.webp"
-            alt="Design process cycle: Define, Research, Develop, Measure and Refine"
-            width={2170}
-            height={725}
-            sizes="(max-width: 760px) 100vw, 900px"
-          />
-          <figcaption className="sr-only">Define, Research, Develop, Measure and Refine.</figcaption>
-        </figure>
-      </section>
+
 
 
 

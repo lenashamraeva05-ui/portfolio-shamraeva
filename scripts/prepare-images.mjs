@@ -47,7 +47,10 @@ async function generateImage(url) {
       (format === "avif" ? avifSources : sources).push({ width, src: `/optimized/${filename}` });
     }
   }
-  manifest[url] = { width: metadata.width, height: metadata.height, sources, avifSources };
+  // An inline preview paints immediately while a slow connection fetches the final file.
+  // Exclude transparent assets so a blurred copy never bleeds around their edges.
+  const placeholder = !metadata.hasAlpha ? `data:image/webp;base64,${(await sharp(bytes).resize({ width: 24, withoutEnlargement: true }).webp({ quality: 20 }).toBuffer()).toString("base64")}` : undefined;
+  manifest[url] = { width: metadata.width, height: metadata.height, placeholder, sources, avifSources };
 }
 // Limit parallel encoders to keep build memory and CPU predictable.
 await Promise.all(Array.from({ length: 3 }, async () => {

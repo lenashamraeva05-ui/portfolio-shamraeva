@@ -25,7 +25,9 @@ export const navigationBootstrap = String.raw`(() => {
   if (HTMLScriptElement.supports?.('speculationrules') && !connection?.saveData && !/^(slow-)?2g$/.test(connection?.effectiveType || '')) {
     const rules = document.createElement('script');
     rules.type = 'speculationrules';
-    rules.textContent = JSON.stringify({prerender: [{source: 'document', where: {and: [
+    rules.textContent = JSON.stringify({
+      prefetch: [{urls: ['/resume/', '/about/'].filter(path => path !== location.pathname), eagerness: 'eager'}],
+      prerender: [...(location.pathname === '/' ? [{urls: ['/resume/'], eagerness: 'eager'}] : []), {source: 'document', where: {and: [
       {href_matches: ['/', '/about/', '/resume/']},
       {selector_matches: 'a[data-static-navigation]'},
       {not: {selector_matches: '[download], [target="_blank"]'}}

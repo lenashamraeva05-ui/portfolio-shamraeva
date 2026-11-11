@@ -1,3 +1,4 @@
+import Image from "@/components/ResponsiveImage";
 import type { CSSProperties } from "react";
 import PortfolioHeader from "../components/PortfolioHeader";
 import DarkVeil from "../../components/DarkVeil";
@@ -38,6 +39,23 @@ export default function AboutPage() {
             <span className="about-opening-note-copy">Nice to meet you!</span>
           </div>
         </div>
+      </section>
+
+      <section className="principles-section" id="design-process">
+        <div className="principles-heading">
+          <h2>I design functional products <span className="principles-highlight">step by step - even when things get complex.</span></h2>
+        </div>
+        <figure className="process-graph process-graph-image" data-reveal>
+          <Image
+            unoptimized
+            src="/process-diagram.webp"
+            alt="Design process cycle: Define, Research, Develop, Measure and Refine"
+            width={2170}
+            height={725}
+            sizes="(max-width: 760px) 100vw, 900px"
+          />
+          <figcaption className="sr-only">Define, Research, Develop, Measure and Refine.</figcaption>
+        </figure>
       </section>
 
       <section className="about-outside-work" aria-labelledby="outside-work-title">

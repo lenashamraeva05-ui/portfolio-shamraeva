@@ -341,7 +341,8 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
   const isMuseum = project.tone === "museum";
   const projectTabs = getProjectTabs(project);
   const activeTab = isMuseum ? "overview" : localTab;
-  const panelImageLoading = activeTab === "overview" ? "lazy" : "eager";
+  // Small overview variants start in the HTML parser, before the user reaches the case.
+  const panelImageLoading = "eager" as const;
   const activeTabIndex = projectTabs.findIndex(({ id }) => id === activeTab);
   const activeScreen = project.gallery[screenIndex] ?? project.gallery[0];
 

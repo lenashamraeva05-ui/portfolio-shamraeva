@@ -1,9 +1,7 @@
-"use client";
-
 import "./VertexCRM.css";
 import Image from "@/components/ResponsiveImage";
-import { useEffect, useRef } from "react";
-import { Rss, PanelLeft, Layers, LayoutGrid, Bell, SquareCheck, NotebookPen, Mail, GraduationCap, Workflow, ChevronDown, Search, Command, Plus, Wallet, Target, Star, Building2, Users, LifeBuoy, Settings, MapPin, Link2, ArrowDownUp, List, Table2, Zap, ArrowUpRight, ChartNoAxesColumnIncreasing, Clock3, ChevronRight, EyeOff } from "lucide-react";
+import { StudyCanvas } from "./StudyLayout";
+import { PanelLeft, Layers, LayoutGrid, Bell, SquareCheck, NotebookPen, Mail, GraduationCap, Workflow, ChevronDown, Search, Command, Plus, Wallet, Target, Star, Building2, Users, LifeBuoy, Settings, MapPin, Link2, ArrowDownUp, List, Table2, Zap, ArrowUpRight, ChartNoAxesColumnIncreasing, Clock3, ChevronRight, EyeOff } from "lucide-react";
 
 type Status = "To Contact" | "Follow-Up" | "In Negotiation" | "Complete";
 type Company = { name: string; logo: string; color: string; description: string; domain: string; city: string; flag: string; person: string; status: Status };
@@ -44,20 +42,10 @@ function Brand({ company }: { company: Company }) {
 }
 
 export default function VertexCRM() {
-  const stage = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const element = stage.current;
-    if (!element) return;
-    const resize = () => element.style.setProperty("--crm-scale", String(element.clientWidth / 1320));
-    resize();
-    const observer = new ResizeObserver(resize);
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
-  return <div ref={stage} className="vertex-stage vertex-dark vertex-study" role="img" aria-label="Company1 CRM interface study: company table, filters and activity metrics in a dark theme">
+  return <StudyCanvas className="vertex-stage vertex-dark vertex-study" label="Company1 CRM interface study: company table, filters and activity metrics in a dark theme">
     <div className="vertex-shell">
       <aside className="vertex-sidebar">
-        <div className="vertex-workspace"><Rss size={23}/><span><strong>Company1 <ChevronDown size={12}/></strong><small><Users size={11}/>67 members</small></span><PanelLeft size={15}/></div>
+        <div className="vertex-workspace"><svg className="vertex-workspace-logo" width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><rect width="30" height="30" rx="9" fill="#293333"/><path d="M8 9h7l7 6-7 6H8l7-6-7-6Z" fill="#D4E5DF"/><path d="m8 9 7 6-7 6" stroke="#91B6AA" strokeWidth="2" strokeLinejoin="round"/></svg><span><strong>Company1 <ChevronDown size={12}/></strong><small><Users size={11}/>67 members</small></span><PanelLeft size={15}/></div>
         <div className="vertex-side-search"><Search size={17}/><span className="vertex-search-placeholder">Search</span><span><Command size={12}/>K</span></div>
         <div className="vertex-nav">{navigation.map(([Icon,label]) => <span className="vertex-control" key={label}><Icon size={16}/>{label}{label === "Notifications" && <b>16</b>}</span>)}</div>
         <div className="vertex-nav-heading"><ChevronDown size={12}/>Favorites<Plus size={14}/></div>
@@ -72,11 +60,11 @@ export default function VertexCRM() {
         <div className="vertex-topbar"><div><Layers size={19}/><strong>Companies</strong><i>·</i><span>156 companies</span></div><div className="vertex-topbar-right"><div className="vertex-team">{["EJ","MT","SC","LB"].map((name,index)=><span key={name} className={`vertex-avatar vertex-avatar-${index}`}>{name}</span>)}<span className="vertex-more-members">+9</span></div><span className="vertex-control"><LayoutGrid size={15}/>All apps</span><span className="vertex-control vertex-enrich"><Zap size={15} fill="currentColor"/>Enrich data</span></div></div>
         <div className="vertex-content">
           <div className="vertex-metrics">{metrics.map((metric,index)=><div className="vertex-metric" key={metric.label}><div className="vertex-metric-label"><metric.icon size={18}/>{metric.label}</div><p><strong>{metric.value}</strong> {metric.unit}</p><span className={`vertex-change ${index===1?"vertex-change-negative":""}`}><ArrowUpRight size={15}/>{metric.change}</span><svg className={`vertex-sparkline vertex-sparkline-${index}`} viewBox="0 0 110 40" aria-hidden="true"><path d={index===1 ? "M2 8C7 8 5 27 12 26S17 14 23 22 26 32 33 23 37 8 43 18 44 33 50 26 52 19 58 24 62 12 68 21 73 37 80 25 84 25 90 28 99 13 108 15" : "M2 26C9 27 9 35 16 29S20 16 27 24 31 15 39 21 43 39 49 30 51 7 57 18 64 35 71 29 74 11 81 22 86 20 92 24 101 9 108 4"}/></svg></div>)}</div>
-          <div className="vertex-tools"><div className="vertex-view-tabs"><span className="vertex-control vertex-current-view"><Table2 size={15}/>Table</span><span className="vertex-control"><LayoutGrid size={15}/>Board</span><span className="vertex-control"><List size={15}/>List</span></div><div className="vertex-tool-actions"><span className="vertex-table-search"><Search size={16}/>Search</span><span className="vertex-control"><EyeOff size={14}/>Hide</span><span className="vertex-control"><Settings size={15}/>Settings</span><span className="vertex-control">Import / Export<ChevronDown size={13}/></span><span className="vertex-control vertex-new">New company<ChevronDown size={13}/></span></div></div>
+          <div className="vertex-tools"><div className="vertex-view-tabs"><span className="vertex-control vertex-current-view"><Table2 size={15}/>Table</span><span className="vertex-control"><LayoutGrid size={15}/>Board</span><span className="vertex-control"><List size={15}/>List</span></div><div className="vertex-tool-actions"><span className="vertex-control vertex-table-search"><Search size={16}/>Search</span><span className="vertex-control"><EyeOff size={14}/>Hide</span><span className="vertex-control"><Settings size={15}/>Settings</span><span className="vertex-control">Import / Export<ChevronDown size={13}/></span><span className="vertex-control vertex-new">New company<ChevronDown size={13}/></span></div></div>
           <div className="vertex-filters"><span className="vertex-control"><Users size={14}/>Person to contact<ChevronDown size={13}/></span><span className="vertex-control"><MapPin size={14}/>Location<ChevronDown size={13}/></span><span className="vertex-control vertex-add-filter"><Plus size={15}/>Add filter</span></div>
           <div className="vertex-table-wrap"><table className="vertex-table"><colgroup><col className="vertex-col-check"/><col className="vertex-col-company"/><col className="vertex-col-description"/><col className="vertex-col-domain"/><col className="vertex-col-location"/><col className="vertex-col-person"/><col className="vertex-col-status"/></colgroup><thead><tr><th><span className="vertex-checkbox"/></th><th><span>Company<ArrowDownUp size={13}/></span></th><th><span><NotebookPen size={14}/>Description<ArrowDownUp size={12}/></span></th><th><span><Link2 size={14}/>Domains<ArrowDownUp size={12}/></span></th><th><span><MapPin size={14}/>Location<ArrowDownUp size={12}/></span></th><th><span><Users size={14}/>Person to contact<ArrowDownUp size={12}/></span></th><th><span>Status<ArrowDownUp size={12}/></span></th></tr></thead><tbody>{initialCompanies.map((row,index)=><tr key={row.name}><td><span className="vertex-checkbox"/></td><td><span className="vertex-company-name"><Brand company={row}/>{row.name}</span></td><td><span className="vertex-description"><span>{row.description}</span><ChevronRight size={12}/></span></td><td>{row.domain}</td><td><span className="vertex-location"><span>{row.flag}</span>{row.city}</span></td><td><span className="vertex-person"><span className={`vertex-avatar vertex-avatar-${index%4}`}>{row.person.split(" ").map(word=>word[0]).join("")}</span>{row.person}</span></td><td><StatusPill value={row.status}/></td></tr>)}</tbody></table></div>
         </div>
       </div>
     </div>
-  </div>;
+  </StudyCanvas>;
 }

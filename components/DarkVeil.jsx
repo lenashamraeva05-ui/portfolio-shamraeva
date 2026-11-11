@@ -99,6 +99,8 @@ export default function DarkVeil({
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
+    // Phones retain the CSS backdrop and avoid compiling the decorative shader.
+    if (window.matchMedia('(max-width: 760px)').matches) { canvas.style.display = 'none'; return; }
     const parent = canvas.parentElement;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let renderer, geometry, program, mesh;

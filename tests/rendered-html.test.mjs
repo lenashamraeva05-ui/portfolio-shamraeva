@@ -390,7 +390,9 @@ test("shows the reconstructed interface studies before other projects and keeps 
   assert.doesNotMatch(html, /Explore full size|Expand VertexPoint/);
   assert.match(html, /New company/);
   assert.doesNotMatch(html, /INTERFACE EXPLORATIONS|style-vertexpoint-dark/);
-  assert.match(html, /class="principles-heading"/);
+  const about = await render("/about");
+  assert.match(about, /class="principles-heading"/);
+  assert.doesNotMatch(html, /class="principles-heading"/);
   assert.doesNotMatch(html, /class="principles-heading" data-reveal/);
   assert.match(html, /NDA · Startup project/);
   assert.match(html, /aria-label="EHU exhibition progress"/);
@@ -514,4 +516,39 @@ test("shows navigation feedback before hydration and skips non-page clicks", asy
     assert.match(html, /Loading page…/);
     assert.match(html, /speculationrules/);
   }
+});
+
+
+test("renders three hover-only studies and moves the process to About", async () => {
+  const html = await render(), about = await render("/about");
+  assert.equal((html.match(/class="style-showcase-card"/g) ?? []).length, 3);
+  assert.ok(html.indexOf("Company1 CRM") < html.indexOf("Forma experiment"));
+  assert.ok(html.indexOf("Forma experiment") < html.indexOf("Orbit creative"));
+  const studies = html.slice(html.indexOf('id="style"'),html.indexOf('id="more-work-title"'));
+  assert.doesNotMatch(studies, /<(?:button|input|select|dialog)\b/);
+  assert.match(studies, /Новый эксперимент/);
+  assert.match(studies, /Image Generator/);
+  assert.doesNotMatch(html, /id="design-process"/);
+  assert.match(about, /id="design-process"/);
+  assert.match(about, /Design process cycle/);
+  const css = await readFile(new URL("../app/components/VertexCRM.css",import.meta.url),"utf8");
+  assert.match(css,/zoom: var\(--crm-scale\)/);
+  assert.doesNotMatch(css,/transform: scale\(var\(--crm-scale\)\)/);
+});
+
+test("starts Zernote previews early and bounds mobile image resolution", async () => {
+  const html = await render();
+  const panel = html.slice(html.indexOf('id="zernote-panel"'));
+  const image = panel.match(/<img[^>]*alt="Zernote research collage[^>]*>/)?.[0];
+  assert.ok(image);
+  assert.match(image,/loading="eager"/);
+  const manifest = JSON.parse(await readFile(new URL("../lib/image-manifest.json",import.meta.url),"utf8"));
+  const zernote = manifest["/projects/zernote-hero-collage.optimized.webp"];
+  const mobile = zernote.avifSources.find(source=>source.width===640);
+  assert.ok((await stat(new URL(`../dist/client${mobile.src}`,import.meta.url))).size < 25000);
+  const about = await render("/about");
+  assert.match(about,/class="about-photo-gallery"/);
+  const sources = [...html.matchAll(/<source media="\(max-width: 760px\)"[^>]+srcSet="([^"]+)"/g)];
+  assert.ok(sources.length > 5);
+  for(const [,srcset] of sources) for(const candidate of srcset.split(",")) assert.ok(Number(candidate.trim().split(" ").at(-1).slice(0,-1))<=640);
 });

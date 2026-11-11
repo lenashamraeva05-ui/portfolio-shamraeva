@@ -52,9 +52,11 @@ function DesktopProfileCard() {
 
 type Item = { image: string; link: string; title: string; description: string };
 export function OutsideWorkGallery({ items }: { items: Item[] }) {
+  const desktop = useSyncExternalStore(subscribeDesktop, () => window.matchMedia("(min-width: 761px)").matches, () => false);
   const optimizedItems = useMemo(() => items.map(item => ({ ...item, image: imageSource(item.image, 640, "avif") })), [items]);
-  const fallback = <div style={{ display: "flex", height: "100%", overflowX: "auto" }}>{items.map(item => <a key={item.image} href={item.link} target="_blank" rel="noreferrer" style={{ flex: "0 0 75%" }}>
-    <Image src={item.image} alt={item.title} loading="lazy" sizes="(max-width: 760px) 75vw, 600px" width={720} height={720} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+  const fallback = <div className="about-photo-gallery">{items.map(item => <a key={item.image} href={item.link} target="_blank" rel="noreferrer" className="about-photo-card">
+    <Image src={item.image} alt={item.title} loading="lazy" sizes="(max-width: 760px) 85vw, 600px" width={720} height={720} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
   </a>)}</div>;
+  if (!desktop) return fallback;
   return <DeferredVisual fallback={fallback}><InfiniteMenu items={optimizedItems} backgroundColor="#0e0f10" /></DeferredVisual>;
 }

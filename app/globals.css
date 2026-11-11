@@ -23,7 +23,7 @@
 html { scroll-behavior: smooth; background: var(--bg); color-scheme: dark; }
 body {
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   overscroll-behavior-x: none;
   background: var(--bg);
   color: var(--ink);
@@ -1813,3 +1813,12 @@ html[data-navigation-pending] .navigation-feedback { display: block; }
 @keyframes navigation-progress { from { transform: translateX(-100%); } to { transform: translateX(385%); } }
 @keyframes navigation-label-in { to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .navigation-progress::after { width: 100%; animation: none; } }
+
+.about-photo-gallery { display: flex; gap: 14px; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #637469 transparent; }
+.about-photo-card { display: block; flex: 0 0 85%; height: 100%; scroll-snap-align: center; border-radius: 20px; overflow: hidden; background: #121715; }
+@media(max-width:760px) { .about-infinite-menu { height: min(100vw, 430px); min-height: 0; }.about-photo-gallery { padding-bottom: 12px; }.about-photo-card { flex-basis: 86%; } }
+
+.interface-study-in-view .global-gradual-blur { display: none; }
+@media(max-width:760px) { .global-gradual-blur { display: none; } }
+
+@media(max-width:760px) { .about-opening-veil { background: radial-gradient(ellipse at 70% 30%,#14263188,transparent 65%); } }
