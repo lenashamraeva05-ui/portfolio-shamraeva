@@ -27,10 +27,10 @@ const reasons = [
   },
 ];
 
-function ClayArt({ handoff = false }: { handoff?: boolean }) {
+function ClayArt({ handoff = false, humanAI = false }: { handoff?: boolean; humanAI?: boolean }) {
   return (
     <div className="clay-media">
-      <Image src={handoff ? "/blue-clay-handoff.webp" : "/blue-clay-v2.webp"} alt={handoff ? "Round blue clay with fingerprints and carefully shaped edges" : "Blue clay with visible fingerprints, ready to take a new shape"} width={handoff ? 880 : 1080} height={handoff ? 861 : 1018} sizes="(max-width: 760px) 360px, 440px" />
+      <Image src={humanAI ? "/blue-clay-human-ai.webp" : handoff ? "/blue-clay-handoff.webp" : "/blue-clay-v2.webp"} alt={humanAI ? "Star-shaped blue clay with visible fingerprints" : handoff ? "Round blue clay with fingerprints and carefully shaped edges" : "Blue clay with visible fingerprints, ready to take a new shape"} width={handoff || humanAI ? 880 : 1080} height={humanAI ? 854 : handoff ? 861 : 1018} sizes="(max-width: 760px) 360px, 440px" />
     </div>
   );
 }
@@ -38,8 +38,8 @@ function ClayArt({ handoff = false }: { handoff?: boolean }) {
 function ReasonVisual({ id }: { id: string }) {
   if (id === "foundation") return <ClayArt />;
   if (id === "workflow") return <ClayArt handoff />;
-  const flow = id === "human-ai" ? ["Human curiosity & context", "AI exploration & prototyping", "Human judgement & decisions"]
-    : ["Eastbourne, UK", "B2B & B2C product experience", "Open to junior & mid-level roles"];
+  if (id === "human-ai") return <ClayArt humanAI />;
+  const flow = ["Eastbourne, UK", "B2B & B2C product experience", "Open to junior & mid-level roles"];
   return <div className={`why-me-visual why-me-visual-${id}`} aria-label={flow.join(", ")}>
 
     <ol>{flow.map((step, index) => <li key={step}><span aria-hidden="true">0{index + 1}</span>{step}</li>)}</ol>

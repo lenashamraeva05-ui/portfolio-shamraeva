@@ -21,6 +21,28 @@
       }
     ]
   },
+  "/blue-clay-human-ai.webp": {
+    "width": 880,
+    "height": 854,
+    "sources": [
+      {
+        "width": 160,
+        "src": "/optimized/blue-clay-human-ai-7a92978796-160.webp"
+      },
+      {
+        "width": 360,
+        "src": "/optimized/blue-clay-human-ai-7a92978796-360.webp"
+      },
+      {
+        "width": 640,
+        "src": "/optimized/blue-clay-human-ai-7a92978796-640.webp"
+      },
+      {
+        "width": 880,
+        "src": "/optimized/blue-clay-human-ai-7a92978796-880.webp"
+      }
+    ]
+  },
   "/blue-clay-v2.webp": {
     "width": 1080,
     "height": 1018,
