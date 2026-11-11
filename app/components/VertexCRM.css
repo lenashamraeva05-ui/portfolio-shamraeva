@@ -170,3 +170,9 @@
  .style-showcase-card { position: sticky; top: min(84px, calc(100svh - var(--screen-height, 850px) - 16px)); margin-bottom: 80px; }
  .style-showcase-perspective { padding: 0 4px 16px; }
 }
+/* Scope stack geometry above global presentation defaults in the production CSS bundle. */
+#style .style-showcase-stack > .style-showcase-card { position: sticky; top: min(calc(104px + var(--stack-index) * 14px), calc(100svh - var(--screen-height, 900px) - 20px)); padding: 0; margin-bottom: 120px; border: 0; background: transparent; box-shadow: none; }
+#style .style-showcase-stack > .style-showcase-card:last-child { margin-bottom: 0; }
+#style .style-showcase-perspective { padding: 0 4px 20px; perspective: none; }
+#style .style-showcase-surface { padding: 3px; border: 2px solid #505955; border-radius: 24px; background: #141718; transform: none; transform-style: flat; box-shadow: 0 -16px 45px #07090880,0 20px 45px #0005; }
+@media(max-width:760px) { #style .style-showcase-stack > .style-showcase-card { top: min(84px, calc(100svh - var(--screen-height, 850px) - 16px)); margin-bottom: 80px; } #style .style-showcase-perspective { padding: 0 4px 16px; } }
