@@ -42,6 +42,8 @@ export default function Lanyard({
   showLanyardLogo = true,
   onReady
 }) {
+  const viewportRef = useRef(null);
+  const [active, setActive] = useState(true);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
   useEffect(() => {
@@ -50,13 +52,23 @@ export default function Lanyard({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    let visible = true;
+    const sync = () => setActive(visible && !document.hidden);
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
+    if (viewportRef.current) observer.observe(viewportRef.current);
+    document.addEventListener("visibilitychange", sync);
+    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", sync); };
+  }, []);
+
   return (
-    <div className="lanyard-wrapper" style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
+    <div ref={viewportRef} className="lanyard-wrapper" style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
       <Canvas
         fallback={<div role="img" aria-label="Helen Shamraeva, product designer" style={{ width: '100%', height: '100%', background: `center / contain no-repeat url(${frontImage || '/product-designer-card.webp'})` }} />}
         style={{ touchAction: 'pan-y pinch-zoom' }}
         camera={{ position: position, fov: fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
+        dpr={[1, 1.25]}
+        frameloop={active ? "always" : "never"}
         gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
@@ -73,7 +85,7 @@ export default function Lanyard({
             showLanyardLogo={showLanyardLogo}
           />
         </Physics>
-        <Environment blur={0.75}>
+        <Environment resolution={128} frames={1} blur={0.75}>
           <Lightformer
             intensity={2}
             color="white"
@@ -183,7 +195,7 @@ function Band({
     const composite = new THREE.CanvasTexture(canvas);
     composite.colorSpace = THREE.SRGBColorSpace;
     composite.flipY = baseMap.flipY;
-    composite.anisotropy = 16;
+    composite.anisotropy = 8;
     composite.needsUpdate = true;
     return composite;
   }, [frontImage, backImage, imageFit, frontTex, backTex, materials.base.map]);
@@ -288,7 +300,7 @@ function Band({
               <mesh geometry={nodes.card.geometry}>
                 <meshPhysicalMaterial
                   map={cardMap}
-                  map-anisotropy={16}
+                  map-anisotropy={8}
                   clearcoat={isMobile ? 0 : 1}
                   clearcoatRoughness={0.15}
                   roughness={0.9}

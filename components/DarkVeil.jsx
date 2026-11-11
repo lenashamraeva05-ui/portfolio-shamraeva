@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { Renderer, Program, Mesh, Triangle, Vec2 } from 'ogl';
 import './DarkVeil.css';
 
 const vertex = `
@@ -99,73 +98,67 @@ export default function DarkVeil({
   const ref = useRef(null);
   useEffect(() => {
     const canvas = ref.current;
+    if (!canvas) return;
     const parent = canvas.parentElement;
-
-    let renderer;
-    try {
-      renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio, 1.5), canvas });
-    } catch { return; }
-
-    const gl = renderer.gl;
-    const geometry = new Triangle(gl);
-
-    const program = new Program(gl, {
-      vertex,
-      fragment,
-      uniforms: {
-        uTime: { value: 0 },
-        uResolution: { value: new Vec2() },
-        uHueShift: { value: hueShift },
-        uNoise: { value: noiseIntensity },
-        uScan: { value: scanlineIntensity },
-        uScanFreq: { value: scanlineFrequency },
-        uWarp: { value: warpAmount },
-        uLightMode: { value: lightMode ? 1 : 0 }
-      }
-    });
-
-    const mesh = new Mesh(gl, { geometry, program });
-
-    const resize = () => {
-      const w = parent.clientWidth,
-        h = parent.clientHeight;
-      renderer.setSize(w * resolutionScale, h * resolutionScale);
-      program.uniforms.uResolution.value.set(w, h);
-    };
-
-    window.addEventListener('resize', resize);
-    resize();
-
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let visible = true;
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
-    observer.observe(canvas);
-    const start = performance.now();
-    let frame = 0;
-
-    const loop = () => {
-      if (visible && !document.hidden) {
-      program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
-      program.uniforms.uHueShift.value = hueShift;
-      program.uniforms.uNoise.value = noiseIntensity;
-      program.uniforms.uScan.value = scanlineIntensity;
-      program.uniforms.uScanFreq.value = scanlineFrequency;
-      program.uniforms.uWarp.value = warpAmount;
-      program.uniforms.uLightMode.value = lightMode ? 1 : 0;
-      renderer.render({ scene: mesh });
+    let renderer, geometry, program, mesh;
+    let visible = false, disposed = false, loading = false;
+    let frame = 0, startedAt = 0, lastRenderedAt = -Infinity;
+    const resize = () => {
+      if (!renderer) return;
+      renderer.setSize(parent.clientWidth * resolutionScale, parent.clientHeight * resolutionScale);
+      program.uniforms.uResolution.value.set(parent.clientWidth, parent.clientHeight);
+    };
+    const loop = now => {
+      frame = 0;
+      if (disposed || !renderer || !visible || document.hidden) return;
+      if (now - lastRenderedAt >= 1000 / 30 - .5) {
+        lastRenderedAt = now;
+        program.uniforms.uTime.value = ((now - startedAt) / 1000) * speed;
+        renderer.render({ scene: mesh });
       }
       if (!reducedMotion) frame = requestAnimationFrame(loop);
     };
-
-    loop();
-
+    const sync = () => {
+      if (visible && !document.hidden && renderer) {
+        if (!frame) frame = requestAnimationFrame(loop);
+      } else { cancelAnimationFrame(frame); frame = 0; }
+    };
+    const initialize = async () => {
+      if (loading || renderer || disposed) return;
+      loading = true;
+      try {
+        const { Renderer, Program, Mesh, Triangle, Vec2 } = await import('ogl');
+        if (disposed || !visible) return;
+        renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio, 1.25), canvas });
+        const gl = renderer.gl;
+        geometry = new Triangle(gl);
+        program = new Program(gl, { vertex, fragment, uniforms: {
+          uTime: { value: 0 }, uResolution: { value: new Vec2() },
+          uHueShift: { value: hueShift }, uNoise: { value: noiseIntensity },
+          uScan: { value: scanlineIntensity }, uScanFreq: { value: scanlineFrequency },
+          uWarp: { value: warpAmount }, uLightMode: { value: lightMode ? 1 : 0 }
+        }});
+        mesh = new Mesh(gl, { geometry, program });
+        startedAt = performance.now();
+        resize(); sync();
+      } catch { /* Keep the dark base when WebGL is unavailable. */ }
+      finally { loading = false; }
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !renderer) void initialize();
+      sync();
+    });
+    observer.observe(canvas);
+    window.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', sync);
     return () => {
-      cancelAnimationFrame(frame);
+      disposed = true; cancelAnimationFrame(frame); observer.disconnect();
       window.removeEventListener('resize', resize);
-      observer.disconnect();
-      geometry.remove();
-      program.remove();
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      document.removeEventListener('visibilitychange', sync);
+      geometry?.remove(); program?.remove();
+      renderer?.gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale, lightMode]);
 

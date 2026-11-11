@@ -233,6 +233,11 @@ test("streams the unchanged physics binary instead of parsing base64 JS", async 
   const bytes = await readFile(new URL(`../dist/client${url}`, import.meta.url));
   assert.deepEqual(bytes, Buffer.from(encoded, "base64"));
   assert.equal(WebAssembly.validate(bytes), true);
+  const compressedUrl = transformed.match(/fetch\("([^" ]+\.wasm\.bin)"\)/)[1];
+  const packed = await readFile(new URL(`../dist/client${compressedUrl}`, import.meta.url));
+  assert.ok(packed.length < bytes.length * .45);
+  const decoded = await new Response(new Blob([packed]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer();
+  assert.deepEqual(Buffer.from(decoded), bytes);
 });
 
 test("static route cache keys do not vary with irrelevant server headers", async () => {
@@ -430,4 +435,34 @@ test("keeps initial JavaScript and gallery thumbnails within the performance bud
     galleryBytes += (await stat(new URL(`../dist/client${thumbnail.src}`, import.meta.url))).size;
   }
   assert.ok(galleryBytes < 128000, `Gallery thumbnails: ${galleryBytes} bytes`);
+});
+
+
+test("keeps card geometry unchanged while reducing texture resolution and model size", async () => {
+  const assets = JSON.parse(await readFile(new URL("../lib/model-manifest.json", import.meta.url), "utf8"));
+  const original = await readFile(new URL("../public/card.glb", import.meta.url));
+  const optimized = await readFile(new URL(`../dist/client${assets.card}`, import.meta.url));
+  const parse = bytes => {
+    const jsonLength = bytes.readUInt32LE(12);
+    return { json: JSON.parse(bytes.subarray(20,20+jsonLength).toString()), binary: bytes.subarray(28+jsonLength) };
+  };
+  const before = parse(original), after = parse(optimized);
+  const textures = new Set(before.json.images.map(image=>image.bufferView));
+  for (const [index,view] of before.json.bufferViews.entries()) {
+    if (textures.has(index)) continue;
+    const changed = after.json.bufferViews[index];
+    assert.deepEqual(before.binary.subarray(view.byteOffset ?? 0,(view.byteOffset ?? 0)+view.byteLength),after.binary.subarray(changed.byteOffset ?? 0,(changed.byteOffset ?? 0)+changed.byteLength));
+  }
+  assert.ok(optimized.length < 250000);
+  const {default: sharp} = await import("sharp");
+  for (const image of after.json.images) {
+    const view = after.json.bufferViews[image.bufferView];
+    const metadata = await sharp(after.binary.subarray(view.byteOffset,view.byteOffset+view.byteLength)).metadata();
+    assert.ok(metadata.width <= 1024 && metadata.height <= 1024);
+  }
+});
+
+test("ships the compact video used by the portfolio", async () => {
+  const video = await stat(new URL("../dist/client/projects/t-bank-overview.fast.webm",import.meta.url));
+  assert.ok(video.size < 350000);
 });

@@ -41,8 +41,8 @@ for (const [original, image] of Object.entries(manifest)) {
 const files = await filesUnder(outputDir);
 const text = (await Promise.all(files.filter(file => /\.(?:html|rsc|js|css|json)$/.test(file)).map(file => readFile(file, "utf8")))).join("\n");
 let removed = 0;
-for (const file of files.filter(file => /\.(png|webp|avif|jpe?g)$/.test(file))) {
+for (const file of files.filter(file => /\.(png|webp|avif|jpe?g|glb|webm|mp4)$/.test(file))) {
   const url = "/" + file.slice(outputDir.length + 1).replaceAll("\\", "/");
   if (!text.includes(url)) { await unlink(file); removed++; }
 }
-console.log(`Excluded ${removed} unreferenced raster sources and obsolete image variants from the Pages artifact.`);
+console.log(`Excluded ${removed} unreferenced media sources and obsolete variants from the Pages artifact.`);

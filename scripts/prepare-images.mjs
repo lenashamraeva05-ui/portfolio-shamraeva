@@ -58,7 +58,7 @@ await fs.writeFile(path.join(root, "lib/image-manifest.json"), JSON.stringify(or
 
 // Retain geometry and UVs while replacing the embedded PNG with a WebP texture.
 const original = await fs.readFile(path.join(root, "public/card.glb"));
-const modelHash = createHash("sha256").update(original).update("webp-texture-v1-q88").digest("hex").slice(0, 10);
+const modelHash = createHash("sha256").update(original).update("webp-texture-v2-q72-1024").digest("hex").slice(0, 10);
 const modelName = `card-${modelHash}.glb`;
 const modelFile = path.join(output, modelName);
 try { await fs.access(modelFile); }
@@ -72,7 +72,7 @@ catch {
     if (image.bufferView === undefined) continue;
     const view = model.bufferViews[image.bufferView];
     const texture = binary.subarray(view.byteOffset ?? 0, (view.byteOffset ?? 0) + view.byteLength);
-    replacements.set(image.bufferView, await sharp(texture).webp({ quality: 88, effort: 5 }).toBuffer());
+    replacements.set(image.bufferView, await sharp(texture).resize({ width: 1024, height: 1024, fit: "inside", withoutEnlargement: true }).webp({ quality: 72, effort: 5 }).toBuffer());
     image.mimeType = "image/webp";
     for (const textureInfo of model.textures ?? []) {
       if (textureInfo.source === index) {

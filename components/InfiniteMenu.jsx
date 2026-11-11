@@ -402,7 +402,7 @@ function makeVertexArray(gl, bufLocNumElmPairs, indices) {
 }
 
 function resizeCanvasToDisplaySize(canvas) {
-  const dpr = Math.min(2, window.devicePixelRatio);
+  const dpr = Math.min(1.5, window.devicePixelRatio);
   const displayWidth = Math.round(canvas.clientWidth * dpr);
   const displayHeight = Math.round(canvas.clientHeight * dpr);
   const needResize = canvas.width !== displayWidth || canvas.height !== displayHeight;
@@ -609,8 +609,15 @@ class InfiniteGridMenu {
     this.scaleFactor = scale;
     this.camera.position[2] = 3 * scale;
     this.#init(onInit);
-    this.observer = new IntersectionObserver(([entry]) => { this.visible = entry.isIntersecting; });
+    this.syncAnimation = () => {
+      this.#time = performance.now();
+      if (this.visible !== false && !document.hidden) {
+        if (!this.frame && !this.destroyed) this.frame = requestAnimationFrame(t => this.run(t));
+      } else { cancelAnimationFrame(this.frame); this.frame = null; }
+    };
+    this.observer = new IntersectionObserver(([entry]) => { this.visible = entry.isIntersecting; this.syncAnimation(); });
     this.observer.observe(canvas);
+    document.addEventListener("visibilitychange", this.syncAnimation);
   }
 
   resize() {
@@ -630,11 +637,13 @@ class InfiniteGridMenu {
     cancelAnimationFrame(this.frame);
     this.control?.events.abort();
     this.observer?.disconnect();
+    document.removeEventListener("visibilitychange", this.syncAnimation);
     this.gl?.getExtension('WEBGL_lose_context')?.loseContext();
   }
 
   run(time = 0) {
-    if (this.destroyed) return;
+    this.frame = null;
+    if (this.destroyed || this.visible === false || document.hidden) return;
     this.#deltaTime = Math.min(32, time - this.#time);
     this.#time = time;
     this.#deltaFrames = this.#deltaTime / this.TARGET_FRAME_DURATION;
