@@ -29,13 +29,13 @@ export default function PortfolioAnalytics() {
   };
   return <div className="analytics-controls" data-clarity-mask="true">
     {open ? <section className="analytics-consent" aria-labelledby="analytics-consent-title">
-      <h2 id="analytics-consent-title">Help improve this portfolio?</h2>
-      <p>With your permission, Microsoft Clarity uses cookies and records clicks, scrolling and page interactions to help me understand what works. Form entries are masked. Advertising tracking is disabled. You can change your choice at any time.</p>
-      <a href="https://www.microsoft.com/privacy/privacystatement" target="_blank" rel="noreferrer">Microsoft privacy statement ↗</a>
+      {consent !== null && <button className="analytics-consent-close" type="button" aria-label="Close analytics settings" onClick={() => setOpen(false)}>×</button>}
+      <h2 id="analytics-consent-title">Help improve this site?</h2>
+      <p>Allow Microsoft Clarity cookies to understand visits, clicks and scrolling. Form entries are masked. No advertising tracking.</p>
+      <a href="https://www.microsoft.com/privacy/privacystatement" target="_blank" rel="noreferrer">Privacy details ↗</a>
       <div className="analytics-consent-actions">
         <button type="button" onClick={() => choose("denied")}>Decline</button>
         <button type="button" onClick={() => choose("granted")}>Allow analytics</button>
-        {consent !== null && <button type="button" onClick={() => setOpen(false)}>Close</button>}
       </div>
     </section> : <button className="analytics-settings" type="button" onClick={() => setOpen(true)}>Analytics settings</button>}
   </div>;

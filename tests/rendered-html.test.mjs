@@ -375,12 +375,14 @@ test("analytics requires consent and a production host before making vendor requ
 });
 
 
-test("shows the live interface studies before other projects and keeps the process heading visible", async () => {
+test("shows the reconstructed interface studies before other projects and keeps the process heading visible", async () => {
   const html = await render();
   assert.ok(html.indexOf('id="style"') < html.indexOf('id="more-work-title"'));
-  assert.match(html, /Interactive VertexPoint CRM design/);
-  assert.match(html, /Search companies/);
-  assert.match(html, /Company view/);
+  assert.match(html, /Company1 CRM interface study/);
+  assert.match(html, /Elena Sh/);
+  const study = html.slice(html.indexOf('class="vertex-stage'), html.indexOf("</article>", html.indexOf('class="vertex-stage')));
+  assert.doesNotMatch(study, /<(?:button|input|form|dialog)\b/);
+  assert.doesNotMatch(html, /Explore full size|Expand VertexPoint/);
   assert.match(html, /New company/);
   assert.doesNotMatch(html, /INTERFACE EXPLORATIONS|style-vertexpoint-dark/);
   assert.match(html, /class="principles-heading"/);
