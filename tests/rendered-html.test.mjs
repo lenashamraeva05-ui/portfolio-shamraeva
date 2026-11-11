@@ -526,7 +526,11 @@ test("renders three hover-only studies and moves the process to About", async ()
   assert.ok(html.indexOf("Forma experiment") < html.indexOf("Orbit creative"));
   const studies = html.slice(html.indexOf('id="style"'),html.indexOf('id="more-work-title"'));
   assert.doesNotMatch(studies, /<(?:button|input|select|dialog)\b/);
-  assert.match(studies, /Новый эксперимент/);
+  assert.match(studies, /New experiment/);
+  const forma = studies.slice(studies.indexOf('class="experiment-stage"'), studies.indexOf('class="flow-stage"'));
+  assert.doesNotMatch(forma, /[А-Яа-яЁё]/);
+  assert.doesNotMatch(studies, /black bear|flow-remote-cursor/);
+  assert.match(studies, /arctic fox/);
   assert.match(studies, /Image Generator/);
   assert.doesNotMatch(html, /id="design-process"/);
   assert.match(about, /id="design-process"/);

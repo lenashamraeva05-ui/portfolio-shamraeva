@@ -19,7 +19,7 @@
 .vertex-nav .vertex-control { display: flex; align-items: center; gap: 14px; min-height: 30px; width: 100%; padding: 5px 12px; border-radius: 7px; text-align: left; }
 .vertex-nav .vertex-control:hover { background: var(--v-hover); }
 .vertex-nav .vertex-control b { margin-left: auto; padding: 0 4px; border-radius: 4px; background: var(--v-hover); font-size: 11px; font-weight: 500; }
-.vertex-nav .vertex-control.vertex-nav-active { background: var(--v-hover); box-shadow: inset 0 0 0 1px var(--v-line); }
+.vertex-nav .vertex-control.vertex-nav-active { background: var(--v-hover); }
 .vertex-nav-heading { display: flex; align-items: center; gap: 8px; padding: 24px 12px 7px; color: var(--v-muted); font-size: 12px; }
 .vertex-nav-heading svg:last-child { margin-left: auto; }
 .vertex-sidebar-bottom { margin-top: auto; }
@@ -40,9 +40,9 @@
 .vertex-team { display: flex; padding-right: 14px; }.vertex-team .vertex-avatar { width: 29px; height: 29px; margin-left: -7px; border: 2px solid var(--v-bg); }.vertex-more-members { width: 29px; height: 29px; margin-left: -5px; display: grid; place-items: center; border-radius: 50%; background: var(--v-hover); color: var(--v-muted); font-size: 11px; }
 .vertex-content { padding: 18px 16px 20px 19px; }
 .vertex-metrics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; margin-bottom: 18px; }
-.vertex-metric { position: relative; height: 119px; padding: 15px 15px; overflow: hidden; border: 1px solid var(--v-line); border-radius: 12px; background: var(--v-metric); box-shadow: inset 0 1px 0 #ffffff04; }
+.vertex-metric { position: relative; height: 119px; padding: 15px 15px; overflow: hidden; border: 1px solid var(--v-line); border-radius: 12px; background: var(--v-metric); }
 .vertex-metric-label { display: flex; align-items: center; gap: 9px; color: var(--v-text); white-space: nowrap; font-size: 12px; }
-.vertex-metric-label svg { filter: drop-shadow(0 0 7px #fff5); }.vertex-metric p { margin: 15px 0 8px; font-size: 12px; color: var(--v-muted); }.vertex-metric p strong { font-size: 18px; color: var(--v-text); font-weight: 600; }
+.vertex-metric-label svg { }.vertex-metric p { margin: 15px 0 8px; font-size: 12px; color: var(--v-muted); }.vertex-metric p strong { font-size: 18px; color: var(--v-text); font-weight: 600; }
 .vertex-change { display: inline-flex; align-items: center; gap: 4px; padding: 3px 5px; border-radius: 6px; background: #cbd9d014; font-size: 12px; }
 .vertex-sparkline { position: absolute; bottom: 18px; right: 12px; width: 102px; height: 38px; fill: none; stroke: #c9cccc; stroke-width: 1.8; stroke-linecap: round; }.vertex-light .vertex-sparkline { stroke: #54ba84; }.vertex-light .vertex-sparkline-1 { stroke: #e78282; }
 .vertex-tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 38px; padding-bottom: 9px; border-bottom: 1px solid var(--v-line); }
@@ -55,18 +55,18 @@
 .vertex-col-check { width: 3%; }.vertex-col-company { width: 14%; }.vertex-col-description { width: 20%; }.vertex-col-domain { width: 14%; }.vertex-col-location { width: 17%; }.vertex-col-person { width: 19%; }.vertex-col-status { width: 13%; }
 .vertex-company-name { display: flex; align-items: center; gap: 9px; }.vertex-brand { display: inline-flex; flex: 0 0 20px; width: 20px; height: 22px; align-items: center; justify-content: center; font-size: 19px; font-weight: 800; letter-spacing: -.08em; }.vertex-brand-intel { font-size: 9px; letter-spacing: -.04em; border-radius: 50%; border: 1px solid currentColor; height: 13px; }.vertex-brand-microsoft { font-size: 23px; }.vertex-brand-amazon { font-size: 23px; font-family: Georgia,serif; }.vertex-light .vertex-brand-apple,.vertex-light .vertex-brand-tesla,.vertex-light .vertex-brand-spacex { color: #222 !important; }
 .vertex-description { display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }.vertex-description svg { margin-left: auto; }.vertex-location { display: flex; align-items: center; gap: 7px; }.vertex-location>span { font-size: 18px; }.vertex-person { display: flex; align-items: center; gap: 8px; }.vertex-person .vertex-avatar { width: 23px; height: 23px; }.vertex-status { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 999px; background: #353637; color: #dcdfdf; font-size: 10px; line-height: 1.2; white-space: nowrap; }.vertex-status i { width: 6px; height: 6px; border: 1px solid currentColor; border-radius: 50%; }.vertex-status-follow-up { background: #26383e; color: #b4dcf1; }.vertex-status-follow-up i { background: #64bce7; border: 0; }.vertex-status-in-negotiation { background: #3c3220; color: #f0dfaf; }.vertex-status-in-negotiation i { background: #e8bc45; border: 0; }.vertex-status-complete { background: #20382d; color: #bfe6cd; }.vertex-status-complete i { background: #bfe6cd; border: 0; }.vertex-light .vertex-status { background: #f1f3f5; color: #485058; }.vertex-light .vertex-status-follow-up { color: #2482b5; background: #e9f6fd; }.vertex-light .vertex-status-in-negotiation { color: #a2761f; background: #fff8e9; }.vertex-light .vertex-status-complete { color: #31815a; background: #eaf8ef; }
-.style-showcase-surface { position: relative; border: 1px solid #414943; border-radius: 14px; background: #0c0e0d; box-shadow: 0 25px 40px #0006; transform: none; transform-style: preserve-3d; transition: transform 220ms ease-out; }
+.style-showcase-surface { position: relative; border: 1px solid #414943; border-radius: 14px; background: #0c0e0d; transform: none; transform-style: flat; transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease; }
 @media (max-width:760px) { .style-showcase-surface { transform: none; } }
 @media (prefers-reduced-motion:reduce) { .style-showcase-surface { transform: none !important; transition: none; } }
 
 /* Real interface planes share one perspective instead of a flattened screenshot. */
 .style-showcase-surface .vertex-stage { overflow: visible; }
-.style-showcase-surface .vertex-shell, .style-showcase-surface .vertex-main, .style-showcase-surface .vertex-content { transform-style: preserve-3d; }
+.style-showcase-surface .vertex-shell, .style-showcase-surface .vertex-main, .style-showcase-surface .vertex-content { transform-style: flat; }
 .style-showcase-surface .vertex-main { overflow: visible; }
 .style-showcase-surface .vertex-sidebar { transform: none; border-radius: 12px 0 0 12px; }
 .style-showcase-surface .vertex-topbar { transform: none; }
-.style-showcase-surface .vertex-metric { transform: none; box-shadow: 0 8px 20px #0003; transition: transform 180ms ease; }
-.style-showcase-surface .vertex-metric:hover { transform: translateY(-3px); }
+.style-showcase-surface .vertex-metric { transform: none; transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease; }
+.style-showcase-surface .vertex-metric:hover { }
 .style-showcase-surface .vertex-table-wrap { transform: none; background: var(--v-bg); }
 .style-showcase-surface { transform: none; }
 @media (max-width:760px), (prefers-reduced-motion:reduce) {
@@ -86,7 +86,7 @@
 .vertex-study .vertex-shell { border: 2px solid #42474a; border-radius: 20px; }
 .vertex-study .vertex-sidebar { border-radius: 18px 0 0 18px; background: #111213; }
 .vertex-study .vertex-workspace { gap: 15px; padding-bottom: 19px; }
-.vertex-control { cursor: default; transition: background 160ms ease, border-color 160ms ease, color 160ms ease; }
+.vertex-control { cursor: default; transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease; }
 .vertex-nav .vertex-control { min-height: 31px; border-radius: 999px; }
 .vertex-nav .vertex-control.vertex-nav-active { background: #2a2c2e; }
 .vertex-side-search { border-radius: 999px; border-color: #343638; }
@@ -103,12 +103,12 @@
 .vertex-profile>span:last-child { color: #9ca1a5; }
 .vertex-checkbox { display: inline-block; width: 13px !important; height: 13px; border: 1px solid #646b6f; border-radius: 4px; vertical-align: middle; }
 .vertex-table tr:hover .vertex-checkbox { border-color: #c9d2d6; background: #ffffff12; }
-.vertex-table tbody tr { transition: background 150ms ease; }
+.vertex-table tbody tr { transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease; }
 .vertex-table td { height: 35px; }
 .vertex-change { background: #a4d8b414; color: #b5dcc0; }
 .vertex-change-negative { color: #e5a9ad; background: #e1a1a510; }
 .vertex-sparkline { stroke: #afd6b9; }.vertex-sparkline-1 { stroke: #dfa8ac; }
-.style-showcase-surface { padding: 3px; border: 2px solid #505955; border-radius: 24px; background: #141718; box-shadow: 0 24px 65px #0007; transform: none; }
+.style-showcase-surface { padding: 3px; border: 2px solid #505955; border-radius: 24px; background: #141718; transform: none; }
 .style-showcase-perspective { padding: 16px 10px 30px; }
 .style-showcase-pan-hint { display: none; }
 @media (max-width:760px) {
@@ -135,25 +135,25 @@
 .vertex-study .vertex-tool-actions { gap: 5px; }
 .vertex-study .vertex-tool-actions > .vertex-control { padding: 6px 8px; }
 .vertex-profile { border-radius: 12px; padding: 10px 8px; margin-top: 7px; }
-.vertex-control, .vertex-workspace, .vertex-side-search, .vertex-profile, .vertex-avatar, .vertex-more-members, .vertex-table th, .vertex-table td, .vertex-status, .vertex-checkbox, .vertex-brand, .vertex-nav-heading svg { transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease; }
+.vertex-control, .vertex-workspace, .vertex-side-search, .vertex-profile, .vertex-avatar, .vertex-more-members, .vertex-table th, .vertex-table td, .vertex-status, .vertex-checkbox, .vertex-brand, .vertex-nav-heading svg { transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease; }
 @media (hover: hover) and (pointer: fine) {
  .vertex-workspace:hover, .vertex-profile:hover { background: #ffffff09; }
- .vertex-workspace:hover .vertex-workspace-logo { transform: rotate(-7deg); }
- .vertex-workspace-logo { transition: transform 180ms ease; }
+ .vertex-workspace:hover .vertex-workspace-logo { }
+ .vertex-workspace-logo { transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease; }
  .vertex-side-search:hover { border-color: #737c7b; background: #3b3f40; }
  .vertex-control:hover { background: #343738; color: #fff; }
- .vertex-topbar .vertex-enrich:hover { background: #d4e5df; color: #101514; box-shadow: 0 3px 12px #0004; }
- .vertex-avatar:hover, .vertex-more-members:hover { transform: translateY(-3px); box-shadow: 0 0 0 2px #bbd5cb; }
- .vertex-nav-heading svg:hover { color: #fff; transform: scale(1.2); }
+ .vertex-topbar .vertex-enrich:hover { background: #d4e5df; color: #101514; }
+ .vertex-avatar:hover, .vertex-more-members:hover { }
+ .vertex-nav-heading svg:hover { color: #fff; }
  .vertex-table th:hover { background: #303435; color: #fff; }
  .vertex-table tbody tr:hover td { background: #202526; }
  .vertex-table tbody tr td:hover { background: #2a3031; }
- .vertex-table td:hover .vertex-brand { transform: scale(1.12); }
- .vertex-status:hover { filter: brightness(1.2); transform: translateY(-1px); }
+ .vertex-table td:hover .vertex-brand { }
+ .vertex-status:hover { }
  .vertex-checkbox:hover { background: #ffffff25; border-color: #eef5f1; }
- .vertex-metric:hover { border-color: #697770; box-shadow: 0 12px 24px #0004; }
- .vertex-metric:hover .vertex-sparkline { stroke-width: 2.2; transform: translateY(-2px); }
- .vertex-sparkline { transition: transform 180ms ease, stroke-width 180ms ease; }
+ .vertex-metric:hover { border-color: #697770; }
+ .vertex-metric:hover .vertex-sparkline { stroke-width: 2.2; }
+ .vertex-sparkline { transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease; }
 }
 @media (prefers-reduced-motion: reduce) {
  .vertex-study *, .vertex-study *::after { transition: none !important; }
@@ -164,15 +164,22 @@
 .style-showcase-card { position: sticky; top: min(calc(104px + var(--stack-index) * 14px), calc(100svh - var(--screen-height, 900px) - 20px)); z-index: calc(1 + var(--stack-index)); margin-bottom: 120px; }
 .style-showcase-card:last-child { margin-bottom: 0; }
 .style-showcase-perspective { padding: 0 4px 20px; perspective: none; }
-.style-showcase-surface { padding: 3px; border: 2px solid #505955; border-radius: 24px; background: #141718; transform: none; transform-style: flat; box-shadow: 0 -16px 45px #07090880,0 20px 45px #0005; }
+.style-showcase-surface { padding: 3px; border: 2px solid #505955; border-radius: 24px; background: #141718; transform: none; transform-style: flat; }
 .style-showcase-surface .vertex-shell, .style-showcase-surface .vertex-main, .style-showcase-surface .vertex-content { transform-style: flat; }
 @media (max-width:760px) {
  .style-showcase-card { position: sticky; top: min(84px, calc(100svh - var(--screen-height, 850px) - 16px)); margin-bottom: 80px; }
  .style-showcase-perspective { padding: 0 4px 16px; }
 }
 /* Scope stack geometry above global presentation defaults in the production CSS bundle. */
-#style .style-showcase-stack > .style-showcase-card { position: sticky; top: min(calc(104px + var(--stack-index) * 14px), calc(100svh - var(--screen-height, 900px) - 20px)); padding: 0; margin-bottom: 120px; border: 0; background: transparent; box-shadow: none; }
+#style .style-showcase-stack > .style-showcase-card { position: sticky; top: min(calc(104px + var(--stack-index) * 14px), calc(100svh - var(--screen-height, 900px) - 20px)); padding: 0; margin-bottom: 120px; border: 0; background: transparent; }
 #style .style-showcase-stack > .style-showcase-card:last-child { margin-bottom: 0; }
 #style .style-showcase-perspective { padding: 0 4px 20px; perspective: none; }
-#style .style-showcase-surface { padding: 3px; border: 2px solid #505955; border-radius: 24px; background: #141718; transform: none; transform-style: flat; box-shadow: 0 -16px 45px #07090880,0 20px 45px #0005; }
+#style .style-showcase-surface { padding: 3px; border: 2px solid #505955; border-radius: 24px; background: #141718; transform: none; transform-style: flat; }
 @media(max-width:760px) { #style .style-showcase-stack > .style-showcase-card { top: min(84px, calc(100svh - var(--screen-height, 850px) - 16px)); margin-bottom: 80px; } #style .style-showcase-perspective { padding: 0 4px 16px; } }
+
+/* One opaque clipped surface, one border; no halos or independently moving planes. */
+#style .style-showcase-surface { padding: 0; overflow: hidden; isolation: isolate; border: 2px solid #45484b; border-radius: 22px; background: #111213; box-shadow: none; }
+#style .style-showcase-surface > .vertex-stage, #style .style-showcase-surface > .experiment-stage, #style .style-showcase-surface > .flow-stage { border-radius: 20px; }
+#style .vertex-shell { border: 0; }
+
+.vertex-country-flag { display: block; flex: 0 0 20px; border-radius: 2px; overflow: hidden; }

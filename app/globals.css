@@ -1822,3 +1822,11 @@ html[data-navigation-pending] .navigation-feedback { display: block; }
 @media(max-width:760px) { .global-gradual-blur { display: none; } }
 
 @media(max-width:760px) { .about-opening-veil { background: radial-gradient(ellipse at 70% 30%,#14263188,transparent 65%); } }
+
+/* Bring the process closer to the introduction without losing section breathing room. */
+.about-editorial #design-process { padding-top: clamp(64px, 7vw, 104px); }
+@media (min-width: 761px) { .about-editorial .about-opening { min-height: 560px; } }
+@media (max-width: 760px) { .about-editorial #design-process { padding-top: 56px; } }
+
+/* Source candidates must not become phantom grid items inside display:contents pictures. */
+.responsive-picture > source { display: none; }
