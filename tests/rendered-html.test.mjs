@@ -201,9 +201,9 @@ test("records the Zernote project as concluded in November 2026", async () => {
 
 
 
-test("combines teamwork, automation, human + AI and UK context into one accessible section", async () => {
+test("combines teamwork, handoff, human + AI and UK context into one accessible section", async () => {
   const html = await render();
-  assert.match(html, /Why work with me\?/);
+  assert.match(html, /Why me\?/);
   for (const id of ["foundation", "workflow", "human-ai", "uk"]) {
     assert.match(html, new RegExp(`id="why-me-tab-${id}"`));
     assert.match(html, new RegExp(`id="why-me-panel-${id}"`));

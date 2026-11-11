@@ -11,9 +11,9 @@ const reasons = [
     body: <>I bring three years of <strong className="project-copy-highlight">product design and research experience</strong> across B2B and B2C. I take time to understand how your team works, share my reasoning and use feedback to improve the design. Like clay, I can take a new shape without starting from scratch.</>,
   },
   {
-    id: "workflow", label: "Less busywork", icon: Workflow,
-    title: "More time for the actual design.",
-    body: <>I connect tools and automate repetitive work: turning meeting notes into tasks, organising research material and building early prototypes. <strong className="project-copy-highlight">Less time moving information around means more time to understand the problem</strong>, explore ideas and test them with people.</>,
+    id: "workflow", label: "Clear handoff", icon: Workflow,
+    title: "Design that’s easy to pick up.",
+    body: <>I put care into how I present and organise my work. I document <strong className="project-copy-highlight">user flows, interaction details and every state</strong>, including loading, empty, error and success screens. With clearly named layers, reusable components and decisions explained in the file, developers and teammates can find what they need and understand how the design should work.</>,
   },
   {
     id: "human-ai", label: "Human + AI", icon: Sparkles,
@@ -37,7 +37,7 @@ function ClayArt() {
 
 function ReasonVisual({ id }: { id: string }) {
   if (id === "foundation") return <ClayArt />;
-  const flow = id === "workflow" ? ["Meeting notes → tasks", "Research material → organised insights", "Early ideas → testable prototypes"]
+  const flow = id === "workflow" ? ["Clear file structure & components", "Loading, empty, error & success states", "Interaction details & design decisions"]
     : id === "human-ai" ? ["Human curiosity & context", "AI exploration & prototyping", "Human judgement & decisions"]
     : ["Eastbourne, UK", "B2B & B2C product experience", "Open to junior & mid-level roles"];
   return <div className={`why-me-visual why-me-visual-${id}`} aria-label={flow.join(", ")}>
@@ -65,7 +65,7 @@ export default function WhyMe() {
   return (
     <section className="why-me" aria-labelledby="why-me-title">
       <header className="why-me-intro">
-        <h2 id="why-me-title">Why work with me?</h2>
+        <h2 id="why-me-title">Why me?</h2>
         <p>How I work, what I bring and where I’m heading.</p>
       </header>
       <div className="why-me-tabs" role="tablist" aria-label="Reasons to work with Helen">
