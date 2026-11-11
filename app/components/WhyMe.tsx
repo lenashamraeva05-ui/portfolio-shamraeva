@@ -63,7 +63,7 @@ export default function WhyMe() {
     buttons.current[next]?.scrollIntoView({ block: "nearest", inline: "nearest" });
   };
   return (
-    <section className="why-me" aria-labelledby="why-me-title">
+    <section data-analytics-section="why_me" className="why-me" aria-labelledby="why-me-title">
       <header className="why-me-intro">
         <h2 id="why-me-title">Why me?</h2>
         <p>How I work, what I bring and where I’m heading.</p>

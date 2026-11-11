@@ -48,7 +48,7 @@ export default function ContactNote() {
       <p className="contact-note-updates">Thoughtful design newsletters and new-role updates are welcome, too.</p>
       <details onToggle={(event) => { if (event.currentTarget.open) textareaRef.current?.focus(); }}>
         <summary>Or leave a note here <span aria-hidden="true">+</span></summary>
-        <form onSubmit={handleSubmit} aria-busy={status === "sending"}>
+        <form data-clarity-mask="true" onSubmit={handleSubmit} aria-busy={status === "sending"}>
           <label htmlFor="portfolio-note">Your message</label>
           <textarea ref={textareaRef} id="portfolio-note" name="message" value={message} onChange={(event) => { setMessage(event.target.value); if (status !== "sending") setStatus("idle"); }} placeholder="An opportunity, one thing I could improve, or a portfolio you love..." aria-describedby="portfolio-note-help" rows={4} maxLength={4000} disabled={status === "sending"} required />
           <label className="contact-email-label" htmlFor="portfolio-email">Your email <span>(optional, for a reply)</span></label>

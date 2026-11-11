@@ -396,7 +396,7 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
   };
 
   return (
-    <section className={`project-switcher ${isMuseum ? "project-switcher-museum" : ""}`} data-reveal>
+    <section data-analytics-section={project.slug} className={`project-switcher ${isMuseum ? "project-switcher-museum" : ""}`} data-reveal>
       {!isMuseum && (
         <div className="project-tabs" role="tablist" aria-label={`${project.title} case sections`}>
           {projectTabs.map((tab) => (

@@ -1746,3 +1746,14 @@ html { overflow-x: clip; }
 @media (max-width: 760px) {
   .about-opening-lanyard { display: none !important; }
 }
+
+/* Optional portfolio analytics */
+.analytics-controls { position: relative; z-index: 1200; }
+.analytics-consent { position: fixed; left: 20px; bottom: max(20px, env(safe-area-inset-bottom)); width: min(440px, calc(100vw - 40px)); max-height: calc(100svh - 40px); overflow-y: auto; padding: 22px; border: 1px solid #46584c; border-radius: 20px; background: #142019; color: #edf4ef; box-shadow: 0 12px 48px #0008; }
+.analytics-consent h2 { margin: 0 0 10px; font-size: 19px; line-height: 1.3; }
+.analytics-consent p { margin: 0 0 12px; color: #bac8bf; font-size: 13px; line-height: 1.6; }
+.analytics-consent a { font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.analytics-consent-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.analytics-consent-actions button { min-height: 44px; padding: 10px 16px; border: 1px solid #789985; border-radius: 999px; background: #20382a; color: #f0f7f2; font: inherit; font-size: 13px; cursor: pointer; }
+.analytics-consent-actions button:hover { background: #2c4b38; border-color: var(--success); }
+.analytics-settings { display: block; margin: 12px auto; padding: 10px 14px; min-height: 44px; border: 0; background: transparent; color: #a4b1a9; font: inherit; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }

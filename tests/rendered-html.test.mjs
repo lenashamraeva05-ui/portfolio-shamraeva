@@ -317,3 +317,58 @@ test("ships bounded responsive variants for all portfolio images", async () => {
     }
   }
 });
+
+
+test("analytics stores explicit consent and safely handles expired or unavailable storage", async () => {
+  const { readConsent, saveConsent } = await import("../lib/analytics.ts");
+  let value = null;
+  const storage = { getItem: () => value, setItem: (_key, next) => { value = next; } };
+  assert.equal(readConsent(storage), null);
+  saveConsent("denied", storage);
+  assert.equal(readConsent(storage), "denied");
+  saveConsent("granted", storage);
+  assert.equal(readConsent(storage), "granted");
+  value = JSON.stringify({ value: "granted", at: Date.now() - 181 * 86400000 });
+  assert.equal(readConsent(storage), null);
+  value = "broken json";
+  assert.equal(readConsent(storage), null);
+  assert.doesNotThrow(() => saveConsent("denied", { setItem() { throw Error("blocked"); } }));
+});
+
+test("analytics requires consent and a production host before making vendor requests", async () => {
+  const { installClarity } = await import("../lib/analytics.ts");
+  const scripts = [];
+  const listeners = new Map();
+  class Element { closest() { return this; } }
+  const win = {
+    location: { hostname: "elena.shamraeva.co.uk" }, Element,
+    IntersectionObserver: class { observe() {} unobserve() {} disconnect() {} },
+    addEventListener: (name, fn) => listeners.set(name, fn), removeEventListener: name => listeners.delete(name),
+    requestAnimationFrame: () => 1, cancelAnimationFrame() {},
+  };
+  const doc = {
+    getElementById: id => scripts.find(script => script.id === id),
+    createElement: () => ({}), head: { appendChild: script => scripts.push(script) },
+    querySelectorAll: () => [],
+    addEventListener: (name, fn) => listeners.set(name, fn), removeEventListener: name => listeners.delete(name),
+  };
+  installClarity(null, win, doc);
+  installClarity("denied", win, doc);
+  assert.equal(scripts.length, 0);
+  win.location.hostname = "localhost";
+  installClarity("granted", win, doc);
+  assert.equal(scripts.length, 0);
+  win.location.hostname = "elena.shamraeva.co.uk";
+  const cleanup = installClarity("granted", win, doc);
+  assert.deepEqual(win.clarity.q[0], ["consentv2", { analytics_Storage: "granted", ad_Storage: "denied" }]);
+  assert.equal(scripts[0].src, "https://www.clarity.ms/tag/zbzw8aajuk");
+  assert.equal(scripts[0].async, true);
+  const tab = new Element(); tab.id = "zernote-direction";
+  tab.protocol = ""; tab.hostname = ""; tab.pathname = "";
+  listeners.get("click")({ target: tab });
+  assert.ok(win.clarity.q.some(args => args[0] === "event" && args[1] === "tab_zernote-direction"));
+  cleanup();
+  assert.equal(listeners.size, 0);
+  installClarity("granted", win, doc)();
+  assert.equal(scripts.length, 1);
+});

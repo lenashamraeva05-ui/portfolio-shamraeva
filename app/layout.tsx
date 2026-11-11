@@ -3,6 +3,7 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import GlobalGradualBlur from "./components/GlobalGradualBlur";
 import GitHubPagesPathRestore from "./components/GitHubPagesPathRestore";
+import PortfolioAnalytics from "./components/PortfolioAnalytics";
 import CursorEnhancement from "./components/CursorEnhancement";
 
 
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <GitHubPagesPathRestore />
         <GlobalGradualBlur />
         <CursorEnhancement />
+        <PortfolioAnalytics />
       </body>
     </html>
   );
