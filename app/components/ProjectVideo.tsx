@@ -19,7 +19,7 @@ export default function ProjectVideo({ src, poster, label }: { src: string; post
         if (ready) void video.play().catch(() => { /* Poster remains visible when autoplay is unavailable. */ });
       } else video.pause();
     };
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting && entry.intersectionRatio >= .15; sync(); }, { threshold: [.15] });
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); }, { threshold: 0 });
     observer.observe(video);
     document.addEventListener("visibilitychange", sync);
     media.addEventListener("change", sync);

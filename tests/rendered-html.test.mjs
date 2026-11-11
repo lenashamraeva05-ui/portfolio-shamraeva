@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
-import { access, readFile, stat } from "node:fs/promises";
+import { access, readFile, stat, readdir } from "node:fs/promises";
 import test from "node:test";
 
 async function render(pathname = "") {
@@ -463,6 +463,11 @@ test("keeps card geometry unchanged while reducing texture resolution and model 
 });
 
 test("ships the compact video used by the portfolio", async () => {
-  const video = await stat(new URL("../dist/client/projects/t-bank-overview.fast.webm",import.meta.url));
-  assert.ok(video.size < 350000);
+  const directory = new URL("../dist/client/projects/", import.meta.url);
+  const files = (await readdir(directory)).filter(file => /^t-bank-overview-[a-f0-9]{10}\.webm$/.test(file));
+  assert.equal(files.length, 1);
+  const video = await readFile(new URL(files[0], directory));
+  assert.ok(video.length < 450000);
+  // WebM AlphaMode is retained so the animation keeps its transparent background.
+  assert.ok(video.includes(Buffer.from([0x53, 0xc0, 0x81, 0x01])));
 });

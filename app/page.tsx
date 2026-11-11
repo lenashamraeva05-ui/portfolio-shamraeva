@@ -31,7 +31,7 @@ const projects: Project[] = [
     tags: ["Fintech", "Analytics platform", "Enterprise product", "NDA"],
     cover: "/projects/tbank-statist-hero.webp",
     coverAlt: "Abstract analytics and product data visual for T-Bank Statist",
-    overviewVideo: "/projects/t-bank-overview.fast.webm",
+    overviewVideo: "/projects/t-bank-overview-1bda128d14.webm",
     challenge: "Help different teams navigate a dense analytics ecosystem without flattening the expert detail they rely on.",
     direction: "I worked on product design for Statist, T‑Bank’s internal product-analytics tool. Statist brings product signals into one place so teams can understand what is happening, interpret patterns and make better decisions. The challenge was to make a complex, data-heavy system feel clear and useful without hiding the detail expert teams depend on. I participated in preparing Statist for a future market launch; for now, it remains an internal T‑Bank tool.",
     directionHighlights: [
