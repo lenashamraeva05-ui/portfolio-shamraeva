@@ -10,6 +10,7 @@ import DriftWallSection from "./components/DriftWallSection";
 import SpotlightCard from "@/components/SpotlightCard";
 import ContactNote from "./components/ContactNote";
 import WhyMe from "./components/WhyMe";
+import StyleShowcase from "./components/StyleShowcase";
 
 type Project = ProjectCaseData & {
   id: string;
@@ -127,8 +128,8 @@ const projects: Project[] = [
     eyebrow: "AI research SaaS from interview to decision",
     summary: "An end-to-end research workspace that carries teams from the interview room to a clear decision.",
     role: "Product Design · MVP · Pitch deck · Investor communication",
-    status: "Startup project · concluded Nov 2026",
-    tags: ["AI SaaS", "UX research", "MVP", "Product strategy"],
+    status: "NDA · Startup project · concluded Nov 2026",
+    tags: ["AI SaaS", "UX research", "MVP", "Product strategy", "NDA"],
     cover: "/projects/zernote-jobs-tree.webp",
     coverAlt: "Zernote jobs tree interface",
     overviewImage: "/projects/zernote-hero-collage.optimized.webp",
@@ -328,6 +329,8 @@ export default function Home() {
         ))}
       </div>
 
+      <StyleShowcase />
+
       <section
         className="more-work"
         aria-labelledby="more-work-title"
@@ -340,7 +343,7 @@ export default function Home() {
       </section>
 
       <section className="principles-section" id="about">
-        <div className="principles-heading" data-reveal>
+        <div className="principles-heading">
           <h2>I design functional products <span className="principles-highlight">step by step - even when things get complex.</span></h2>
         </div>
         <figure className="process-graph process-graph-image" data-reveal>

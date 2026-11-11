@@ -6,7 +6,7 @@ import { warmImage } from "@/lib/image-sources";
 const panelImageSizes = "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 55vw, (max-width: 1440px) 62vw, 890px";
 import ProjectVideo from "./ProjectVideo";
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
-import type { ReactNode } from "react";
+import type { ReactNode, CSSProperties } from "react";
 
 type ProjectImage = {
   src: string;
@@ -117,7 +117,6 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
   const resumeAtRef = useRef(0);
   const draggingRef = useRef(false);
   const lastPointerYRef = useRef(0);
-  const phaseRef = useRef(-1);
   const pausedRef = useRef(false);
 
   const [imagesReady, setImagesReady] = useState(false);
@@ -159,11 +158,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
         visualProgressRef.current += (targetProgress - visualProgressRef.current) * smoothing;
         const progress = visualProgressRef.current;
         track.style.transform = `translate3d(0, -${maxShift * progress}px, 0)`;
-        const phase = Math.min(museumLandingCopy.length - 1, Math.floor(progress * museumLandingCopy.length));
-        if (phase !== phaseRef.current) {
-          phaseRef.current = phase;
-          onProgress(progress);
-        }
+        onProgress(progress);
       }
       frame = requestAnimationFrame(tick);
     };
@@ -196,17 +191,15 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
     const viewport = viewportRef.current;
     const track = trackRef.current;
     if (!viewport || !track) return;
+    const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? viewport.clientHeight : 1);
+    // Let the page continue scrolling when the exhibition reaches either edge.
+    if ((progressRef.current <= 0 && delta < 0) || (progressRef.current >= 1 && delta > 0)) return;
     event.preventDefault();
     draggingRef.current = false;
     const maxShift = Math.max(0, track.scrollHeight - viewport.clientHeight);
-    progressRef.current = Math.max(0, Math.min(1, progressRef.current + event.deltaY / Math.max(1, maxShift)));
-    const phase = Math.min(museumLandingCopy.length - 1, Math.floor(progressRef.current * museumLandingCopy.length));
-    if (phase !== phaseRef.current) {
-      phaseRef.current = phase;
-      onProgress(progressRef.current);
-    }
+    progressRef.current = Math.max(0, Math.min(1, progressRef.current + delta / Math.max(1, maxShift)));
     resumeAtRef.current = performance.now() + 3200;
-  }, [onProgress]);
+  }, []);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -321,7 +314,18 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
   const [localTab, setLocalTab] = useState<TabId>("overview");
   const [screenIndex, setScreenIndex] = useState(0);
   const [museumProgress, setMuseumProgress] = useState(0);
-  const updateMuseumProgress = useCallback((value: number) => setMuseumProgress(value), []);
+  const museumProgressBar = useRef<HTMLDivElement>(null);
+  const museumPhase = useRef(-1);
+  const updateMuseumProgress = useCallback((value: number) => {
+    const bar = museumProgressBar.current;
+    if (bar) {
+      bar.style.setProperty("--museum-progress", String(value));
+      const percent = String(Math.round(value * 100));
+      if (bar.getAttribute("aria-valuenow") !== percent) bar.setAttribute("aria-valuenow", percent);
+    }
+    const phase = Math.min(museumLandingCopy.length - 1, Math.floor(value * museumLandingCopy.length));
+    if (phase !== museumPhase.current) { museumPhase.current = phase; setMuseumProgress(value); }
+  }, []);
   const isMuseum = project.tone === "museum";
   const projectTabs = getProjectTabs(project);
   const activeTab = isMuseum ? "overview" : localTab;
@@ -433,6 +437,9 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
       >
         <div className={`project-facts project-facts-${project.tone} project-facts-${project.tone}-${activeTab} tab-copy-enter`}>
           <p className="case-status"><i aria-hidden="true" />{project.status}</p>
+          {isMuseum && <div ref={museumProgressBar} className="museum-copy-progress" role="progressbar" aria-label="EHU exhibition progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(museumProgress * 100)} aria-valuetext={museumCopy.kicker} style={{ "--segment-count": museumLandingCopy.length } as CSSProperties}>
+            {museumLandingCopy.map((chapter, index) => <span key={chapter.kicker} title={chapter.kicker} aria-hidden="true" style={{ "--segment": index } as CSSProperties} />)}
+          </div>}
           <h3 key={`${project.slug}-${copy.title}`} className={project.tone === "museum" ? "museum-copy-transition" : undefined}>{copy.title}</h3>
           <p key={`${project.slug}-${copy.body}`} className={`project-tab-body ${copy.highlights?.length ? "project-tab-body-highlighted" : ""} ${project.tone === "museum" ? "museum-copy-transition" : ""}`}>
             {copy.highlights?.length ? renderHighlightedCopy(copy.body, copy.highlights) : copy.body}

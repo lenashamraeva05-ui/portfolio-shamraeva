@@ -1,4 +1,3 @@
-import Link from "@/app/components/StaticLink";
 import {
   BookOpen,
   Blocks,
@@ -194,7 +193,6 @@ export default function ResumePage() {
           <ContactActions />
         </div>
         <nav className="resume-profile-links" aria-label="Professional links">
-          <Link href="/">Visit my portfolio <span aria-hidden="true">↗</span></Link>
           <a href="https://www.linkedin.com/in/elena-shamraeva-a73464393/" target="_blank" rel="noreferrer">LinkedIn</a>
           <a href="https://calendly.com/lena-shamraeva-05/30min" target="_blank" rel="noreferrer">Calendly</a>
           <a href="https://wa.me/447956042838" target="_blank" rel="noreferrer">WhatsApp</a>

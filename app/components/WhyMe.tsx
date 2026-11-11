@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Image from "@/components/ResponsiveImage";
+import { warmImage } from "@/lib/image-sources";
 import { Fingerprint, Workflow, Sparkles, MapPin } from "lucide-react";
 
 const reasons = [
@@ -27,28 +28,30 @@ const reasons = [
   },
 ];
 
-function ClayArt({ handoff = false, humanAI = false }: { handoff?: boolean; humanAI?: boolean }) {
-  return (
-    <div className="clay-media">
-      <Image src={humanAI ? "/blue-clay-human-ai.webp" : handoff ? "/blue-clay-handoff.webp" : "/blue-clay-v2.webp"} alt={humanAI ? "Star-shaped blue clay with visible fingerprints" : handoff ? "Round blue clay with fingerprints and carefully shaped edges" : "Blue clay with visible fingerprints, ready to take a new shape"} width={handoff || humanAI ? 880 : 1080} height={humanAI ? 854 : handoff ? 861 : 1018} sizes="(max-width: 760px) 360px, 440px" />
-    </div>
-  );
-}
+const clayImages = {
+  foundation: { src: "/blue-clay-teamwork-balanced.webp", alt: "Blue clay with visible fingerprints, ready to take a new shape", width: 880, height: 880 },
+  workflow: { src: "/blue-clay-handoff-balanced.webp", alt: "Round blue clay with fingerprints and carefully shaped edges", width: 880, height: 880 },
+  "human-ai": { src: "/blue-clay-human-ai-balanced.webp", alt: "Star-shaped blue clay with visible fingerprints", width: 880, height: 880 },
+  uk: { src: "/blue-clay-uk-balanced.webp", alt: "Blue clay location pin with a star at its centre", width: 880, height: 880 },
+};
 
 function ReasonVisual({ id }: { id: string }) {
-  if (id === "foundation") return <ClayArt />;
-  if (id === "workflow") return <ClayArt handoff />;
-  if (id === "human-ai") return <ClayArt humanAI />;
-  const flow = ["Eastbourne, UK", "B2B & B2C product experience", "Open to junior & mid-level roles"];
-  return <div className={`why-me-visual why-me-visual-${id}`} aria-label={flow.join(", ")}>
-
-    <ol>{flow.map((step, index) => <li key={step}><span aria-hidden="true">0{index + 1}</span>{step}</li>)}</ol>
-
-  </div>;
+  const image = clayImages[id as keyof typeof clayImages];
+  return <div className="clay-media"><Image {...image} alt={image.alt} sizes="(max-width: 760px) 360px, 440px" /></div>;
 }
 
 export default function WhyMe() {
   const [active, setActive] = useState(0);
+  const section = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      Object.values(clayImages).forEach(image => warmImage(image.src, "(max-width: 760px) 360px, 440px"));
+      observer.disconnect();
+    }, { rootMargin: "200px" });
+    if (section.current) observer.observe(section.current);
+    return () => observer.disconnect();
+  }, []);
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     let next = index;
@@ -63,7 +66,7 @@ export default function WhyMe() {
     buttons.current[next]?.scrollIntoView({ block: "nearest", inline: "nearest" });
   };
   return (
-    <section data-analytics-section="why_me" className="why-me" aria-labelledby="why-me-title">
+    <section ref={section} data-analytics-section="why_me" className="why-me" aria-labelledby="why-me-title">
       <header className="why-me-intro">
         <h2 id="why-me-title">Why me?</h2>
         <p>How I work, what I bring and where I’m heading.</p>

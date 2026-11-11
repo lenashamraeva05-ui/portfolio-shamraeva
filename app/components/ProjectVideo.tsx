@@ -28,5 +28,5 @@ export default function ProjectVideo({ src, poster, label }: { src: string; post
       video.pause();
     };
   }, [ready]);
-  return <video ref={ref} src={ready ? src : undefined} poster={imageSource(poster, 1080)} loop muted playsInline preload="none" aria-label={label} />;
+  return <video ref={ref} src={ready ? src : undefined} poster={imageSource(poster, 640)} loop muted playsInline preload="none" aria-label={label} />;
 }

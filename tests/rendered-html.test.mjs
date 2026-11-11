@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { fileURLToPath } from "node:url";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
@@ -10,7 +11,7 @@ async function render(pathname = "") {
 test("renders the portfolio homepage and project imagery", async () => {
   const html = await render();
   assert.match(html, /Helen Shamraeva/);
-  assert.match(html, /og-portfolio\.png/);
+  assert.match(html, /og-portfolio\.jpg/);
   assert.match(html, /Available for work/);
   assert.match(html, /id="work"/);
   assert.match(html, /T-Bank Statist/);
@@ -303,8 +304,8 @@ test("ships bounded responsive variants for all portfolio images", async () => {
   const manifest = JSON.parse(await readFile(new URL("../lib/image-manifest.json", import.meta.url), "utf8"));
   for (const [original, image] of Object.entries(manifest)) {
     assert.ok(image.sources.length > 0, original);
-    for (const source of image.sources) {
-      assert.ok(source.width <= 1600, `${original}: oversized responsive image`);
+    for (const source of [...image.sources, ...(image.avifSources ?? [])]) {
+      assert.ok(source.width <= 1200, `${original}: oversized responsive image`);
       assert.notEqual(source.src, original, `${original}: original must not be a srcset candidate`);
       await access(new URL(`../dist/client${source.src}`, import.meta.url));
     }
@@ -371,4 +372,42 @@ test("analytics requires consent and a production host before making vendor requ
   assert.equal(listeners.size, 0);
   installClarity("granted", win, doc)();
   assert.equal(scripts.length, 1);
+});
+
+
+test("shows the live interface studies before other projects and keeps the process heading visible", async () => {
+  const html = await render();
+  assert.ok(html.indexOf('id="style"') < html.indexOf('id="more-work-title"'));
+  assert.match(html, /Interactive VertexPoint CRM design/);
+  assert.match(html, /Search companies/);
+  assert.match(html, /Company view/);
+  assert.match(html, /New company/);
+  assert.doesNotMatch(html, /INTERFACE EXPLORATIONS|style-vertexpoint-dark/);
+  assert.match(html, /class="principles-heading"/);
+  assert.doesNotMatch(html, /class="principles-heading" data-reveal/);
+  assert.match(html, /NDA · Startup project/);
+  assert.match(html, /aria-label="EHU exhibition progress"/);
+  const progress = html.match(/class="museum-copy-progress"[\s\S]*?<\/div>/)?.[0];
+  assert.equal((progress?.match(/--segment:/g) ?? []).length, 8);
+  const resume = await render("/resume");
+  assert.doesNotMatch(resume, /Visit my portfolio/);
+});
+
+test("clay variations share the same canvas and visible area", async () => {
+  const { default: sharp } = await import("sharp");
+  const areas = [];
+  for (const name of ["teamwork", "handoff", "human-ai", "uk"]) {
+    const {data, info} = await sharp(fileURLToPath(new URL(`../public/blue-clay-${name}-balanced.webp`, import.meta.url))).ensureAlpha().raw().toBuffer({resolveWithObject: true});
+    assert.equal(info.width, 880);
+    assert.equal(info.height, 880);
+    let area = 0, xsum = 0, ysum = 0;
+    for (let y=0;y<880;y++) for (let x=0;x<880;x++) {
+      const alpha = data[(y*880+x)*4+3]/255;
+      area += alpha; xsum += x*alpha; ysum += y*alpha;
+    }
+    areas.push(area);
+    assert.ok(Math.abs(xsum/area - 440) < 3, `${name}: off-centre horizontally`);
+    assert.ok(Math.abs(ysum/area - 440) < 3, `${name}: off-centre vertically`);
+  }
+  assert.ok(Math.max(...areas)/Math.min(...areas) < 1.02);
 });

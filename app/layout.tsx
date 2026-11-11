@@ -32,9 +32,9 @@ export function generateMetadata(): Metadata {
       description: "Product design where business goals and user needs meet.",
       type: "website",
       images: [{
-        url: new URL("/og-portfolio.png", base),
-        width: 1731,
-        height: 911,
+        url: new URL("/og-portfolio.jpg", base),
+        width: 1200,
+        height: 632,
         alt: "Helen Shamraeva product design portfolio",
       }],
     },
@@ -42,7 +42,7 @@ export function generateMetadata(): Metadata {
       card: "summary_large_image",
       title: "Helen Shamraeva - Product Designer",
       description: "Product design where business goals and user needs meet.",
-      images: [new URL("/og-portfolio.png", base)],
+      images: [new URL("/og-portfolio.jpg", base)],
     },
   };
 }

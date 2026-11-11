@@ -21,25 +21,40 @@ await scan(path.join(root, "app"));
 await scan(path.join(root, "components"));
 const manifest = {};
 let generated = 0;
-for (const url of [...urls].sort()) {
+const entries = [...urls].sort();
+let cursor = 0;
+async function generateImage(url) {
   const input = path.join(root, "public", url.slice(1));
   const bytes = await fs.readFile(input);
   const metadata = await sharp(bytes).metadata();
-  if (!metadata.width || !metadata.height) continue;
-  const hash = createHash("sha256").update(bytes).update("responsive-v2-q76-cap1600").digest("hex").slice(0, 10);
+  if (!metadata.width || !metadata.height) return;
+  const cap = url.includes("ehu-landing/") ? 960 : url.includes("blue-clay") ? 880 : 1200;
+  const hash = createHash("sha256").update(bytes).update(`responsive-v3-avif40-webp55-cap${cap}`).digest("hex").slice(0, 10);
   const stem = path.basename(url, ".webp");
-  const sources = [];
-  const widths = [...new Set([160, 360, 640, 960, 1280, 1600].filter(width => width < metadata.width).concat(Math.min(metadata.width, 1600)))].sort((a, b) => a - b);
+  const sources = [], avifSources = [];
+  const widths = [...new Set([160, 320, 640, 960, 1200].filter(width => width < Math.min(metadata.width, cap)).concat(Math.min(metadata.width, cap)))].sort((a, b) => a - b);
   for (const width of widths) {
-    const filename = `${stem}-${hash}-${width}.webp`;
-    const destination = path.join(output, filename);
-    try { await sharp(destination).metadata(); }
-    catch { await sharp(bytes).resize({ width, withoutEnlargement: true }).webp({ quality: 76, effort: 4 }).toFile(destination); generated++; }
-    sources.push({ width, src: `/optimized/${filename}` });
+    for (const format of ["webp", "avif"]) {
+      const filename = `${stem}-${hash}-${width}.${format}`;
+      const destination = path.join(output, filename);
+      try { await sharp(destination).metadata(); }
+      catch {
+        const image = sharp(bytes).resize({ width, withoutEnlargement: true });
+        if (format === "avif") await image.avif({ quality: 40, effort: 3 }).toFile(destination);
+        else await image.webp({ quality: 55, alphaQuality: 75, effort: 4 }).toFile(destination);
+        generated++;
+      }
+      (format === "avif" ? avifSources : sources).push({ width, src: `/optimized/${filename}` });
+    }
   }
-  manifest[url] = { width: metadata.width, height: metadata.height, sources };
+  manifest[url] = { width: metadata.width, height: metadata.height, sources, avifSources };
 }
-await fs.writeFile(path.join(root, "lib/image-manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
+// Limit parallel encoders to keep build memory and CPU predictable.
+await Promise.all(Array.from({ length: 3 }, async () => {
+  while (cursor < entries.length) { const url = entries[cursor++]; await generateImage(url); }
+}));
+const orderedManifest = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)));
+await fs.writeFile(path.join(root, "lib/image-manifest.json"), JSON.stringify(orderedManifest, null, 2) + "\n");
 
 // Retain geometry and UVs while replacing the embedded PNG with a WebP texture.
 const original = await fs.readFile(path.join(root, "public/card.glb"));

@@ -32,11 +32,17 @@ async function filesUnder(directory) {
   }
   return files;
 }
+// Direct URLs also serve compressed copies, including CSS backgrounds and posters.
+const manifest = JSON.parse(await readFile(resolve(root, "lib/image-manifest.json"), "utf8"));
+for (const [original, image] of Object.entries(manifest)) {
+  const source = image.sources.at(-1);
+  if (source) await copyFile(resolve(outputDir, source.src.slice(1)), resolve(outputDir, original.slice(1)));
+}
 const files = await filesUnder(outputDir);
 const text = (await Promise.all(files.filter(file => /\.(?:html|rsc|js|css|json)$/.test(file)).map(file => readFile(file, "utf8")))).join("\n");
 let removed = 0;
-for (const file of files.filter(file => file.endsWith(".png") || (file.includes(resolve(outputDir, "optimized")) && file.endsWith(".webp")))) {
+for (const file of files.filter(file => /\.(png|webp|avif|jpe?g)$/.test(file))) {
   const url = "/" + file.slice(outputDir.length + 1).replaceAll("\\", "/");
   if (!text.includes(url)) { await unlink(file); removed++; }
 }
-console.log(`Excluded ${removed} unreferenced authoring PNGs and obsolete image variants from the Pages artifact.`);
+console.log(`Excluded ${removed} unreferenced raster sources and obsolete image variants from the Pages artifact.`);
