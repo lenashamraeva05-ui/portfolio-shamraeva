@@ -27,18 +27,18 @@ const reasons = [
   },
 ];
 
-function ClayArt() {
+function ClayArt({ handoff = false }: { handoff?: boolean }) {
   return (
     <div className="clay-media">
-      <Image src="/blue-clay-v2.webp" alt="Blue clay with visible fingerprints, ready to take a new shape" width={1080} height={1018} sizes="(max-width: 760px) 360px, 440px" />
+      <Image src={handoff ? "/blue-clay-handoff.webp" : "/blue-clay-v2.webp"} alt={handoff ? "Round blue clay with fingerprints and carefully shaped edges" : "Blue clay with visible fingerprints, ready to take a new shape"} width={handoff ? 880 : 1080} height={handoff ? 861 : 1018} sizes="(max-width: 760px) 360px, 440px" />
     </div>
   );
 }
 
 function ReasonVisual({ id }: { id: string }) {
   if (id === "foundation") return <ClayArt />;
-  const flow = id === "workflow" ? ["Clear file structure & components", "Loading, empty, error & success states", "Interaction details & design decisions"]
-    : id === "human-ai" ? ["Human curiosity & context", "AI exploration & prototyping", "Human judgement & decisions"]
+  if (id === "workflow") return <ClayArt handoff />;
+  const flow = id === "human-ai" ? ["Human curiosity & context", "AI exploration & prototyping", "Human judgement & decisions"]
     : ["Eastbourne, UK", "B2B & B2C product experience", "Open to junior & mid-level roles"];
   return <div className={`why-me-visual why-me-visual-${id}`} aria-label={flow.join(", ")}>
 
