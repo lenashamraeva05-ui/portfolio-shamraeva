@@ -1649,10 +1649,13 @@ html { overflow-x: clip; }
 .why-me-intro { max-width: 720px; margin-bottom: 30px; }
 .why-me-intro h2 { margin: 0 0 16px; font-size: clamp(34px, 4vw, 52px); font-weight: 560; letter-spacing: -.045em; line-height: 1.08; }
 .why-me-intro p { margin: 0; color: var(--muted-strong); font-size: 17px; line-height: 1.6; }
-.why-me-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 14px; scrollbar-width: thin; scroll-padding-inline: 2px; }
-.why-me-tabs button { flex: 1 0 auto; min-height: 48px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 999px; background: #101412; color: #aeb7b1; font: inherit; font-size: 14px; cursor: pointer; white-space: nowrap; }
-.why-me-tabs button[aria-selected="true"] { color: #e6f2fb; border-color: rgba(150,200,255,.55); background: rgba(150,200,255,.1); }
-.why-me-tabs button:focus-visible, .why-me-panel:focus-visible { outline: 2px solid #96c8ff; outline-offset: 2px; }
+.why-me-tabs { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 14px; scrollbar-width: thin; scroll-padding-inline: 2px; }
+ .why-me-tabs button { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 11px 22px; border: 1.5px solid #59645e; border-radius: 999px; background: #1b221e; color: #eef5f0; font: inherit; font-size: 16px; font-weight: 500; letter-spacing: -.025em; cursor: pointer; white-space: nowrap; transition: background 160ms ease, border-color 160ms ease, color 160ms ease; }
+.why-me-tabs button svg { flex-shrink: 0; color: #afbeb5; }
+.why-me-tabs button:hover { background: #26372d; border-color: #839e8e; }
+.why-me-tabs button[aria-selected="true"] { color: #effcf4; border-color: var(--success); background: #163c29; }
+.why-me-tabs button[aria-selected="true"] svg { color: #9ce9be; }
+.why-me-tabs button:focus-visible, .why-me-panel:focus-visible { outline: 2px solid var(--success); outline-offset: 4px; }
 .why-me-panel { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 5vw, 64px); min-height: 420px; padding-top: 24px; }
 .why-me-panel[hidden] { display: none; }
 .why-me-copy { min-width: 0; max-width: 540px; }
@@ -1665,7 +1668,7 @@ html { overflow-x: clip; }
 
 .why-me-visual ol { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .why-me-visual li { display: flex; align-items: center; gap: 14px; padding: 16px 14px; border: 1px solid rgba(213,234,227,.13); border-radius: 14px; background: rgba(213,234,227,.035); color: #d8e5df; font-size: 15px; }
-.why-me-visual li > span { color: #96c8ff; font-size: 12px; }
+.why-me-visual li > span { color: var(--success); font-size: 12px; }
 .why-me-visual-tags { display: flex; gap: 7px; flex-wrap: wrap; }
 .why-me-visual-tags span { padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: #a9bdb2; font-size: 11px; }
 /* A pseudo-element keeps the header's blur from isolating dropdown backdrops. */
@@ -1731,7 +1734,7 @@ html { overflow-x: clip; }
 .why-me-copy ul { list-style: none; padding: 0; gap: 0; margin-top: 24px; }
 .why-me-copy li { padding: 10px 0; border-top: 1px solid var(--line-soft); }
 .why-me-panel > .clay-media, .why-me-panel > .why-me-visual { min-width: 0; max-width: 440px; justify-self: end; }
-@media (min-width: 761px) { .why-me-tabs button { flex: 1 1 0; min-width: 0; padding-inline: 10px; } }
+@media (min-width: 761px) { .why-me-tabs button { flex: 0 0 auto; } }
 @media (max-width: 760px) {
   .why-me-copy { max-width: 100%; }
   .why-me-panel > .clay-media, .why-me-panel > .why-me-visual { width: 100%; max-width: 360px; justify-self: center; }

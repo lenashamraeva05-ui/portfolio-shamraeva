@@ -159,6 +159,9 @@ void main() {
   color.rgb = mix(vec3(gray), color.rgb, iSaturation);
 
   color.a = max(color.r, max(color.g, color.b)) * iOpacity;
+  // The transparent WebGL canvas uses premultiplied alpha.
+  // Match its compositing mode so low-opacity rays cannot wash out the hero.
+  color.rgb *= color.a;
   gl_FragColor = color;
 }`;
 
@@ -194,9 +197,11 @@ void main() {
         uniforms.iResolution.value = [w * renderer.dpr, h * renderer.dpr];
       };
 
+      let animationStart = null;
       const loop = t => {
         if (!rendererRef.current || !uniformsRef.current || !meshRef.current) return;
-        if (animate) uniforms.iTime.value = t * 0.001;
+        if (animationStart === null) animationStart = t;
+        if (animate) uniforms.iTime.value = (t - animationStart) * 0.001;
         try {
           renderer.render({ scene: mesh });
           if (animate && !reducedMotion) animationIdRef.current = requestAnimationFrame(loop);
@@ -207,12 +212,8 @@ void main() {
 
       window.addEventListener('resize', updateSize);
       updateSize();
-      if (animate && !reducedMotion) {
-        animationIdRef.current = requestAnimationFrame(loop);
-      } else {
-        // Render a stable frame when decorative motion is disabled.
-        loop(0);
-      }
+      // Paint the correctly sized, dark first frame immediately, before animating.
+      loop(performance.now());
 
       cleanupFunctionRef.current = () => {
         if (animationIdRef.current) {

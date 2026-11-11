@@ -201,16 +201,17 @@ test("records the Zernote project as concluded in November 2026", async () => {
 
 
 
-test("combines the AI, clay, handoff, research and UK story into one accessible section", async () => {
+test("combines teamwork, automation, human + AI and UK context into one accessible section", async () => {
   const html = await render();
   assert.match(html, /Why work with me\?/);
-  for (const id of ["foundation", "workflow", "handoff", "research", "uk"]) {
+  for (const id of ["foundation", "workflow", "human-ai", "uk"]) {
     assert.match(html, new RegExp(`id="why-me-tab-${id}"`));
     assert.match(html, new RegExp(`id="why-me-panel-${id}"`));
   }
-  assert.match(html, /Codex, Claude, Cursor/);
+  assert.match(html, /The future of research and design is human \+ AI/);
+  assert.doesNotMatch(html, /why-me-tab-research|why-me-tab-handoff|Pattern thinking|why-me-note/);
   assert.match(html, /class="clay-media"/);
-  assert.match(html, /junior or mid-level role/);
+  assert.match(html, /junior and mid-level roles/);
   assert.doesNotMatch(html, /class="ai-practice"|class="clay-section"/);
   assert.ok(html.indexOf('id="why-me-title"') < html.indexOf('id="work"'));
   assert.match(html, /application\/ld\+json/);

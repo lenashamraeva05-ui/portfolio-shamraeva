@@ -2,38 +2,28 @@
 
 import { useRef, useState, type KeyboardEvent } from "react";
 import Image from "@/components/ResponsiveImage";
+import { Fingerprint, Workflow, Sparkles, MapPin } from "lucide-react";
 
 const reasons = [
   {
-    id: "foundation", label: "Room to shape",
-    title: "Solid craft. Soft edges.",
-    body: <>A grounding in <strong className="project-copy-highlight">product design and research</strong>, with room for your team’s way of working. Like clay, I adapt without losing structure.</>,
-    points: ["Learn your rhythm", "Turn feedback into iterations", "Bring craft, leave room to grow"],
+    id: "foundation", label: "Teamwork", icon: Fingerprint,
+    title: "Experience, with room to adapt.",
+    body: <>I bring three years of <strong className="project-copy-highlight">product design and research experience</strong> across B2B and B2C. I take time to understand how your team works, share my reasoning and use feedback to improve the design. Like clay, I can take a new shape without starting from scratch.</>,
   },
   {
-    id: "workflow", label: "Less busywork",
-    title: "Automate the friction.",
-    body: <>I use <strong className="project-copy-highlight">AI prototyping, note-takers and MCP</strong> to shorten the path from question to test. Notes become docs, updates and tasks. <strong className="project-copy-highlight">Judgement stays human.</strong></>,
-    points: ["Prototype before overcommitting", "Connect tools, cut repeat work", "Check the output, protect the craft"],
-    note: "Built this portfolio with Codex, Claude, Cursor and hands-on iteration.",
+    id: "workflow", label: "Less busywork", icon: Workflow,
+    title: "More time for the actual design.",
+    body: <>I connect tools and automate repetitive work: turning meeting notes into tasks, organising research material and building early prototypes. <strong className="project-copy-highlight">Less time moving information around means more time to understand the problem</strong>, explore ideas and test them with people.</>,
   },
   {
-    id: "handoff", label: "Build-ready",
-    title: "No guesswork in Figma.",
-    body: <>The file explains the product: <strong className="project-copy-highlight">flows, states and interaction logic</strong>, with the reasoning close by. Fewer loose ends between design and build.</>,
-    points: ["Flows you can follow", "Edge cases, not just the happy path", "Reusable components, recorded decisions"],
+    id: "human-ai", label: "Human + AI", icon: Sparkles,
+    title: "The future of research and design is human + AI.",
+    body: <>I use AI to explore directions, work through research material and turn ideas into working prototypes. But understanding people, questioning the evidence and deciding what to build still takes human judgement. <strong className="project-copy-highlight">I see the future as people and AI working together</strong>, and I’m already bringing that approach into my practice.</>,
   },
   {
-    id: "research", label: "Pattern thinking",
-    title: "Borrow the logic, not the look.",
-    body: <>I study <strong className="project-copy-highlight">real products and real behaviour</strong> to understand why a pattern works. Then I test whether that logic fits <strong className="project-copy-highlight">our users and constraints.</strong></>,
-    points: ["Start with the problem", "Decode working patterns", "Test the fit in our context"],
-  },
-  {
-    id: "uk", label: "New context",
-    title: "A new market. A running start.",
-    body: <>Now based in <strong className="project-copy-highlight">Eastbourne, UK</strong>. I bring practical experience and am open to <strong className="project-copy-highlight">junior or mid-level roles</strong> where I can contribute, learn the context and grow with the team.</>,
-    points: ["Experience to contribute from day one", "Open to the right level and scope", "Team fit over title"],
+    id: "uk", label: "Based in the UK", icon: MapPin,
+    title: "A new place. Experience to bring.",
+    body: <>I’m based in <strong className="project-copy-highlight">Eastbourne, UK</strong>, and looking for a product design team to join. I’m open to junior and mid-level roles, depending on the scope and support. I bring hands-on experience, curiosity about a new market and a willingness to learn from the people around me.</>,
   },
 ];
 
@@ -47,14 +37,13 @@ function ClayArt() {
 
 function ReasonVisual({ id }: { id: string }) {
   if (id === "foundation") return <ClayArt />;
-  const flow = id === "workflow" ? ["Capture", "Connect", "Put it to work"]
-    : id === "handoff" ? ["Map the flow", "Cover the states", "Explain the decisions"]
-    : id === "research" ? ["Find the pattern", "Unpack the logic", "Test the fit"]
-    : ["Eastbourne, UK", "Experience in practice", "Room to grow"];
+  const flow = id === "workflow" ? ["Meeting notes → tasks", "Research material → organised insights", "Early ideas → testable prototypes"]
+    : id === "human-ai" ? ["Human curiosity & context", "AI exploration & prototyping", "Human judgement & decisions"]
+    : ["Eastbourne, UK", "B2B & B2C product experience", "Open to junior & mid-level roles"];
   return <div className={`why-me-visual why-me-visual-${id}`} aria-label={flow.join(", ")}>
 
     <ol>{flow.map((step, index) => <li key={step}><span aria-hidden="true">0{index + 1}</span>{step}</li>)}</ol>
-    <div className="why-me-visual-tags">{(id === "workflow" ? ["AI prototypes", "MCP", "Notes to action"] : id === "handoff" ? ["Loading", "Error", "Empty", "Success"] : id === "research" ? ["Research", "References", "Context"] : ["Curiosity", "Feedback", "Growth"]).map(tag => <span key={tag}>{tag}</span>)}</div>
+
   </div>;
 }
 
@@ -77,17 +66,15 @@ export default function WhyMe() {
     <section className="why-me" aria-labelledby="why-me-title">
       <header className="why-me-intro">
         <h2 id="why-me-title">Why work with me?</h2>
-        <p>Clear thinking. Considered craft. Less friction.</p>
+        <p>How I work, what I bring and where I’m heading.</p>
       </header>
       <div className="why-me-tabs" role="tablist" aria-label="Reasons to work with Helen">
-        {reasons.map((reason, index) => <button key={reason.id} type="button" role="tab" id={`why-me-tab-${reason.id}`} aria-controls={`why-me-panel-${reason.id}`} aria-selected={active === index} tabIndex={active === index ? 0 : -1} ref={(node) => { buttons.current[index] = node; }} onClick={() => setActive(index)} onKeyDown={(event) => handleKeyDown(event, index)}>{reason.label}</button>)}
+        {reasons.map((reason, index) => <button key={reason.id} type="button" role="tab" id={`why-me-tab-${reason.id}`} aria-controls={`why-me-panel-${reason.id}`} aria-selected={active === index} tabIndex={active === index ? 0 : -1} ref={(node) => { buttons.current[index] = node; }} onClick={() => setActive(index)} onKeyDown={(event) => handleKeyDown(event, index)}><reason.icon size={19} strokeWidth={1.8} aria-hidden="true" /><span>{reason.label}</span></button>)}
       </div>
       {reasons.map((reason, index) => <div className="why-me-panel" role="tabpanel" id={`why-me-panel-${reason.id}`} aria-labelledby={`why-me-tab-${reason.id}`} hidden={active !== index} tabIndex={0} key={reason.id}>
         <div className="why-me-copy">
           <h3>{reason.title}</h3>
           <p>{reason.body}</p>
-          <ul>{reason.points.map(point => <li key={point}>{point}</li>)}</ul>
-          {reason.note && <p className="why-me-note">{reason.note}</p>}
         </div>
         <ReasonVisual id={reason.id} />
       </div>)}

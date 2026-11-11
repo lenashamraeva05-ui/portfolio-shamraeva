@@ -74,7 +74,14 @@ export default function PortfolioHeader() {
 
           <div
             className={`contact-menu ${contactOpen ? "is-open" : ""}`}
-            onMouseLeave={() => setContactOpen(false)}
+            onPointerEnter={(event) => {
+              if (event.pointerType !== "mouse" || !window.matchMedia("(min-width: 761px) and (hover: hover) and (pointer: fine)").matches) return;
+              setContactOpen(true);
+              setNavOpen(false);
+            }}
+            onPointerLeave={(event) => {
+              if (event.pointerType === "mouse" && window.matchMedia("(min-width: 761px) and (hover: hover) and (pointer: fine)").matches) setContactOpen(false);
+            }}
             onBlur={(event) => {
               if (!event.currentTarget.contains(event.relatedTarget)) setContactOpen(false);
             }}
@@ -84,8 +91,9 @@ export default function PortfolioHeader() {
               type="button"
               aria-controls="contact-options"
               aria-expanded={contactOpen}
-              onClick={() => {
-                setContactOpen((value) => !value);
+              onClick={(event) => {
+                const desktopHover = window.matchMedia("(min-width: 761px) and (hover: hover) and (pointer: fine)").matches;
+                setContactOpen((value) => desktopHover && event.detail > 0 ? true : !value);
                 setNavOpen(false);
               }}
             >
