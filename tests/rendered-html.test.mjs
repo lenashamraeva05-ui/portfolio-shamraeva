@@ -297,3 +297,23 @@ test("does not label lost contact confirmations as definite delivery failures", 
   await assert.rejects(submitContactNote({ message: "Gateway timeout" }, async () => ({ ok: false, status: 504 })), ContactDeliveryUnknownError);
   await assert.rejects(submitContactNote({ message: "Invalid response" }, async () => ({ ok: true, json: async () => { throw new SyntaxError("Invalid JSON"); } })), ContactDeliveryUnknownError);
 });
+
+
+test("ships bounded responsive variants for all portfolio images", async () => {
+  const manifest = JSON.parse(await readFile(new URL("../lib/image-manifest.json", import.meta.url), "utf8"));
+  for (const [original, image] of Object.entries(manifest)) {
+    assert.ok(image.sources.length > 0, original);
+    for (const source of image.sources) {
+      assert.ok(source.width <= 1600, `${original}: oversized responsive image`);
+      assert.notEqual(source.src, original, `${original}: original must not be a srcset candidate`);
+      await access(new URL(`../dist/client${source.src}`, import.meta.url));
+    }
+  }
+  for (const pathname of ["", "/about", "/resume"]) {
+    const html = await render(pathname);
+    for (const [, attributes] of html.matchAll(/<img\b([^>]+)>/g)) {
+      const original = attributes.match(/src="([^"]+)"/)?.[1];
+      if (original && manifest[original]) assert.fail(`Unoptimized fallback image: ${original}`);
+    }
+  }
+});

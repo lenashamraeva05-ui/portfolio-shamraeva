@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "@/components/ResponsiveImage";
+import { warmImage } from "@/lib/image-sources";
+
+const panelImageSizes = "(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 55vw, (max-width: 1440px) 62vw, 890px";
 import ProjectVideo from "./ProjectVideo";
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { ReactNode } from "react";
@@ -121,7 +124,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setImagesReady(true); observer.disconnect(); }
-    }, { rootMargin: "1200px" });
+    }, { rootMargin: "400px" });
     if (viewportRef.current) observer.observe(viewportRef.current);
     return () => observer.disconnect();
   }, []);
@@ -223,7 +226,7 @@ function MuseumLandingScroll({ onProgress }: { onProgress: (value: number) => vo
       <div className="museum-landing-scroll" ref={viewportRef} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp}>
         <div className="museum-landing-track" ref={trackRef}>
           {museumLandingParts.map((part, index) => (
-              <Image key={part.src} loading={imagesReady ? "eager" : "lazy"} unoptimized src={part.src} alt={index === 0 ? "EHU Museums landing page" : ""} width={1380} height={part.height} sizes="(max-width: 1100px) 100vw, 62vw" className="museum-landing-part" />
+              <Image key={part.src} loading={imagesReady && index === 0 ? "eager" : "lazy"} unoptimized src={part.src} alt={index === 0 ? "EHU Museums landing page" : ""} width={1380} height={part.height} sizes={panelImageSizes} className="museum-landing-part" />
           ))}
         </div>
       </div>
@@ -280,7 +283,7 @@ function NdaScreenVisual() {
         src="/projects/tbank-private-screens.webp"
         alt="Private product screens shared in context only"
         fill
-        sizes="(max-width: 1024px) 100vw, 62vw"
+        sizes={panelImageSizes}
         className="nda-screen-image"
       />
     </div>
@@ -322,8 +325,17 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
   const isMuseum = project.tone === "museum";
   const projectTabs = getProjectTabs(project);
   const activeTab = isMuseum ? "overview" : localTab;
+  const panelImageLoading = activeTab === "overview" ? "lazy" : "eager";
   const activeTabIndex = projectTabs.findIndex(({ id }) => id === activeTab);
   const activeScreen = project.gallery[screenIndex] ?? project.gallery[0];
+
+  const warmTab = (tab: TabId) => {
+    const sources = tab === "overview" ? [project.overviewImage ?? project.cover]
+      : tab === "challenge" ? [project.challengeStory?.image ?? project.gallery[0]?.src, project.challengeStory?.overlayImage]
+      : tab === "direction" ? [project.tone === "statist" ? "/projects/statist-direction.webp" : project.directionVisual ?? project.gallery[1]?.src ?? project.gallery[0]?.src]
+      : project.screensVisual === "nda" ? [] : [project.screensVisualImage ?? activeScreen?.src];
+    for (const src of sources) if (src) warmImage(src, panelImageSizes);
+  };
 
   const activateTab = useCallback((tab: TabId) => {
     const { scrollX, scrollY } = window;
@@ -397,6 +409,9 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
               tabIndex={activeTab === tab.id ? 0 : -1}
               key={tab.id}
               onMouseDown={(event) => event.preventDefault()}
+              onPointerEnter={(event) => { if (event.pointerType === "mouse") warmTab(tab.id); }}
+              onFocus={() => warmTab(tab.id)}
+              onPointerDown={() => warmTab(tab.id)}
               onClick={() => activateTab(tab.id)}
               onKeyDown={handleTabKeyDown}
             >
@@ -503,11 +518,12 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
           {activeTab === "screens" && project.screensVisualImage ? (
             <div className="project-screens-visual">
               <Image
+                loading={panelImageLoading}
                 unoptimized
                 src={project.screensVisualImage}
                 alt={project.screensVisualImageAlt ?? ""}
                 fill
-                sizes="(max-width: 1024px) 100vw, 62vw"
+                sizes={panelImageSizes}
                 className="project-screens-image"
               />
             </div>
@@ -517,11 +533,12 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
                 {project.screensVisual === "nda" ? <NdaScreenVisual /> : (
                   <>
                     <Image
+                loading={panelImageLoading}
                       unoptimized
                       src={activeScreen.src}
                       alt={activeScreen.alt}
                       fill
-                      sizes="(max-width: 1024px) 100vw, 62vw"
+                      sizes={panelImageSizes}
                       className={activeScreen.fit === "contain" ? "fit-contain" : "fit-cover"}
                     />
                     <span className="screen-glint" aria-hidden="true" />
@@ -548,16 +565,18 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
           ) : activeTab === "challenge" && project.challengeStory ? (
             <>
               <Image
+                loading={panelImageLoading}
                 unoptimized
                 src={project.challengeStory.image}
                 alt={project.challengeStory.imageAlt}
                 fill
-                sizes="(max-width: 1024px) 100vw, 62vw"
+                sizes={panelImageSizes}
                 className="project-internship-main fit-cover"
               />
               {project.challengeStory.overlayImage && (
                 <div className="project-internship-overlay-layer">
                   <Image
+                loading={panelImageLoading}
                     unoptimized
                     src={project.challengeStory.overlayImage}
                     alt={project.challengeStory.overlayAlt ?? ""}
@@ -573,22 +592,24 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
           ) : activeTab === "direction" && project.tone === "statist" ? (
             <div className="statist-direction-visual">
               <Image
+                loading={panelImageLoading}
                 unoptimized
                 src="/projects/statist-direction.webp"
                 alt="Statist analytics visual with charts, a rising trend line and Statist wordmark"
                 fill
-                sizes="(max-width: 1024px) 100vw, 62vw"
+                sizes={panelImageSizes}
                 className="statist-direction-image"
               />
             </div>
           ) : activeTab === "direction" && project.directionVisual ? (
             <div className="project-direction-visual">
               <Image
+                loading={panelImageLoading}
                 unoptimized
                 src={project.directionVisual}
                 alt={project.directionVisualAlt ?? ""}
                 fill
-                sizes="(max-width: 1024px) 100vw, 62vw"
+                sizes={panelImageSizes}
                 className="project-direction-image"
               />
             </div>
@@ -600,11 +621,12 @@ export default function ProjectCaseTabs({ project }: { project: ProjectCaseData 
             </div>
           ) : (
             <Image
+                loading={panelImageLoading}
               unoptimized
               src={previewImage.src}
               alt={previewImage.alt}
               fill
-              sizes="(max-width: 1024px) 100vw, 62vw"
+              sizes={panelImageSizes}
               className={previewImage.fit === "contain" ? "fit-contain" : "fit-cover"}
             />
           )}

@@ -35,8 +35,8 @@ async function filesUnder(directory) {
 const files = await filesUnder(outputDir);
 const text = (await Promise.all(files.filter(file => /\.(?:html|rsc|js|css|json)$/.test(file)).map(file => readFile(file, "utf8")))).join("\n");
 let removed = 0;
-for (const file of files.filter(file => file.endsWith(".png"))) {
+for (const file of files.filter(file => file.endsWith(".png") || (file.includes(resolve(outputDir, "optimized")) && file.endsWith(".webp")))) {
   const url = "/" + file.slice(outputDir.length + 1).replaceAll("\\", "/");
   if (!text.includes(url)) { await unlink(file); removed++; }
 }
-console.log(`Excluded ${removed} unreferenced authoring PNGs from the Pages artifact.`);
+console.log(`Excluded ${removed} unreferenced authoring PNGs and obsolete image variants from the Pages artifact.`);

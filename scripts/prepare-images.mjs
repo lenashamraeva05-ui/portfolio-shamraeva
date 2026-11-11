@@ -26,18 +26,17 @@ for (const url of [...urls].sort()) {
   const bytes = await fs.readFile(input);
   const metadata = await sharp(bytes).metadata();
   if (!metadata.width || !metadata.height) continue;
-  const hash = createHash("sha256").update(bytes).update("responsive-v1-q82").digest("hex").slice(0, 10);
+  const hash = createHash("sha256").update(bytes).update("responsive-v2-q76-cap1600").digest("hex").slice(0, 10);
   const stem = path.basename(url, ".webp");
   const sources = [];
-  for (const width of [160, 360, 720, 1080]) {
-    if (width >= metadata.width) continue;
+  const widths = [...new Set([160, 360, 640, 960, 1280, 1600].filter(width => width < metadata.width).concat(Math.min(metadata.width, 1600)))].sort((a, b) => a - b);
+  for (const width of widths) {
     const filename = `${stem}-${hash}-${width}.webp`;
     const destination = path.join(output, filename);
-    try { await fs.access(destination); }
-    catch { await sharp(bytes).resize({ width, withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toFile(destination); generated++; }
+    try { await sharp(destination).metadata(); }
+    catch { await sharp(bytes).resize({ width, withoutEnlargement: true }).webp({ quality: 76, effort: 4 }).toFile(destination); generated++; }
     sources.push({ width, src: `/optimized/${filename}` });
   }
-  sources.push({ width: metadata.width, src: url });
   manifest[url] = { width: metadata.width, height: metadata.height, sources };
 }
 await fs.writeFile(path.join(root, "lib/image-manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
